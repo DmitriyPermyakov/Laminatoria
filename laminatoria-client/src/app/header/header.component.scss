@@ -1,12 +1,21 @@
+:host {
+	display: block;
+	overflow-x: clip;
+	height: 5em;
+	position: relative;
+}
+
 .header {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	padding: 0 24px;
+	padding: 0 1.5em;
 
 	width: 100%;
-	height: 80px;
+	height: 5em;
 	background-color: var(--main-color);
+	box-shadow: 0 1px 5px 0 var(--secondary-text);
+
 	font-size: inherit;
 	color: var(--main-text);
 }
@@ -43,5 +52,145 @@
 	& > a:hover {
 		color: var(--hover-text);
 		text-decoration: underline;
+	}
+}
+
+@media (max-width: 600px) and (orientation: portrait) {
+	.header {
+		height: 5em;
+		padding: 0 1rem;
+		z-index: 3;
+
+		position: absolute;
+		top: 0;
+		left: 0;
+		transform-style: preserve-3d;
+	}
+
+	.logo {
+		font-size: 1.5rem;
+	}
+
+	nav {
+		display: flex;
+		align-items: center;
+		height: 100%;
+		position: relative;
+		transform-style: preserve-3d;
+	}
+
+	.navbar-btn {
+		display: block;
+		width: 36px;
+		height: 36px;
+
+		border: none;
+		background-color: transparent;
+
+		&.opened > .btn-line {
+			background-color: transparent;
+		}
+
+		&.opened > .btn-line::after {
+			top: 0px;
+			transform: rotate(45deg);
+		}
+
+		&.opened > .btn-line::before {
+			top: 0px;
+			transform: rotate(-45deg);
+		}
+	}
+
+	.btn-line {
+		display: block;
+		margin: 0 auto;
+		width: 100%;
+		height: 2px;
+		background-color: var(--main-text);
+		position: relative;
+		transition: 0.15s;
+
+		&::before {
+			content: '';
+			display: block;
+			width: 100%;
+			height: 2px;
+			background-color: var(--main-text);
+			position: absolute;
+			top: -8px;
+			left: 0;
+			transition: 0.15s;
+		}
+
+		&::after {
+			content: '';
+			display: block;
+			width: 100%;
+			height: 2px;
+			background-color: var(--main-text);
+			position: absolute;
+			top: 8px;
+			left: 0;
+			transition: 0.15s;
+		}
+	}
+
+	.nav-items {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+
+		width: 100vw;
+		height: calc(100vh - 5em);
+		height: calc(100svh - 5em);
+
+		background-color: var(--main-color);
+		transform: translateZ(-10px);
+		transition: 0.15s;
+
+		right: calc(-100vw - 1em);
+		// right: -1em;
+		position: absolute;
+		top: 5em;
+
+		&.opened {
+			right: -1em;
+		}
+	}
+
+	.item {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+
+		// width: 100%;
+		height: 3.5em;
+
+		position: relative;
+
+		& > a {
+			font-size: 1.2em;
+		}
+
+		&:last-child {
+			margin-left: unset;
+		}
+
+		& + &:not(:last-child) {
+			margin-left: unset;
+		}
+
+		&:not(:last-child)::after {
+			content: '';
+			width: 150%;
+			height: 1px;
+			background-color: var(--secondary-text);
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			transform: translate(-15%);
+		}
 	}
 }

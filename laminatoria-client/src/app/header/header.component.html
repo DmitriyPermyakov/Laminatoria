@@ -1,8 +1,10 @@
 <div class="header">
 	<p class="logo">Laminatoria</p>
 	<nav>
-		<button class="navbar-btn"></button>
-		<ul class="nav-items">
+		<button class="navbar-btn" type="button" [ngClass]="{ opened: isOpened }" (click)="openMenu()">
+			<div class="btn-line"></div>
+		</button>
+		<ul class="nav-items" [ngClass]="{ opened: isOpened }">
 			<li class="item">
 				<a href="">Линолеум</a>
 			</li>
