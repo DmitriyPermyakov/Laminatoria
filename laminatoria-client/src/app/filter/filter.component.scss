@@ -8,6 +8,7 @@ button {
 	padding: 0.4em 1em;
 	width: 100%;
 	border: none;
+	background-color: var(--menu-color);
 	text-align: start;
 }
 
@@ -24,12 +25,13 @@ button {
 		max-width: 120px;
 		text-align: center;
 
-		border: 1px solid var(--main-text);
+		border: 1px solid var(--button-color);
 	}
 
-	& > input:focus {
+	& > input:focus,
+	& > input:hover {
 		outline: none;
-		border: 2px solid var(--main-text);
+		outline: 1px solid var(--button-color);
 	}
 }
 
@@ -61,10 +63,37 @@ input[type='number'] {
 	}
 }
 
-.prop-container + .prop-container {
-	margin-top: 0.5em;
+.prop-container {
+	position: relative;
+
+	& + & {
+		margin-top: 0.5em;
+	}
 }
 
 .property-value-label {
 	margin-left: 0.5em;
+}
+
+.buttons {
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+	padding: 2em 1em;
+	text-align: center;
+
+	& > button {
+		padding: 0.7em 0.5em;
+		max-width: 120px;
+		border: 1px solid var(--main-text);
+		background-color: transparent;
+		text-align: center;
+	}
+
+	& > button:hover,
+	& > button:active {
+		// outline: 1px solid var(--button-color);
+		background-color: var(--button-color);
+		color: var(--main-color);
+	}
 }

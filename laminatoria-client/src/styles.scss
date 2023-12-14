@@ -30,3 +30,33 @@ body {
 
 	position: relative;
 }
+
+input[type='checkbox'] {
+	position: absolute;
+	z-index: -1;
+	opacity: 0;
+
+	& + span {
+		display: inline-flex;
+		align-items: center;
+		user-select: none;
+	}
+
+	& + span::before {
+		content: '';
+		display: inline-block;
+		width: 1em;
+		height: 1em;
+		flex-grow: 0;
+		flex-shrink: 0;
+		border: 1px solid var(--button-color);
+		margin-right: 0.5em;
+		background-repeat: no-repeat;
+		background-position: center;
+		background-size: 90% 90%;
+	}
+
+	&:checked + span::before {
+		background-image: url('./assets/checkbox.svg');
+	}
+}
