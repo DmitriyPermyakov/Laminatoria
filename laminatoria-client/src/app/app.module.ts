@@ -9,6 +9,7 @@ import { MainPageComponent } from './main-page/main-page.component';
 import { ProductsPageComponent } from './products-page/products-page.component';
 import { FilterComponent } from './filter/filter.component';
 import { OpenCloseMenuDirective } from './directives/open-close-menu.directive';
+import { ProductComponent } from './product/product.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { OpenCloseMenuDirective } from './directives/open-close-menu.directive';
     MainPageComponent,
     ProductsPageComponent,
     FilterComponent,
-    OpenCloseMenuDirective
+    OpenCloseMenuDirective,
+    ProductComponent
   ],
   imports: [
     BrowserModule,

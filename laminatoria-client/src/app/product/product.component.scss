@@ -1,0 +1,64 @@
+.product-container {
+	display: grid;
+	grid-template-columns: 1fr;
+	grid-template-rows: auto 1fr;
+	align-items: center;
+	justify-content: start;
+}
+
+.image {
+	grid-row: 1 / 2;
+	grid-column: 1 / 2;
+	overflow: hidden;
+
+	& > img {
+		display: block;
+		max-width: 15em;
+		max-height: 15em;
+		transition: 0.15s;
+	}
+
+	& > img:hover {
+		transform: scale(1.1);
+	}
+}
+
+.properties {
+	display: grid;
+	grid-template-columns: 1fr;
+	grid-template-rows: auto;
+	justify-items: start;
+	row-gap: 0.3em;
+	margin-top: 1em;
+}
+
+.name {
+}
+
+.country {
+	display: none;
+}
+
+.prop {
+	display: flex;
+	flex-direction: row;
+	align-items: flex-start;
+}
+
+.prop-name {
+	margin-right: 0.5em;
+}
+
+.to-cart {
+	margin-top: 1em;
+	padding: 0.7em 0.5em;
+
+	width: 120px;
+	border: none;
+	background-color: var(--button-color);
+	color: var(--main-color);
+
+	&:hover {
+		background-color: #515866;
+	}
+}
