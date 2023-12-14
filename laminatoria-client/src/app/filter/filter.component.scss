@@ -1,0 +1,70 @@
+.filter-item {
+	display: block;
+	width: 100%;
+}
+
+button {
+	display: block;
+	padding: 0.4em 1em;
+	width: 100%;
+	border: none;
+	text-align: start;
+}
+
+.price-inputs {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-around;
+
+	padding: 1em;
+
+	& > input {
+		padding: 0.2em;
+		max-width: 120px;
+		text-align: center;
+
+		border: 1px solid var(--main-text);
+	}
+
+	& > input:focus {
+		outline: none;
+		border: 2px solid var(--main-text);
+	}
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
+
+/* Firefox */
+input[type='number'] {
+	-moz-appearance: textfield;
+	appearance: none;
+}
+
+.wrapper {
+	display: none;
+	grid-template-rows: auto;
+	grid-template-columns: 1fr;
+	align-items: center;
+	justify-items: start;
+
+	padding: 1em;
+
+	width: 100%;
+
+	&.opened {
+		display: grid;
+	}
+}
+
+.prop-container + .prop-container {
+	margin-top: 0.5em;
+}
+
+.property-value-label {
+	margin-left: 0.5em;
+}

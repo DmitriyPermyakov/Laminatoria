@@ -1,0 +1,41 @@
+.products-container {
+	display: grid;
+	grid-template-columns: 1fr 3fr;
+	grid-template-rows: 2em auto;
+	column-gap: 1em;
+
+	padding-top: 1em;
+
+	width: 100%;
+	height: calc(100vh - 10em);
+}
+
+.filter-container {
+	grid-row: 1 / span 2;
+	grid-column: 1 / 2;
+}
+
+.sort-buttons {
+	grid-row: 1 / 2;
+	grid-column: 2 / 3;
+	& button {
+		background-color: transparent;
+		border: none;
+	}
+
+	& span {
+		margin-left: 0.5em;
+	}
+}
+
+.sort-price {
+}
+
+.sort-name {
+	margin-left: 1.5em;
+}
+
+.products {
+	grid-row: 2 / 3;
+	grid-column: 2 / 3;
+}

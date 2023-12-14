@@ -6,13 +6,19 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { MainPageComponent } from './main-page/main-page.component';
+import { ProductsPageComponent } from './products-page/products-page.component';
+import { FilterComponent } from './filter/filter.component';
+import { OpenCloseMenuDirective } from './directives/open-close-menu.directive';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     FooterComponent,
-    MainPageComponent
+    MainPageComponent,
+    ProductsPageComponent,
+    FilterComponent,
+    OpenCloseMenuDirective
   ],
   imports: [
     BrowserModule,
