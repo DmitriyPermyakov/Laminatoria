@@ -97,3 +97,27 @@ input[type='number'] {
 		color: var(--main-color);
 	}
 }
+
+@media (max-width: 600px) and (orientation: portrait) {
+	.filter {
+		width: 100%;
+		min-height: 100vh;
+
+		background-color: var(--main-color);
+		box-shadow: 0 0 5px 0 var(--secondary-text);
+	}
+	span {
+		font-size: 1.3rem;
+	}
+	input {
+		font-size: 1.3rem;
+	}
+	button {
+		font-size: 1.3rem;
+	}
+
+	.buttons > button {
+		font-size: 1.1rem;
+		max-width: 9em;
+	}
+}
