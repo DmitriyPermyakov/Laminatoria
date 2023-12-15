@@ -10,6 +10,8 @@ import { ProductsPageComponent } from './products-page/products-page.component';
 import { FilterComponent } from './filter/filter.component';
 import { OpenCloseMenuDirective } from './directives/open-close-menu.directive';
 import { ProductComponent } from './product/product.component';
+import { ProductCardComponent } from './product-card/product-card.component';
+import { RelatedProductsComponent } from './related-products/related-products.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,9 @@ import { ProductComponent } from './product/product.component';
     ProductsPageComponent,
     FilterComponent,
     OpenCloseMenuDirective,
-    ProductComponent
+    ProductComponent,
+    ProductCardComponent,
+    RelatedProductsComponent
   ],
   imports: [
     BrowserModule,

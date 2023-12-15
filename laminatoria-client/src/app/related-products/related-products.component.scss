@@ -1,0 +1,46 @@
+.related-products-container {
+	position: relative;
+}
+
+.related-products-label {
+	margin-bottom: 1.2em;
+	font-size: 1.1rem;
+}
+
+.related-products {
+	display: block;
+
+	max-height: 1200px;
+
+	position: absolute;
+	top: 2em;
+	left: 40px;
+
+	overflow-x: hidden;
+	overflow-y: scroll;
+
+	transform-origin: top right;
+	transform: rotate(-90deg) translate(-16px, -214px);
+
+	&::-webkit-scrollbar {
+		display: none;
+	}
+}
+
+.related-product {
+	max-width: 180px;
+	max-height: 130px;
+	transform-origin: top right;
+	transform: rotate(90deg) translateX(180px);
+	& + & {
+		margin-top: 3.5em;
+	}
+}
+
+.related-product-image {
+	max-width: 130px;
+	& > img {
+		max-height: 130px;
+		max-width: 130px;
+	}
+}
