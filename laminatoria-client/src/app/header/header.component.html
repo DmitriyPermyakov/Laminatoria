@@ -1,10 +1,15 @@
 <div class="header">
 	<p class="logo">Laminatoria</p>
 	<nav>
-		<button class="navbar-btn" type="button" [ngClass]="{ opened: isOpened }" (click)="openMenu()">
+		<button
+			class="navbar-btn"
+			type="button"
+			[ngClass]="{ opened: isMenuOpened || filterService.isFilterOpen }"
+			(click)="toggle()"
+		>
 			<div class="btn-line"></div>
 		</button>
-		<ul class="nav-items" [ngClass]="{ opened: isOpened }">
+		<ul class="nav-items" [ngClass]="{ opened: isMenuOpened }">
 			<li class="item">
 				<a [routerLink]="['products', 'linoleum']">Линолеум</a>
 			</li>

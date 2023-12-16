@@ -44,3 +44,41 @@
 		max-width: 130px;
 	}
 }
+
+@media (max-width: 600px) and (orientation: portrait) {
+	.related-products-label {
+		margin-bottom: 2em;
+	}
+	.related-products {
+		display: flex;
+		flex-direction: row;
+		width: 100%;
+
+		transform: unset;
+		transform-origin: unset;
+
+		overflow-x: scroll;
+		overflow-y: unset;
+		position: static;
+
+		scroll-snap-type: x mandatory;
+		scroll-snap-stop: always;
+	}
+
+	.related-product {
+		max-height: unset;
+		transform: unset;
+		transform-origin: unset;
+
+		scroll-snap-align: start;
+
+		& + & {
+			margin-top: 0;
+			margin-left: 3em;
+		}
+	}
+
+	.rel-prod-desc {
+		font-size: 0.8em;
+	}
+}

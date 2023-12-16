@@ -1,11 +1,11 @@
 <div class="products-container">
-	<div class="filter-container">
+	<div class="filter-container" [ngClass]="{ opened: filterService.isFilterOpen }">
 		<app-filter></app-filter>
 	</div>
 	<div class="sort-buttons">
 		<button class="sort-price" type="button">Цена<span>&#8595;</span></button>
 		<button class="sort-name" type="button">Название<span>&#8593;</span></button>
-		<button class="filter-btn">Фильтр</button>
+		<button class="filter-btn" (click)="openFilter()">Фильтр</button>
 	</div>
 	<div class="products">
 		<app-product></app-product>

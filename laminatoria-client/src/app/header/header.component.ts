@@ -1,4 +1,5 @@
 import { Component } from '@angular/core'
+import { FilterService } from '../services/filter.service'
 
 @Component({
 	selector: 'app-header',
@@ -6,9 +7,15 @@ import { Component } from '@angular/core'
 	styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent {
-	public isOpened: boolean = false
+	public isMenuOpened: boolean = false
 
-	public openMenu(): void {
-		this.isOpened = !this.isOpened
+	constructor(public filterService: FilterService) {}
+
+	public toggle(): void {
+		if (this.filterService.isFilterOpen) {
+			this.filterService.toggleFilter()
+		} else {
+			this.isMenuOpened = !this.isMenuOpened
+		}
 	}
 }
