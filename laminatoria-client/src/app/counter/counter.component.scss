@@ -1,0 +1,79 @@
+.counter-container {
+}
+
+.counter {
+	display: flex;
+	align-items: center;
+	& > button {
+		width: 2em;
+		height: 2em;
+		background-color: transparent;
+		border: 1px solid var(--button-color);
+		position: relative;
+	}
+
+	& > button:hover {
+		background-color: var(--button-color);
+	}
+}
+
+input {
+	width: 4em;
+	height: 2em;
+	border: 1px solid var(--button-color);
+
+	text-align: center;
+}
+
+.minus {
+	margin-right: 1em;
+
+	&::after {
+		content: '';
+		width: 70%;
+		height: 2px;
+		background-color: var(--button-color);
+
+		position: absolute;
+		top: 45%;
+		left: 3px;
+	}
+
+	&:hover::after {
+		background-color: var(--main-color);
+	}
+}
+
+.plus {
+	margin-left: 1em;
+
+	&::after {
+		content: '';
+		width: 70%;
+		height: 2px;
+		background-color: var(--button-color);
+
+		position: absolute;
+		top: 45%;
+		left: 15%;
+	}
+
+	&:hover::after {
+		background-color: var(--main-color);
+	}
+
+	&::before {
+		content: '';
+		width: 2px;
+		height: 70%;
+		background-color: var(--button-color);
+
+		position: absolute;
+		top: 15%;
+		left: 45%;
+	}
+
+	&:hover::before {
+		background-color: var(--main-color);
+	}
+}

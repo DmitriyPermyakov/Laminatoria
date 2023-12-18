@@ -2,26 +2,31 @@
 	display: grid;
 	grid-template-columns: 1fr;
 	grid-template-rows: auto auto;
-	padding: 2em 1em;
+	padding: 0 1em 2em;
 	width: 100%;
 	min-height: calc(100vh - 10em);
 }
 
 .shopping-cart {
 	grid-row: 1 / 2;
-	padding: 4em 5.25em;
+
+	display: flex;
+	flex-direction: column;
+	padding: 2em 5.25em 4em;
 }
 
 .buttons-container {
 	display: grid;
 	grid-template-columns: auto auto;
 	grid-template-rows: auto auto;
+	justify-items: end;
+
+	padding: 0 2em;
 
 	width: 75%;
 
-	justify-self: end;
-	justify-items: end;
-	padding-top: 1.75em;
+	align-self: flex-end;
+	padding-top: 5em;
 }
 
 span {
@@ -29,8 +34,17 @@ span {
 }
 
 label {
+	display: flex;
+	align-items: center;
+	justify-content: center;
 	padding: 1em 3em;
+	width: 230px;
+	height: 60px;
 	border: 1px solid var(--button-color);
+
+	&:hover {
+		outline: 1px solid var(--button-color);
+	}
 }
 
 .pickup-label {
@@ -46,7 +60,18 @@ label {
 .order-btn {
 	grid-row: 2 / 3;
 	grid-column: 2 / 3;
+
+	margin-top: 2em;
+	padding: 0.7em 3em;
+
+	background-color: var(--button-color);
+	border: none;
 	font-size: 1em;
+	color: var(--main-color);
+
+	&:hover {
+		background-color: var(--button-hover);
+	}
 }
 
 .related-products {
@@ -57,4 +82,29 @@ label {
 	height: 260px;
 
 	overflow-x: hidden;
+}
+
+@media (max-width: 600px) and (orientation: portrait) {
+	.shopping-cart {
+		padding: 1em 0 4em;
+	}
+
+	.buttons-container {
+		padding: 0;
+		padding-top: 3em;
+		width: 100%;
+
+		align-items: center;
+		justify-content: center;
+	}
+
+	label {
+		padding: 1em 4.5em;
+		width: 100px;
+		height: 30px;
+	}
+
+	span {
+		font-size: 1rem;
+	}
 }

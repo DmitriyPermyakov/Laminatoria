@@ -4,12 +4,12 @@
 		<button
 			class="navbar-btn"
 			type="button"
-			[ngClass]="{ opened: isMenuOpened || filterService.isFilterOpen }"
+			[ngClass]="{ opened: isMenuOpened == true || filterService.isFilterOpen }"
 			(click)="toggle()"
 		>
 			<div class="btn-line"></div>
 		</button>
-		<ul class="nav-items" [ngClass]="{ opened: isMenuOpened }">
+		<ul class="nav-items" [ngClass]="{ opened: isMenuOpened == true }">
 			<li class="item">
 				<a [routerLink]="['products', 'linoleum']">Линолеум</a>
 			</li>

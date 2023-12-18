@@ -17,7 +17,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
 	ngOnInit(): void {
 		this.routerSub = this.router.events.subscribe((event) => {
-			if (event instanceof NavigationEnd) this.toggle()
+			if (event instanceof NavigationEnd) this.isMenuOpened = false
 		})
 	}
 

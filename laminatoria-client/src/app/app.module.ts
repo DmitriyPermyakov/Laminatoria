@@ -14,6 +14,7 @@ import { ProductCardComponent } from './product-card/product-card.component';
 import { RelatedProductsComponent } from './related-products/related-products.component';
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 import { ShoppintCartItemComponent } from './shoppint-cart-item/shoppint-cart-item.component';
+import { CounterComponent } from './counter/counter.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { ShoppintCartItemComponent } from './shoppint-cart-item/shoppint-cart-it
     ProductCardComponent,
     RelatedProductsComponent,
     ShoppingCartComponent,
-    ShoppintCartItemComponent
+    ShoppintCartItemComponent,
+    CounterComponent
   ],
   imports: [
     BrowserModule,
