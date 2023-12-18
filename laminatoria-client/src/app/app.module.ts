@@ -12,6 +12,8 @@ import { OpenCloseMenuDirective } from './directives/open-close-menu.directive';
 import { ProductComponent } from './product/product.component';
 import { ProductCardComponent } from './product-card/product-card.component';
 import { RelatedProductsComponent } from './related-products/related-products.component';
+import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
+import { ShoppintCartItemComponent } from './shoppint-cart-item/shoppint-cart-item.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,9 @@ import { RelatedProductsComponent } from './related-products/related-products.co
     OpenCloseMenuDirective,
     ProductComponent,
     ProductCardComponent,
-    RelatedProductsComponent
+    RelatedProductsComponent,
+    ShoppingCartComponent,
+    ShoppintCartItemComponent
   ],
   imports: [
     BrowserModule,
