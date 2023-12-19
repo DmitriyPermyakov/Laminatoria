@@ -15,6 +15,7 @@ import { RelatedProductsComponent } from './related-products/related-products.co
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 import { ShoppintCartItemComponent } from './shoppint-cart-item/shoppint-cart-item.component';
 import { CounterComponent } from './counter/counter.component';
+import { AcceptOrderComponent } from './accept-order/accept-order.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { CounterComponent } from './counter/counter.component';
     RelatedProductsComponent,
     ShoppingCartComponent,
     ShoppintCartItemComponent,
-    CounterComponent
+    CounterComponent,
+    AcceptOrderComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,100 @@
+.accept-order-container {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	width: 100%;
+	height: calc(100vh - 10em);
+	height: calc(100svh - 10em);
+
+	font-size: 1rem;
+}
+
+.form {
+	display: grid;
+	grid-template-columns: 1fr;
+	grid-template-rows: 1fr 1fr 1fr 1fr auto auto 1fr;
+
+	max-width: 330px;
+
+	& > input {
+		padding: 0.4em 0.4em;
+		width: 100%;
+		font-size: 1.5rem;
+		text-align: center;
+		border: none;
+		border-bottom: 1px solid var(--secondary-text);
+		outline: none;
+	}
+}
+
+.name {
+	grid-column: 1 / 2;
+	grid-row: 1 / 2;
+}
+
+.phone {
+	grid-column: 1 / 2;
+	grid-row: 2 / 3;
+}
+
+.email {
+	grid-column: 1 / 2;
+	grid-row: 3 / 4;
+}
+
+.address {
+	grid-column: 1 / 2;
+	grid-row: 4 / 5;
+}
+
+textarea {
+	grid-column: 1 / 2;
+	grid-row: 5 / 6;
+
+	margin-bottom: 2em;
+
+	resize: vertical;
+	max-height: 100px;
+	min-height: 50px;
+
+	font-size: 1.2rem;
+	font-family: inherit;
+
+	border: none;
+	border-bottom: 1px solid var(--secondary-text);
+
+	&::placeholder {
+		padding-top: 0.5em;
+		font-size: 1.5rem;
+		text-align: center;
+	}
+}
+
+.pay-online {
+	grid-column: 1 / 2;
+	grid-row: 6 / 7;
+	margin-bottom: 2em;
+
+	& > span {
+		font-size: 1.2rem;
+	}
+}
+
+button {
+	grid-column: 1 / 2;
+	grid-row: 7 / 8;
+
+	width: 200px;
+	height: 50px;
+
+	justify-self: center;
+	font-size: 1.2rem;
+	border: none;
+	background-color: var(--button-color);
+	color: var(--main-color);
+
+	&:hover {
+		background-color: var(--button-hover);
+	}
+}
