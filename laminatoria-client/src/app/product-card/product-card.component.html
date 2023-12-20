@@ -80,7 +80,7 @@
 			<ng-container *ngIf="auth.isAuthenticated">
 				<div class="edit-btns-container">
 					<button class="remove-btn">Удалить</button>
-					<button class="edit-btn">Редактировать</button>
+					<button class="edit-btn" [routerLink]="['/products/product', '1', 'edit']">Редактировать</button>
 				</div>
 			</ng-container>
 		</div>

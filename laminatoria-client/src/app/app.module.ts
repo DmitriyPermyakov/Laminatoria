@@ -17,6 +17,7 @@ import { ShoppintCartItemComponent } from './shoppint-cart-item/shoppint-cart-it
 import { CounterComponent } from './counter/counter.component'
 import { AcceptOrderComponent } from './accept-order/accept-order.component'
 import { AuthService } from './services/auth.service'
+import { EditProductComponent } from './edit-product/edit-product.component'
 
 @NgModule({
 	declarations: [
@@ -34,6 +35,7 @@ import { AuthService } from './services/auth.service'
 		ShoppintCartItemComponent,
 		CounterComponent,
 		AcceptOrderComponent,
+		EditProductComponent,
 	],
 	imports: [BrowserModule, AppRoutingModule],
 	providers: [AuthService],
