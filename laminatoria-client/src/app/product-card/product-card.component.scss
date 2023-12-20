@@ -21,7 +21,7 @@
 
 	display: grid;
 	grid-template-columns: 1fr 1fr;
-	grid-template-rows: auto minmax(300px auto) auto 1fr;
+	grid-template-rows: auto minmax(300px, auto) auto 1fr;
 
 	margin-bottom: 4em;
 	width: 100%;
@@ -239,8 +239,6 @@
 	.small-images {
 		display: flex;
 		flex-direction: row;
-
-		flex: 1 1 auto;
 
 		max-width: 100%;
 
