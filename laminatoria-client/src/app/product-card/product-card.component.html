@@ -76,7 +76,13 @@
 		</div>
 		<p class="price">800р./м2</p>
 		<div class="btn-container">
-			<button class="to-cart">В корзину</button>
+			<button class="to-cart" *ngIf="!auth.isAuthenticated">В корзину</button>
+			<ng-container *ngIf="auth.isAuthenticated">
+				<div class="edit-btns-container">
+					<button class="remove-btn">Удалить</button>
+					<button class="edit-btn">Редактировать</button>
+				</div>
+			</ng-container>
 		</div>
 	</div>
 	<div class="related-products">
