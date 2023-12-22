@@ -18,7 +18,10 @@ import { CounterComponent } from './counter/counter.component'
 import { AcceptOrderComponent } from './accept-order/accept-order.component'
 import { AuthService } from './services/auth.service'
 import { EditProductComponent } from './edit-product/edit-product.component';
-import { OrdersComponent } from './orders/orders.component'
+import { OrdersComponent } from './orders/orders.component';
+import { OrderPositionComponent } from './order-position/order-position.component';
+import { OrderItemComponent } from './order-item/order-item.component';
+import { DeliveryBtnsComponent } from './delivery-btns/delivery-btns.component'
 
 @NgModule({
 	declarations: [
@@ -38,6 +41,9 @@ import { OrdersComponent } from './orders/orders.component'
 		AcceptOrderComponent,
 		EditProductComponent,
   OrdersComponent,
+  OrderPositionComponent,
+  OrderItemComponent,
+  DeliveryBtnsComponent,
 	],
 	imports: [BrowserModule, AppRoutingModule],
 	providers: [AuthService],

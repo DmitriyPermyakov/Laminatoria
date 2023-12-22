@@ -7,6 +7,7 @@ import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component'
 import { AcceptOrderComponent } from './accept-order/accept-order.component'
 import { EditProductComponent } from './edit-product/edit-product.component'
 import { OrdersComponent } from './orders/orders.component'
+import { OrderPositionComponent } from './order-position/order-position.component'
 
 const routes: Routes = [
 	{ path: '', component: MainPageComponent },
@@ -16,6 +17,7 @@ const routes: Routes = [
 	{ path: 'products/product/:id', component: ProductCardComponent },
 	{ path: 'accept-order', component: AcceptOrderComponent },
 	{ path: 'orders', component: OrdersComponent },
+	{ path: 'orders/:id', component: OrderPositionComponent },
 ]
 
 @NgModule({
