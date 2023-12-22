@@ -1,116 +1,58 @@
 <div class="orders-container">
-	<div class="order-item">
-		<div class="contacts">
-			<p class="name">Иванов Андрей</p>
-			<a class="phone" href="tel:+7 999 999 99 99">+7 999 999 99 99</a>
-			<a class="email" href="mailto:ivanov@gmail.com">ivanov@gmail.com</a>
-		</div>
-		<div class="status-container">
-			<p class="status-label">статус:</p>
-			<p class="status">В обработке</p>
-		</div>
-		<div class="address-container">
-			<p class="address-label">адрес доставки:</p>
-			<p class="address">ул. Коломяжская 46 кв.23</p>
-		</div>
-		<div class="comment-container">
-			<p class="comment-label">комментарий:</p>
-			<p class="comment">Позвонить за 2 часа до доставки</p>
-		</div>
+	<div class="filter-container" [ngClass]="{ opened: filterService.isFilterOpen }">
+		<app-filter></app-filter>
 	</div>
-	<div class="order-item">
-		<div class="contacts">
-			<p class="name">Иванов Андрей</p>
-			<a class="phone" href="tel:+7 999 999 99 99">+7 999 999 99 99</a>
-			<a class="email" href="mailto:ivanov@gmail.com">ivanov@gmail.com</a>
-		</div>
-		<div class="status-container">
-			<p class="status-label">статус:</p>
-			<p class="status">В обработке</p>
-		</div>
-		<div class="address-container">
-			<p class="address-label">адрес доставки:</p>
-			<p class="address">ул. Коломяжская 46 кв.23</p>
-		</div>
-		<div class="comment-container">
-			<p class="comment-label">комментарий:</p>
-			<p class="comment">Позвонить за 2 часа до доставки</p>
-		</div>
+	<div class="sort-buttons">
+		<button class="sort-price" type="button">Цена<span>&#8595;</span></button>
+		<button class="sort-name" type="button">Название<span>&#8593;</span></button>
+		<button class="filter-btn" (click)="openFilter()">Фильтр</button>
 	</div>
-	<div class="order-item">
-		<div class="contacts">
-			<p class="name">Иванов Андрей</p>
-			<a class="phone" href="tel:+7 999 999 99 99">+7 999 999 99 99</a>
-			<a class="email" href="mailto:ivanov@gmail.com">ivanov@gmail.com</a>
+	<div class="orders">
+		<div class="order-item">
+			<div class="contacts">
+				<p class="name">Иванов Андрей</p>
+				<a class="phone" href="tel:+7 999 999 99 99">+7 999 999 99 99</a>
+				<a class="email" href="mailto:ivanov@gmail.com">ivanov@gmail.com</a>
+			</div>
+			<div class="status-container">
+				<p class="status-label">статус:</p>
+				<p class="status">В обработке</p>
+			</div>
+			<div class="address-container">
+				<p class="address-label">адрес доставки:</p>
+				<p class="address">ул. Коломяжская 46 кв.23</p>
+			</div>
+			<div class="comment-container">
+				<p class="comment-label">комментарий:</p>
+				<p class="comment">Позвонить за 2 часа до доставки</p>
+			</div>
+			<div class="price-container">
+				<span class="price-label">Сумма:</span>
+				<span class="price">28 566р.</span>
+			</div>
 		</div>
-		<div class="status-container">
-			<p class="status-label">статус:</p>
-			<p class="status">В обработке</p>
-		</div>
-		<div class="address-container">
-			<p class="address-label">адрес доставки:</p>
-			<p class="address">ул. Коломяжская 46 кв.23</p>
-		</div>
-		<div class="comment-container">
-			<p class="comment-label">комментарий:</p>
-			<p class="comment">Позвонить за 2 часа до доставки</p>
-		</div>
-	</div>
-	<div class="order-item">
-		<div class="contacts">
-			<p class="name">Иванов Андрей</p>
-			<a class="phone" href="tel:+7 999 999 99 99">+7 999 999 99 99</a>
-			<a class="email" href="mailto:ivanov@gmail.com">ivanov@gmail.com</a>
-		</div>
-		<div class="status-container">
-			<p class="status-label">статус:</p>
-			<p class="status">В обработке</p>
-		</div>
-		<div class="address-container">
-			<p class="address-label">адрес доставки:</p>
-			<p class="address">ул. Коломяжская 46 кв.23</p>
-		</div>
-		<div class="comment-container">
-			<p class="comment-label">комментарий:</p>
-			<p class="comment">Позвонить за 2 часа до доставки</p>
-		</div>
-	</div>
-	<div class="order-item">
-		<div class="contacts">
-			<p class="name">Иванов Андрей</p>
-			<a class="phone" href="tel:+7 999 999 99 99">+7 999 999 99 99</a>
-			<a class="email" href="mailto:ivanov@gmail.com">ivanov@gmail.com</a>
-		</div>
-		<div class="status-container">
-			<p class="status-label">статус:</p>
-			<p class="status">В обработке</p>
-		</div>
-		<div class="address-container">
-			<p class="address-label">адрес доставки:</p>
-			<p class="address">ул. Коломяжская 46 кв.23</p>
-		</div>
-		<div class="comment-container">
-			<p class="comment-label">комментарий:</p>
-			<p class="comment">Позвонить за 2 часа до доставки</p>
-		</div>
-	</div>
-	<div class="order-item">
-		<div class="contacts">
-			<p class="name">Иванов Андрей</p>
-			<a class="phone" href="tel:+7 999 999 99 99">+7 999 999 99 99</a>
-			<a class="email" href="mailto:ivanov@gmail.com">ivanov@gmail.com</a>
-		</div>
-		<div class="status-container">
-			<p class="status-label">статус:</p>
-			<p class="status">В обработке</p>
-		</div>
-		<div class="address-container">
-			<p class="address-label">адрес доставки:</p>
-			<p class="address">ул. Коломяжская 46 кв.23</p>
-		</div>
-		<div class="comment-container">
-			<p class="comment-label">комментарий:</p>
-			<p class="comment">Позвонить за 2 часа до доставки</p>
+		<div class="order-item">
+			<div class="contacts">
+				<p class="name">Иванов Андрей</p>
+				<a class="phone" href="tel:+7 999 999 99 99">+7 999 999 99 99</a>
+				<a class="email" href="mailto:ivanov@gmail.com">ivanov@gmail.com</a>
+			</div>
+			<div class="status-container">
+				<p class="status-label">статус:</p>
+				<p class="status">В обработке</p>
+			</div>
+			<div class="address-container">
+				<p class="address-label">адрес доставки:</p>
+				<p class="address">ул. Коломяжская 46 кв.23</p>
+			</div>
+			<div class="comment-container">
+				<p class="comment-label">комментарий:</p>
+				<p class="comment">Позвонить за 2 часа до доставки</p>
+			</div>
+			<div class="price-container">
+				<span class="price-label">Сумма:</span>
+				<span class="price">28 566р.</span>
+			</div>
 		</div>
 	</div>
 </div>
