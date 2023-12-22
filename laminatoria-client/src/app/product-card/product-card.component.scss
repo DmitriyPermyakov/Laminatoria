@@ -286,7 +286,7 @@
 		left: 0;
 		z-index: 2;
 		width: 100vw;
-		height: 7em;
+		height: 5em;
 		background-color: var(--main-color);
 		box-shadow: 0 0 5px 0 var(--secondary-text);
 
@@ -300,9 +300,9 @@
 		justify-content: space-around;
 
 		& > button {
-			padding: 1em 1.2em;
-			font-size: 1rem;
-			min-width: 160px;
+			padding: 0.7em 1em;
+			font-size: 1.1rem;
+			min-width: 10em;
 		}
 	}
 
