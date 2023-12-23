@@ -8,6 +8,7 @@ import { AcceptOrderComponent } from './accept-order/accept-order.component'
 import { EditProductComponent } from './edit-product/edit-product.component'
 import { OrdersComponent } from './orders/orders.component'
 import { OrderPositionComponent } from './order-position/order-position.component'
+import { OrderPositionEditComponent } from './order-position-edit/order-position-edit.component'
 
 const routes: Routes = [
 	{ path: '', component: MainPageComponent },
@@ -18,6 +19,7 @@ const routes: Routes = [
 	{ path: 'accept-order', component: AcceptOrderComponent },
 	{ path: 'orders', component: OrdersComponent },
 	{ path: 'orders/:id', component: OrderPositionComponent },
+	{ path: 'orders/:id/edit', component: OrderPositionEditComponent },
 ]
 
 @NgModule({

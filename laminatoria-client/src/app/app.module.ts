@@ -21,7 +21,9 @@ import { EditProductComponent } from './edit-product/edit-product.component';
 import { OrdersComponent } from './orders/orders.component';
 import { OrderPositionComponent } from './order-position/order-position.component';
 import { OrderItemComponent } from './order-item/order-item.component';
-import { DeliveryBtnsComponent } from './delivery-btns/delivery-btns.component'
+import { DeliveryBtnsComponent } from './delivery-btns/delivery-btns.component';
+import { OrderItemEditComponent } from './order-item-edit/order-item-edit.component';
+import { OrderPositionEditComponent } from './order-position-edit/order-position-edit.component'
 
 @NgModule({
 	declarations: [
@@ -44,6 +46,8 @@ import { DeliveryBtnsComponent } from './delivery-btns/delivery-btns.component'
   OrderPositionComponent,
   OrderItemComponent,
   DeliveryBtnsComponent,
+  OrderItemEditComponent,
+  OrderPositionEditComponent,
 	],
 	imports: [BrowserModule, AppRoutingModule],
 	providers: [AuthService],

@@ -1,11 +1,11 @@
 <div class="buttons-container">
 	<label for="pickup" class="pickup-label">
-		<input type="radio" class="delivery" id="pickup" name="delivery" />
+		<input type="radio" class="delivery" id="pickup" name="delivery" hidden />
 		<span>Сaмовывоз</span>
 	</label>
 
-	<label for="delivery" class="delivery-label">
-		<input type="radio" class="delivery" id="delivery" name="delivery" checked />
+	<label for="delivery1" class="delivery-label">
+		<input type="radio" class="delivery" id="delivery1" name="delivery" checked hidden />
 		<span>Доставка</span>
 	</label>
 
@@ -14,8 +14,8 @@
 	</button>
 
 	<div class="remove-edit-btns" *ngIf="authService.isAuthenticated">
-		<button class="remove-btn btn" type="button" *ngIf="!editMode">Удалить</button>
-		<button class="edit-btn btn" type="button" *ngIf="!editMode">Редактировать</button>
+		<button class="remove-btn btn" type="button">Удалить</button>
+		<button class="edit-btn btn" type="button">Редактировать</button>
 		<button class="save-btn btn" type="button" *ngIf="editMode">Сохранить</button>
 		<button class="cancel-btn btn" type="button" *ngIf="editMode">Отмена</button>
 	</div>
