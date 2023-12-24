@@ -23,7 +23,8 @@ import { OrderPositionComponent } from './order-position/order-position.componen
 import { OrderItemComponent } from './order-item/order-item.component';
 import { DeliveryBtnsComponent } from './delivery-btns/delivery-btns.component';
 import { OrderItemEditComponent } from './order-item-edit/order-item-edit.component';
-import { OrderPositionEditComponent } from './order-position-edit/order-position-edit.component'
+import { OrderPositionEditComponent } from './order-position-edit/order-position-edit.component';
+import { LoginPageComponent } from './login-page/login-page.component'
 
 @NgModule({
 	declarations: [
@@ -48,6 +49,7 @@ import { OrderPositionEditComponent } from './order-position-edit/order-position
   DeliveryBtnsComponent,
   OrderItemEditComponent,
   OrderPositionEditComponent,
+  LoginPageComponent,
 	],
 	imports: [BrowserModule, AppRoutingModule],
 	providers: [AuthService],

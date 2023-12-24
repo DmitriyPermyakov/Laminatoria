@@ -1,0 +1,56 @@
+.login-container {
+	display: grid;
+	grid-template-columns: 1fr;
+	grid-template-rows: 1fr;
+	align-items: center;
+	justify-items: center;
+
+	// height: 100vh;
+	height: calc(100vh - 5em);
+	height: calc(100svh - 5em);
+}
+
+.login-form {
+	display: grid;
+	grid-template-rows: 1fr 1fr auto;
+	grid-template-columns: 1fr;
+
+	justify-items: center;
+
+	font-size: inherit;
+	font-family: inherit;
+
+	& > input {
+		padding: 0.5em 0.2em;
+		border: none;
+		border-bottom: 1px solid var(--secondary-text);
+		outline: none;
+		font-size: 1.25rem;
+		font-family: inherit;
+		text-align: center;
+	}
+}
+
+.buttons {
+	margin-top: 1em;
+}
+
+.recover-password {
+	text-decoration: underline;
+	color: var(--secondary-text);
+	cursor: pointer;
+}
+
+.enter {
+	margin-left: 1em;
+	padding: 0 0.4em;
+
+	font-size: 1.2rem;
+	border: none;
+	background-color: transparent;
+	cursor: pointer;
+
+	&:hover {
+		text-decoration: underline;
+	}
+}

@@ -9,6 +9,7 @@ import { EditProductComponent } from './edit-product/edit-product.component'
 import { OrdersComponent } from './orders/orders.component'
 import { OrderPositionComponent } from './order-position/order-position.component'
 import { OrderPositionEditComponent } from './order-position-edit/order-position-edit.component'
+import { LoginPageComponent } from './login-page/login-page.component'
 
 const routes: Routes = [
 	{ path: '', component: MainPageComponent },
@@ -20,6 +21,7 @@ const routes: Routes = [
 	{ path: 'orders', component: OrdersComponent },
 	{ path: 'orders/:id', component: OrderPositionComponent },
 	{ path: 'orders/:id/edit', component: OrderPositionEditComponent },
+	{ path: 'login', component: LoginPageComponent },
 ]
 
 @NgModule({
