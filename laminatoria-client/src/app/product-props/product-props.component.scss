@@ -1,0 +1,70 @@
+@import url('../product-card/product-card.component.scss');
+:host {
+	height: auto;
+}
+.prop {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	align-items: center;
+	font-size: 1rem;
+}
+input {
+	font-family: inherit;
+	font-size: inherit;
+	padding: 0.1em 0.2em;
+	width: 45%;
+}
+
+input + input {
+	margin-left: 1.5em;
+}
+
+.remove {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-left: 0.5em;
+
+	width: 30px;
+	height: 30px;
+
+	border: none;
+	background: transparent;
+	position: relative;
+
+	&::after {
+		display: inline-block;
+		content: '';
+		height: 2px;
+		width: 90%;
+		background-color: var(--secondary-text);
+
+		position: absolute;
+	}
+
+	&:hover {
+		outline: 1px solid var(--button-color);
+	}
+
+	&:hover::after {
+		background-color: (var(--button-color));
+	}
+}
+
+.add-btn {
+	margin-top: 2em;
+	width: 100%;
+
+	& > button {
+		padding: 0.5em;
+		margin-top: 1em;
+		width: 100%;
+		border: none;
+		font-size: 1rem;
+	}
+
+	& > button:hover {
+		background-color: var(--label-color);
+	}
+}

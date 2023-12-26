@@ -1,4 +1,4 @@
-import { Component } from '@angular/core'
+import { Component, Input } from '@angular/core'
 import { Router } from '@angular/router'
 
 @Component({
@@ -7,5 +7,5 @@ import { Router } from '@angular/router'
 	styleUrls: ['./product.component.scss'],
 })
 export class ProductComponent {
-	public id: string = '1'
+	@Input() public id: string
 }

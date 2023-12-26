@@ -1,5 +1,5 @@
 <div class="product-container">
-	<div class="product">
+	<form class="product" [formGroup]="form">
 		<div class="images">
 			<div class="main-image">
 				<img src="../../assets/laminat_tarket_pervaja_sibirskaja_5.png" alt="" />
@@ -23,48 +23,40 @@
 			</div>
 		</div>
 		<div class="main-description">
-			<input class="name" placeholder="Название" />
+			<input class="name" placeholder="Название" formControlName="name" />
 			<div class="vendor">
-				<input class="vendor-value" type="text" placeholder="Артикул" />
+				<input class="vendor-value" type="text" placeholder="Артикул" formControlName="vendor" />
 			</div>
 		</div>
 		<div class="description">
-			<p class="label">Характеристики:</p>
-			<div class="prop">
-				<input class="prop-label" type="text" placeholder="Характеристика" />
-				<input class="prop-value" type="text" placeholder="Значение" />
-			</div>
-
-			<div class="add-btn">
-				<button type="button">Добавить</button>
-			</div>
+			<app-product-props [props]="propertiesControl"></app-product-props>
 		</div>
 		<div class="type-of-products">
 			<label for="cutting" class="meters">
-				<input type="radio" name="type-of-product" id="cutting" hidden />
+				<input type="radio" id="cutting" hidden value="cutting" formControlName="type" />
 				<span>Отрезной</span>
 			</label>
 			<label for="piece" class="meters">
-				<input type="radio" name="type-of-product" id="piece" hidden />
+				<input type="radio" id="piece" hidden value="units" formControlName="type" />
 				<span>Штучный</span>
 			</label>
 		</div>
 		<div class="price-container">
-			<input class="price" type="number" placeholder="Цена" />
+			<input class="price" type="number" placeholder="Цена" formControlName="price" />
 			<label for="m2" class="meters">
-				<input type="radio" name="units" id="m2" hidden />
+				<input type="radio" id="m2" value="roublesForSquareMeter" hidden formControlName="typeOfMeasurement" />
 				<span>р./м2</span>
 			</label>
 			<label for="sht" class="meters">
-				<input type="radio" name="units" id="sht" hidden />
+				<input type="radio" id="sht" value="roublesForUnit" hidden formControlName="typeOfMeasurement" />
 				<span>р./шт.</span>
 			</label>
 		</div>
 		<div class="btn-container auth">
 			<div class="edit-btns-container">
 				<button class="remove-btn">Сохранить</button>
-				<button class="edit-btn">Отмена</button>
+				<button class="edit-btn" (click)="resetForm()">Отмена</button>
 			</div>
 		</div>
-	</div>
+	</form>
 </div>

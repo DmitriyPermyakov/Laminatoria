@@ -17,14 +17,17 @@ import { ShoppintCartItemComponent } from './shoppint-cart-item/shoppint-cart-it
 import { CounterComponent } from './counter/counter.component'
 import { AcceptOrderComponent } from './accept-order/accept-order.component'
 import { AuthService } from './services/auth.service'
-import { EditProductComponent } from './edit-product/edit-product.component';
-import { OrdersComponent } from './orders/orders.component';
-import { OrderPositionComponent } from './order-position/order-position.component';
-import { OrderItemComponent } from './order-item/order-item.component';
-import { DeliveryBtnsComponent } from './delivery-btns/delivery-btns.component';
-import { OrderItemEditComponent } from './order-item-edit/order-item-edit.component';
-import { OrderPositionEditComponent } from './order-position-edit/order-position-edit.component';
+import { EditProductComponent } from './edit-product/edit-product.component'
+import { OrdersComponent } from './orders/orders.component'
+import { OrderPositionComponent } from './order-position/order-position.component'
+import { OrderItemComponent } from './order-item/order-item.component'
+import { DeliveryBtnsComponent } from './delivery-btns/delivery-btns.component'
+import { OrderItemEditComponent } from './order-item-edit/order-item-edit.component'
+import { OrderPositionEditComponent } from './order-position-edit/order-position-edit.component'
 import { LoginPageComponent } from './login-page/login-page.component'
+import { ProductsService } from './services/products.service'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ProductPropsComponent } from './product-props/product-props.component'
 
 @NgModule({
 	declarations: [
@@ -43,16 +46,17 @@ import { LoginPageComponent } from './login-page/login-page.component'
 		CounterComponent,
 		AcceptOrderComponent,
 		EditProductComponent,
-  OrdersComponent,
-  OrderPositionComponent,
-  OrderItemComponent,
-  DeliveryBtnsComponent,
-  OrderItemEditComponent,
-  OrderPositionEditComponent,
-  LoginPageComponent,
+		OrdersComponent,
+		OrderPositionComponent,
+		OrderItemComponent,
+		DeliveryBtnsComponent,
+		OrderItemEditComponent,
+		OrderPositionEditComponent,
+		LoginPageComponent,
+  ProductPropsComponent,
 	],
-	imports: [BrowserModule, AppRoutingModule],
-	providers: [AuthService],
+	imports: [BrowserModule, AppRoutingModule, FormsModule, ReactiveFormsModule],
+	providers: [],
 	bootstrap: [AppComponent],
 })
 export class AppModule {}

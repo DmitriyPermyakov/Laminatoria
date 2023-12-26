@@ -8,9 +8,6 @@
 		<button class="filter-btn" (click)="openFilter()">Фильтр</button>
 	</div>
 	<div class="products">
-		<app-product></app-product>
-		<app-product></app-product>
-		<app-product></app-product>
-		<app-product></app-product>
+		<app-product *ngFor="let p of products" [id]="p.id"></app-product>
 	</div>
 </div>
