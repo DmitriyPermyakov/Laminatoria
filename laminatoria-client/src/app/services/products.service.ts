@@ -9,6 +9,8 @@ import { Properties } from '../classes/properties'
 export class ProductsService {
 	private products: Product[]
 	constructor() {
+		let additional = new Map<string, string[]>()
+		additional.set('ширина', ['2', '3', '4'])
 		let prop = [new Properties('1', 'Бренд', 'IDEAL')]
 		this.products = [
 			new Product(
@@ -17,6 +19,7 @@ export class ProductsService {
 				'1345345345',
 				Category.Laminat,
 				prop,
+				additional,
 				typeOfProduct[typeOfProduct['units']],
 				typeOfMeasurement[typeOfMeasurement['roublesForUnit']],
 				600,

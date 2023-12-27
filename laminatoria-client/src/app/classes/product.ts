@@ -6,6 +6,7 @@ export class Product {
 	vendor: string
 	category: Category
 	properties: Properties[]
+	additionalProperty: Map<string, string[]>
 	type: string
 	typeOfMeasurement: string
 	price: number
@@ -17,6 +18,7 @@ export class Product {
 		vendor: string,
 		category: Category,
 		properties: Properties[],
+		additionalProperty: Map<string, string[]>,
 		type: string,
 		typeOfMeasurement: string,
 		price: number,
@@ -27,6 +29,7 @@ export class Product {
 		this.vendor = vendor
 		this.category = category
 		this.properties = properties
+		this.additionalProperty = additionalProperty
 		this.type = type
 		this.typeOfMeasurement = typeOfMeasurement
 		this.price = price

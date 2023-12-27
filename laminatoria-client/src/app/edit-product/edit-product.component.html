@@ -31,31 +31,43 @@
 		<div class="description">
 			<app-product-props [props]="propertiesControl"></app-product-props>
 		</div>
+		<div class="additional-props">
+			<input class="prop-name" type="text" [value]="key | titlecase" />
+			<div class="additional-props-list">
+				<span class="prop-value" *ngFor="let v of additionalProps.value.value.get(key)">{{ v }}</span>
+				<input
+					class="add-props"
+					type="text"
+					placeholder="Добавить"
+					(keydown.enter)="addAdditionalProp($event.target)"
+				/>
+			</div>
+		</div>
 		<div class="type-of-products">
-			<label for="cutting" class="meters">
+			<label for="cutting" class="radio-labels">
 				<input type="radio" id="cutting" hidden value="cutting" formControlName="type" />
 				<span>Отрезной</span>
 			</label>
-			<label for="piece" class="meters">
+			<label for="piece" class="radio-labels">
 				<input type="radio" id="piece" hidden value="units" formControlName="type" />
 				<span>Штучный</span>
 			</label>
 		</div>
 		<div class="price-container">
 			<input class="price" type="number" placeholder="Цена" formControlName="price" />
-			<label for="m2" class="meters">
+			<label for="m2" class="radio-labels">
 				<input type="radio" id="m2" value="roublesForSquareMeter" hidden formControlName="typeOfMeasurement" />
 				<span>р./м2</span>
 			</label>
-			<label for="sht" class="meters">
+			<label for="sht" class="radio-labels">
 				<input type="radio" id="sht" value="roublesForUnit" hidden formControlName="typeOfMeasurement" />
 				<span>р./шт.</span>
 			</label>
 		</div>
 		<div class="btn-container auth">
 			<div class="edit-btns-container">
-				<button class="remove-btn">Сохранить</button>
-				<button class="edit-btn" (click)="resetForm()">Отмена</button>
+				<button type="button" class="remove-btn">Сохранить</button>
+				<button type="button" class="edit-btn" (click)="resetForm()">Отмена</button>
 			</div>
 		</div>
 	</form>
