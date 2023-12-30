@@ -1,7 +1,19 @@
 <p class="label">Характеристики:</p>
 <div class="prop" *ngFor="let p of props.value; index as i">
-	<input class="prop-label" type="text" [value]="p.property" placeholder="Характеристика" />
-	<input class="prop-value" type="text" [value]="p.value" placeholder="Значение" />
+	<input
+		class="prop-label"
+		type="text"
+		[value]="p.property"
+		placeholder="Характеристика"
+		(change)="onChangeExitstingPropName($event.target, i)"
+	/>
+	<input
+		class="prop-value"
+		type="text"
+		[value]="p.value"
+		placeholder="Значение"
+		(change)="onChangeExistingPropValue($event.target, i)"
+	/>
 	<button class="remove" (click)="removeValue(i)"></button>
 </div>
 

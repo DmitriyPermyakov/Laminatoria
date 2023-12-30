@@ -29,19 +29,10 @@
 			</div>
 		</div>
 		<div class="description">
-			<app-product-props [props]="propertiesControl"></app-product-props>
+			<app-product-props #props [props]="propertiesControl"></app-product-props>
 		</div>
 		<div class="additional-props">
-			<input class="prop-name" type="text" [value]="key | titlecase" />
-			<div class="additional-props-list">
-				<span class="prop-value" *ngFor="let v of additionalProps.value.value.get(key)">{{ v }}</span>
-				<input
-					class="add-props"
-					type="text"
-					placeholder="Добавить"
-					(keydown.enter)="addAdditionalProp($event.target)"
-				/>
-			</div>
+			<app-additional-props #adProps [additionalProps]="additionalProps"></app-additional-props>
 		</div>
 		<div class="type-of-products">
 			<label for="cutting" class="radio-labels">

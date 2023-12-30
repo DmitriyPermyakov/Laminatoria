@@ -25,42 +25,6 @@ input {
 	margin-bottom: 1.5em;
 }
 
-.prop-name {
-	display: block;
-	margin-bottom: 0.5em;
-	font-size: inherit;
-}
-
-.prop-value {
-	padding: 0.2em 0.5em;
-	margin: 0.5em;
-
-	&:first-child {
-		margin-left: 0;
-	}
-}
-
-.additional-props-list {
-	display: flex;
-	flex-direction: row;
-	flex-wrap: wrap;
-	align-items: center;
-
-	span {
-		font-size: 1.2rem;
-		border: 1px solid var(--button-color);
-	}
-}
-
-.add-props {
-	display: inline-block;
-	margin-left: 0.6em;
-	width: 5rem;
-	font-size: inherit;
-	font-family: inherit;
-	border: 1px solid var(--main-text);
-}
-
 .type-of-products {
 	grid-row: 4 / 5;
 	grid-column: 2 / 3;

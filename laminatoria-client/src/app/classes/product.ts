@@ -6,7 +6,7 @@ export class Product {
 	vendor: string
 	category: Category
 	properties: Properties[]
-	additionalProperty: Map<string, string[]>
+	additionalProperty: AdditionalProperty
 	type: string
 	typeOfMeasurement: string
 	price: number
@@ -18,7 +18,7 @@ export class Product {
 		vendor: string,
 		category: Category,
 		properties: Properties[],
-		additionalProperty: Map<string, string[]>,
+		additionalProperty: AdditionalProperty,
 		type: string,
 		typeOfMeasurement: string,
 		price: number,
@@ -34,6 +34,18 @@ export class Product {
 		this.typeOfMeasurement = typeOfMeasurement
 		this.price = price
 		this.relatedProduct = relatedProducts
+	}
+}
+
+export class AdditionalProperty {
+	id: string
+	name: string
+	values: string[]
+
+	constructor(id: string, name: string, values: string[]) {
+		this.id = id
+		this.name = name
+		this.values = values
 	}
 }
 

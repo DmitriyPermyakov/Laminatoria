@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core'
 import { Observable, of } from 'rxjs'
-import { Category, Product, typeOfMeasurement, typeOfProduct } from '../classes/product'
+import { AdditionalProperty, Category, Product, typeOfMeasurement, typeOfProduct } from '../classes/product'
 import { Properties } from '../classes/properties'
 
 @Injectable({
@@ -9,9 +9,8 @@ import { Properties } from '../classes/properties'
 export class ProductsService {
 	private products: Product[]
 	constructor() {
-		let additional = new Map<string, string[]>()
-		additional.set('ширина', ['2', '3', '4'])
-		let prop = [new Properties('1', 'Бренд', 'IDEAL')]
+		let prop = [new Properties('1', 'Бренд', 'IDEAL'), new Properties('2', 'Толщина', '1.8мм')]
+		let additional = new AdditionalProperty('0', 'Ширина', ['2.50', '3', '4'])
 		this.products = [
 			new Product(
 				'asdfaf',

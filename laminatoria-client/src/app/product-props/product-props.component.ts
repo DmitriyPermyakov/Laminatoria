@@ -1,15 +1,34 @@
-import { Component, ElementRef, Input, ViewChild } from '@angular/core'
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core'
 import { FormControl } from '@angular/forms'
+import { Properties } from '../classes/properties'
 
 @Component({
 	selector: 'app-product-props',
 	templateUrl: './product-props.component.html',
 	styleUrls: ['./product-props.component.scss'],
 })
-export class ProductPropsComponent {
+export class ProductPropsComponent implements OnInit {
 	@Input() props: FormControl
 	@ViewChild('propField') name: ElementRef
 	@ViewChild('valueField') value: ElementRef
+
+	private resetValues: Properties[] = []
+
+	ngOnInit(): void {
+		this.resetValues = this.initResetPropsValues()
+	}
+
+	public onChangeExitstingPropName(event, i: number): void {
+		if (event.value !== '') {
+			this.props.value[i].property = event.value
+		}
+	}
+
+	public onChangeExistingPropValue(event, i: number): void {
+		if (event.value !== '') {
+			this.props.value[i].value = event.value
+		}
+	}
 
 	public onChangePropName(event: Event): void {
 		event.preventDefault()
@@ -59,8 +78,27 @@ export class ProductPropsComponent {
 		])
 	}
 
+	public resetPropsValues(): void {
+		for (let i = 0; i < this.props.value.length; i++) {
+			this.props.value[i].id = this.resetValues[i].id
+			this.props.value[i].property = this.resetValues[i].property
+			this.props.value[i].value = this.resetValues[i].value
+		}
+	}
+
 	private clearInputs(): void {
 		this.name.nativeElement.value = ''
 		this.value.nativeElement.value = ''
+	}
+
+	private initResetPropsValues(): Properties[] {
+		const value: Properties[] = []
+
+		for (let i = 0; i < this.props.value.length; i++) {
+			let prop = new Properties(this.props.value[i].id, this.props.value[i].property, this.props.value[i].value)
+			value.push(prop)
+		}
+
+		return value
 	}
 }

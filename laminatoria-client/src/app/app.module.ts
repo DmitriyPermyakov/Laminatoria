@@ -27,7 +27,8 @@ import { OrderPositionEditComponent } from './order-position-edit/order-position
 import { LoginPageComponent } from './login-page/login-page.component'
 import { ProductsService } from './services/products.service'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ProductPropsComponent } from './product-props/product-props.component'
+import { ProductPropsComponent } from './product-props/product-props.component';
+import { AdditionalPropsComponent } from './additional-props/additional-props.component'
 
 @NgModule({
 	declarations: [
@@ -54,6 +55,7 @@ import { ProductPropsComponent } from './product-props/product-props.component'
 		OrderPositionEditComponent,
 		LoginPageComponent,
   ProductPropsComponent,
+  AdditionalPropsComponent,
 	],
 	imports: [BrowserModule, AppRoutingModule, FormsModule, ReactiveFormsModule],
 	providers: [],

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, OnInit, ViewChild } from '@angular/core'
 import { CacheService } from '../services/cache.service'
 import { Product, typeOfMeasurement, typeOfProduct } from '../classes/product'
 import { ActivatedRoute } from '@angular/router'
@@ -26,8 +26,8 @@ export class EditProductComponent implements OnInit {
 		return this.form.controls['additional'] as FormControl
 	}
 
-	public key: string = ''
-	private resetValue: string[]
+	@ViewChild('adProps') private additionalPropComp
+	@ViewChild('props') private props
 	constructor(
 		private cacheService: CacheService,
 		private activatedRoute: ActivatedRoute,
@@ -54,20 +54,14 @@ export class EditProductComponent implements OnInit {
 
 		this.checkAdditionalProperties()
 
-		this.resetValue = Array.from(this.additionalProps.value.value.get(this.key))
-		console.log(this.resetValue)
-
 		//#TODO: обработка ошибок
 		//#TODO: запомнить обратную навигацию
 	}
 
 	public resetForm(): void {
-		this.form.controls['additional'].value.value.delete(this.key)
-		this.form.controls['additional'].value.value.set(this.key, this.resetValue)
-		console.log(this.resetValue)
-
 		this.form.reset()
-		console.log(this.resetValue)
+		this.additionalPropComp.resetControls()
+		this.props.resetPropsValues()
 	}
 
 	private initForm(): void {
@@ -77,7 +71,7 @@ export class EditProductComponent implements OnInit {
 			vendor: [{ value: this.product.vendor, disabled: false }, Validators.required],
 			categorid: [{ value: this.product.category, disabled: false }, Validators.required],
 			properties: [{ value: this.product.properties, disabled: false }, Validators.required],
-			additional: [{ value: this.product.additionalProperty, disables: false }],
+			additional: [{ value: this.product.additionalProperty, disables: false, nonNullable: true }],
 			type: [{ value: this.product.type, disabled: false }, Validators.required],
 			typeOfMeasurement: [{ value: this.product.typeOfMeasurement, disabled: false }, Validators.required],
 			price: [{ value: this.product.price, disabled: false }, Validators.required],
@@ -85,17 +79,7 @@ export class EditProductComponent implements OnInit {
 		})
 	}
 
-	public addAdditionalProp(event): void {
-		if (event.value !== '') {
-			this.additionalProps.value.value.get(this.key).push(event.value)
-			event.value = ''
-		}
-		console.log(this.resetValue)
-	}
-
 	private checkAdditionalProperties(): void {
-		if (this.additionalProps.value.value !== '') {
-			this.key = this.additionalProps.value.value.keys().next().value
-		}
+		//#TODO: проверить наличие дополнительных свойств
 	}
 }
