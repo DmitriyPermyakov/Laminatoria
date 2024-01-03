@@ -17,31 +17,31 @@ export class AdditionalPropsComponent implements OnInit {
 
 	public changePropName(event): void {
 		if (event.value !== '') {
-			this.additionalProps.value.value.name = event.value
+			this.additionalProps.value.name = event.value
 		}
 	}
 
 	public addAdditionalProp(event): void {
-		if (event.value !== '' && !this.additionalProps.value.value.values.includes(event.value)) {
-			this.additionalProps.value.value.values.push(event.value)
+		if (event.value !== '' && !this.additionalProps.value.values.includes(event.value)) {
+			this.additionalProps.value.values.push(event.value)
 		}
 		event.value = ''
 	}
 
 	public removeAdditionalProp(i: number): void {
-		let arr = Array.from(this.additionalProps.value.value.values)
+		let arr = Array.from(this.additionalProps.value.values)
 		arr.splice(i, 1)
-		this.additionalProps.value.value.values = arr
-		console.log(this.additionalProps.value.value.values)
+		this.additionalProps.value.values = arr
+		console.log(this.additionalProps.value.values)
 	}
 
 	public resetControls(): void {
-		this.additionalProps.value.value.name = this.resetValues.name
-		this.additionalProps.value.value.values = this.resetValues.values
+		this.additionalProps.value.name = this.resetValues.name
+		this.additionalProps.value.values = this.resetValues.values
 	}
 
 	private InitResetValues(): void {
-		this.resetValues.name = this.additionalProps.value.value.name
-		this.resetValues.values = Array.from(this.additionalProps.value.value.values)
+		this.resetValues.name = this.additionalProps.value.name
+		this.resetValues.values = Array.from(this.additionalProps.value.values)
 	}
 }

@@ -1,11 +1,6 @@
-<input
-	class="prop-name"
-	type="text"
-	[value]="additionalProps.value.value.name"
-	(change)="changePropName($event.target)"
-/>
+<input class="prop-name" type="text" [value]="additionalProps.value.name" (change)="changePropName($event.target)" />
 <div class="additional-props-list">
-	<div class="prop-container" *ngFor="let prop of additionalProps.value.value.values; index as i">
+	<div class="prop-container" *ngFor="let prop of additionalProps.value.values; index as i">
 		<span class="prop-value">{{ prop }}</span>
 		<button class="remove-prop" (click)="removeAdditionalProp(i)">
 			<svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">

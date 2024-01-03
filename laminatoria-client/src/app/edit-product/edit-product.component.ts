@@ -58,6 +58,10 @@ export class EditProductComponent implements OnInit {
 		//#TODO: запомнить обратную навигацию
 	}
 
+	public onSubmit(): void {
+		console.log(JSON.stringify(this.form.value))
+	}
+
 	public resetForm(): void {
 		this.form.reset()
 		this.additionalPropComp.resetControls()
@@ -66,12 +70,12 @@ export class EditProductComponent implements OnInit {
 
 	private initForm(): void {
 		this.form = this.fb.group({
-			id: [{ value: this.product.id }],
+			id: this.product.id,
 			name: [{ value: this.product.name, disabled: false }, Validators.required],
 			vendor: [{ value: this.product.vendor, disabled: false }, Validators.required],
 			categorid: [{ value: this.product.category, disabled: false }, Validators.required],
 			properties: [{ value: this.product.properties, disabled: false }, Validators.required],
-			additional: [{ value: this.product.additionalProperty, disables: false, nonNullable: true }],
+			additional: [{ value: this.product.additionalProperty, disabled: false }],
 			type: [{ value: this.product.type, disabled: false }, Validators.required],
 			typeOfMeasurement: [{ value: this.product.typeOfMeasurement, disabled: false }, Validators.required],
 			price: [{ value: this.product.price, disabled: false }, Validators.required],
