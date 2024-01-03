@@ -2,7 +2,7 @@
 	<div class="shopping-cart">
 		<app-shoppint-cart-item *ngFor="let item of productItems" [item]="item"></app-shoppint-cart-item>
 		<p *ngIf="productItems.length < 1">Корзина пуста</p>
-		<app-delivery-btns></app-delivery-btns>
+		<app-delivery-btns [disabled]="productItems.length === 0"></app-delivery-btns>
 	</div>
 	<div class="related-products">
 		<app-related-products></app-related-products>

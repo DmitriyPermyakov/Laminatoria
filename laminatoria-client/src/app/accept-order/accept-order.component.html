@@ -1,12 +1,18 @@
 <div class="accept-order-container">
-	<form class="form">
-		<input class="name" type="text" placeholder="Ф.И.О" />
-		<input class="phone" type="number" placeholder="Телефон" />
-		<input class="email" type="email" placeholder="Почта" />
-		<input class="address" type="text" placeholder="Адрес" />
-		<textarea class="comment" name="comment" id="comment" placeholder="Комментарий"></textarea>
+	<form class="form" [formGroup]="form" (ngSubmit)="onSubmit()">
+		<input class="name" type="text" placeholder="Ф.И.О" formControlName="name" />
+		<input class="phone" type="number" placeholder="Телефон" formControlName="phone" />
+		<input class="email" type="email" placeholder="Почта" formControlName="email" />
+		<input class="address" type="text" placeholder="Адрес" formControlName="address" />
+		<textarea
+			class="comment"
+			name="comment"
+			id="comment"
+			placeholder="Комментарий"
+			formControlName="comment"
+		></textarea>
 		<label class="pay-online" for="pay-online">
-			<input type="checkbox" id="pay-online" />
+			<input type="checkbox" id="pay-online" formControlName="online" />
 			<span>Оплатить онлайн</span>
 		</label>
 		<button type="submit">Заказать</button>

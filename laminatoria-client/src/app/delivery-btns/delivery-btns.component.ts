@@ -8,5 +8,7 @@ import { AuthService } from '../services/auth.service'
 })
 export class DeliveryBtnsComponent {
 	@Input() public editMode: boolean = false
+	@Input() public disabled: boolean = false
+
 	constructor(public authService: AuthService) {}
 }

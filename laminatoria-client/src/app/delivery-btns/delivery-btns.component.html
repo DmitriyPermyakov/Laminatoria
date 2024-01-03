@@ -9,7 +9,13 @@
 		<span>Доставка</span>
 	</label>
 
-	<button class="order-btn btn" type="button" *ngIf="!authService.isAuthenticated" [routerLink]="['/accept-order']">
+	<button
+		class="order-btn btn"
+		type="button"
+		[disabled]="disabled"
+		*ngIf="!authService.isAuthenticated"
+		[routerLink]="['/accept-order']"
+	>
 		Заказать
 	</button>
 
