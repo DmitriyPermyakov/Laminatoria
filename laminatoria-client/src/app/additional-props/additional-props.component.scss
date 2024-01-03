@@ -1,6 +1,7 @@
 .prop-name {
 	display: block;
 	margin-bottom: 0.5em;
+	padding: 0.3em 0.4em;
 	font-size: inherit;
 }
 
@@ -9,6 +10,8 @@
 	flex-direction: row;
 	flex-wrap: wrap;
 	align-items: center;
+
+	row-gap: 0.4em;
 }
 
 .prop-container {
@@ -81,6 +84,7 @@ svg > * {
 .add-props {
 	display: inline-block;
 	margin-left: 0.6em;
+	padding: 0.3em 0.4em;
 	width: 5rem;
 	font-size: inherit;
 	font-family: inherit;
