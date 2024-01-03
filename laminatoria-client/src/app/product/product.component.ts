@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core'
 import { Router } from '@angular/router'
+import { Product } from '../classes/product'
 
 @Component({
 	selector: 'app-product',
@@ -7,5 +8,7 @@ import { Router } from '@angular/router'
 	styleUrls: ['./product.component.scss'],
 })
 export class ProductComponent {
-	@Input() public id: string
+	@Input() public product: Product
+
+	public addToCart(): void {}
 }
