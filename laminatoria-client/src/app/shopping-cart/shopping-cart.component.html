@@ -1,9 +1,7 @@
 <div class="shopping-cart-container">
 	<div class="shopping-cart">
-		<app-shoppint-cart-item></app-shoppint-cart-item>
-		<app-shoppint-cart-item></app-shoppint-cart-item>
-		<app-shoppint-cart-item></app-shoppint-cart-item>
-		<app-shoppint-cart-item></app-shoppint-cart-item>
+		<app-shoppint-cart-item *ngFor="let item of productItems" [item]="item"></app-shoppint-cart-item>
+		<p *ngIf="productItems.length < 1">Корзина пуста</p>
 		<app-delivery-btns></app-delivery-btns>
 	</div>
 	<div class="related-products">

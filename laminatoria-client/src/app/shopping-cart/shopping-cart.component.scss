@@ -26,6 +26,10 @@
 	overflow-x: hidden;
 }
 
+p {
+	font-size: 1.2rem;
+}
+
 @media (max-width: 600px) and (orientation: portrait) {
 	.shopping-cart-container {
 		padding-bottom: 0;

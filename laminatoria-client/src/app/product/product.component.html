@@ -1,5 +1,5 @@
-<div class="product-container" [routerLink]="['/products/product', product.id]">
-	<div class="image">
+<div class="product-container">
+	<div class="image" [routerLink]="['/products/product', product.id]">
 		<img src="../../assets/laminat_tarket_pervaja_sibirskaja_5.png" alt="" />
 	</div>
 	<div class="properties">
@@ -13,6 +13,6 @@
 			<p class="prop-name">Размер:</p>
 			<p class="prop-value">130*68</p>
 		</div>
-		<button class="to-cart">В корзину</button>
+		<button class="to-cart" (click)="addToCart()">В корзину</button>
 	</div>
 </div>
