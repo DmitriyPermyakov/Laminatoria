@@ -8,10 +8,10 @@
 			<p class="vendor">{{ item.product.vendor }}</p>
 		</div>
 		<div class="amounts">
-			<app-counter></app-counter>
+			<app-counter [value]="item.amount" (onAmountChanged)="changeAmount($event)"></app-counter>
 			<p class="result-value">Площадь: 124м2</p>
 		</div>
-		<p class="price">Стоимость: 27 600р.</p>
+		<p class="price">Стоимость: {{ item.amount * item.product.price | currency : '' : '' : '' : 'ru-RU' }}р.</p>
 	</div>
 	<div class="remove-btn">
 		<button type="button" (click)="removeItem(item.product.id)">Удалить</button>

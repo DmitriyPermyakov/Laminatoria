@@ -12,6 +12,10 @@ export class ShoppintCartItemComponent {
 
 	constructor(private shoppingCart: ShoppingCartService) {}
 
+	public changeAmount(value: number): void {
+		this.item.amount = value
+	}
+
 	public removeItem(id): void {
 		this.shoppingCart.removeFromCart(id)
 	}

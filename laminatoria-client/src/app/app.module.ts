@@ -1,5 +1,8 @@
-import { NgModule } from '@angular/core'
+import { NgModule, LOCALE_ID } from '@angular/core'
 import { BrowserModule } from '@angular/platform-browser'
+import { registerLocaleData } from '@angular/common'
+import localeRu from '@angular/common/locales/ru'
+import '@angular/common/locales/global/ru'
 
 import { AppRoutingModule } from './app-routing.module'
 import { AppComponent } from './app.component'
@@ -26,8 +29,8 @@ import { OrderItemEditComponent } from './order-item-edit/order-item-edit.compon
 import { OrderPositionEditComponent } from './order-position-edit/order-position-edit.component'
 import { LoginPageComponent } from './login-page/login-page.component'
 import { ProductsService } from './services/products.service'
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ProductPropsComponent } from './product-props/product-props.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'
+import { ProductPropsComponent } from './product-props/product-props.component'
 import { AdditionalPropsComponent } from './additional-props/additional-props.component'
 
 @NgModule({
@@ -54,11 +57,11 @@ import { AdditionalPropsComponent } from './additional-props/additional-props.co
 		OrderItemEditComponent,
 		OrderPositionEditComponent,
 		LoginPageComponent,
-  ProductPropsComponent,
-  AdditionalPropsComponent,
+		ProductPropsComponent,
+		AdditionalPropsComponent,
 	],
 	imports: [BrowserModule, AppRoutingModule, FormsModule, ReactiveFormsModule],
-	providers: [],
+	providers: [{ provide: LOCALE_ID, useValue: 'ru-RU' }],
 	bootstrap: [AppComponent],
 })
 export class AppModule {}
