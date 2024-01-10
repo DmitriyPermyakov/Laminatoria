@@ -4,13 +4,11 @@ import { Injectable } from '@angular/core'
 	providedIn: 'root',
 })
 export class CacheService {
+	public pageNumber: number = -1
+
 	private cache = new Map<string, any[]>()
 
 	set(key: string, data: any[]): void {
-		if (this.cache.has(key)) {
-			throw new Error(`Data already exists for key ${key}`)
-		}
-
 		this.cache.set(key, data)
 	}
 

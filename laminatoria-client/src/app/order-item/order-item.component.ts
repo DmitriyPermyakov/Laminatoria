@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core'
 import { Order } from '../classes/order'
-import { ActivatedRoute } from '@angular/router'
+import { ActivatedRoute, Router } from '@angular/router'
 
 @Component({
 	selector: 'app-order-item',
@@ -10,11 +10,12 @@ import { ActivatedRoute } from '@angular/router'
 export class OrderItemComponent {
 	@Input() order: Order
 
-	constructor(private activatedRoute: ActivatedRoute) {}
+	constructor(private activatedRoute: ActivatedRoute, private router: Router) {}
 
 	public navigateToDetails(): void {
-		if (this.activatedRoute.snapshot.params['id'] === '') {
-			console.log('empty id')
+		let id = this.activatedRoute.snapshot.params['id']
+		if (id == undefined) {
+			this.router.navigate(['orders', this.order.id])
 		}
 	}
 }

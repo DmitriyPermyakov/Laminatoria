@@ -7,6 +7,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core'
 })
 export class CounterComponent {
 	@Input() value: number
+	@Input() disabled: boolean
 
 	@Output() onAmountChanged: EventEmitter<number> = new EventEmitter()
 

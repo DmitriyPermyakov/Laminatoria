@@ -1,7 +1,7 @@
 <div class="counter-container">
 	<div class="counter">
-		<button class="minus" type="button" (click)="decrement()"></button>
-		<input type="number" [value]="value" />
-		<button class="plus" type="button" (click)="increment()"></button>
+		<button class="minus" type="button" (click)="decrement()" [disabled]="disabled"></button>
+		<input type="number" [value]="value" [disabled]="disabled" />
+		<button class="plus" type="button" (click)="increment()" [disabled]="disabled"></button>
 	</div>
 </div>

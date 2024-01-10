@@ -15,6 +15,10 @@
 	& > button:hover {
 		background-color: var(--button-color);
 	}
+
+	& > button:disabled:hover {
+		background-color: transparent;
+	}
 }
 
 input {
@@ -41,6 +45,10 @@ input {
 
 	&:hover::after {
 		background-color: var(--main-color);
+	}
+
+	&:disabled::after {
+		background-color: var(--disabled);
 	}
 }
 
@@ -75,5 +83,14 @@ input {
 
 	&:hover::before {
 		background-color: var(--main-color);
+	}
+
+	&:disabled {
+		border-color: var(--disabled);
+	}
+
+	&:disabled::before,
+	&:disabled::after {
+		background-color: var(--disabled);
 	}
 }

@@ -9,6 +9,7 @@ import { OrderItem } from '../classes/orderItem'
 })
 export class ShoppintCartItemComponent {
 	@Input() item: OrderItem
+	@Input() disableCounter: boolean
 	public area: number
 
 	constructor(private shoppingCart: ShoppingCartService) {}

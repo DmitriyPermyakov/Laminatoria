@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core'
 import { FilterService } from '../services/filter.service'
 import { Order } from '../classes/order'
 import { OrdersService } from '../services/orders.service'
+import { CacheService } from '../services/cache.service'
 
 @Component({
 	selector: 'app-orders',
@@ -11,16 +12,42 @@ import { OrdersService } from '../services/orders.service'
 export class OrdersComponent implements OnInit {
 	public isOpen: boolean = false
 	public orders: Order[]
+	public currentPage: number
+	public pageCount: number
+	public elementsOnPage: number = 20
 
-	constructor(public filterService: FilterService, private orderService: OrdersService) {}
+	constructor(
+		public filterService: FilterService,
+		private orderService: OrdersService,
+		private cacheService: CacheService
+	) {}
 
 	ngOnInit(): void {
-		this.orderService.getAll().subscribe((orders) => {
-			this.orders = orders
-		})
+		if (this.cacheService.pageNumber < 0) {
+			//получить данные первой страницы с сервера
+			this.cacheService.pageNumber = 1
+			this.currentPage = 1
+			this.loadAndCacheOrders()
+		} else {
+			this.currentPage = this.cacheService.pageNumber
+			let ordersFromCache = this.cacheService.get('orders' + this.currentPage)
+			if (!ordersFromCache) {
+				this.loadAndCacheOrders()
+			} else {
+				this.orders = ordersFromCache
+			}
+		}
 	}
 
 	openFilter(): void {
 		this.isOpen = this.filterService.toggleFilter()
+	}
+
+	private loadAndCacheOrders(): void {
+		this.orderService.getAll().subscribe((orders) => {
+			this.orders = orders
+			this.pageCount = Math.ceil(this.orders.length / this.elementsOnPage)
+			this.cacheService.set('orders' + this.currentPage, this.orders)
+		})
 	}
 }

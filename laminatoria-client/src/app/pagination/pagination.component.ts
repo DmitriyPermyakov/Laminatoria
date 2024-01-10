@@ -65,9 +65,9 @@ export class PaginationComponent implements AfterViewInit {
 	}
 
 	private setSelectedButton(number: number): void {
-		this.buttonsArray[this.currentPage - 1].classList.remove('selected')
+		this.buttonsArray[this.currentPage - 1]?.classList.remove('selected')
 		this.currentPage = number
-		this.buttonsArray[this.currentPage - 1].classList.add('selected')
+		this.buttonsArray[this.currentPage - 1]?.classList.add('selected')
 	}
 
 	private setVisibleButtons(): void {
@@ -83,16 +83,16 @@ export class PaginationComponent implements AfterViewInit {
 	private initButtonsClasses(): void {
 		for (let i = 0; i < this.pageCount; i++) {
 			if (i == 0 || i == this.pageCount - 1) continue
-			this.buttonsArray[i].classList.add('hidden')
+			this.buttonsArray[i]?.classList.add('hidden')
 		}
 		this.buttonsArray[this.currentPage - 1]?.classList.add('selected')
 	}
 
 	private setSpanClasses(): void {
-		if (this.currentPage < 5) this.firstSpan.classList.add('hidden')
-		else this.firstSpan.classList.remove('hidden')
-		if (this.currentPage >= this.pageCount - 3) this.secondSpan.classList.add('hidden')
-		else this.secondSpan.classList.remove('hidden')
+		if (this.currentPage < 5) this.firstSpan?.classList.add('hidden')
+		else this.firstSpan?.classList.remove('hidden')
+		if (this.currentPage >= this.pageCount - 3) this.secondSpan?.classList.add('hidden')
+		else this.secondSpan?.classList.remove('hidden')
 	}
 
 	private createButton(i: number): HTMLElement {

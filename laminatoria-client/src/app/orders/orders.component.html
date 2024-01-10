@@ -9,6 +9,10 @@
 	</div>
 	<div class="orders">
 		<app-order-item *ngFor="let order of orders" [order]="order"></app-order-item>
-		<app-pagination [pageCount]="20"></app-pagination>
+		<app-pagination
+			[pageCount]="pageCount"
+			[currentPage]="currentPage"
+			[elementsOnPage]="elementsOnPage"
+		></app-pagination>
 	</div>
 </div>

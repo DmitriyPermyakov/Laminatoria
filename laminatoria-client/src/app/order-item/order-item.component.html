@@ -1,4 +1,4 @@
-<div class="order-item" [routerLink]="['/orders', order.id]">
+<div class="order-item" (click)="navigateToDetails()">
 	<div class="contacts">
 		<p class="name">{{ order.contacts.name }}</p>
 		<a class="phone" href="tel:+7 999 999 99 99">{{ order.contacts.phone }}</a>
