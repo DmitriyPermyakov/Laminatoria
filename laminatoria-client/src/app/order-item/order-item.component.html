@@ -1,8 +1,8 @@
-<div class="order-item">
+<div class="order-item" [routerLink]="['/orders', order.id]">
 	<div class="contacts">
-		<p class="name">Иванов Андрей</p>
-		<a class="phone" href="tel:+7 999 999 99 99">+7 999 999 99 99</a>
-		<a class="email" href="mailto:ivanov@gmail.com">ivanov@gmail.com</a>
+		<p class="name">{{ order.contacts.name }}</p>
+		<a class="phone" href="tel:+7 999 999 99 99">{{ order.contacts.phone }}</a>
+		<a class="email" href="mailto:ivanov@gmail.com">{{ order.contacts.email }}</a>
 	</div>
 	<div class="status-container">
 		<p class="status-label">статус:</p>
@@ -10,14 +10,14 @@
 	</div>
 	<div class="address-container">
 		<p class="address-label">адрес доставки:</p>
-		<p class="address">ул. Коломяжская 46 кв.23</p>
+		<p class="address">{{ order.address }}</p>
 	</div>
 	<div class="comment-container">
 		<p class="comment-label">комментарий:</p>
-		<p class="comment">Позвонить за 2 часа до доставки</p>
+		<p class="comment">{{ order.comment }}</p>
 	</div>
 	<div class="price-container">
 		<span class="price-label">Сумма:</span>
-		<span class="price">28 566р.</span>
+		<span class="price">{{ order.summary | currency : '' : '' : '' : 'ru-RU' }}р.</span>
 	</div>
 </div>

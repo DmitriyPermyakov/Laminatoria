@@ -33,6 +33,7 @@ export class AcceptOrderComponent implements OnInit {
 		let contacts = new Contacts('0', this.form.value.name, this.form.value.email, this.form.value.phone)
 
 		let order = new Order(
+			'aaaa',
 			contacts,
 			this.form.value.address,
 			this.form.value.comment,
@@ -41,5 +42,6 @@ export class AcceptOrderComponent implements OnInit {
 			'asdf'
 		)
 		console.log(order)
+		localStorage.setItem('order', JSON.stringify(order))
 	}
 }

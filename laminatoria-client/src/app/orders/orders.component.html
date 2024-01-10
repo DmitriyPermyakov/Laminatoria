@@ -8,6 +8,7 @@
 		<button class="filter-btn" (click)="openFilter()">Фильтр</button>
 	</div>
 	<div class="orders">
-		<app-order-item></app-order-item>
+		<app-order-item *ngFor="let order of orders" [order]="order"></app-order-item>
+		<app-pagination [pageCount]="20"></app-pagination>
 	</div>
 </div>

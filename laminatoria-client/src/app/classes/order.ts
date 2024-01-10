@@ -2,6 +2,7 @@ import { Contacts } from './contacts'
 import { OrderItem } from './orderItem'
 
 export class Order {
+	id: string
 	contacts: Contacts
 	address: string
 	comment: string
@@ -11,6 +12,7 @@ export class Order {
 	summary: number
 
 	constructor(
+		id: string,
 		contacts: Contacts,
 		address: string,
 		comment: string,
@@ -18,6 +20,7 @@ export class Order {
 		orderItems: OrderItem[],
 		delivery: string
 	) {
+		this.id = id
 		this.contacts = contacts
 		this.address = address
 		this.comment = comment

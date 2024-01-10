@@ -31,7 +31,8 @@ import { LoginPageComponent } from './login-page/login-page.component'
 import { ProductsService } from './services/products.service'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { ProductPropsComponent } from './product-props/product-props.component'
-import { AdditionalPropsComponent } from './additional-props/additional-props.component'
+import { AdditionalPropsComponent } from './additional-props/additional-props.component';
+import { PaginationComponent } from './pagination/pagination.component'
 
 @NgModule({
 	declarations: [
@@ -59,6 +60,7 @@ import { AdditionalPropsComponent } from './additional-props/additional-props.co
 		LoginPageComponent,
 		ProductPropsComponent,
 		AdditionalPropsComponent,
+  PaginationComponent,
 	],
 	imports: [BrowserModule, AppRoutingModule, FormsModule, ReactiveFormsModule],
 	providers: [{ provide: LOCALE_ID, useValue: 'ru-RU' }],
