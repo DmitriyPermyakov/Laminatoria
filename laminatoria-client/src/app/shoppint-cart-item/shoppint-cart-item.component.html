@@ -17,7 +17,7 @@
 		</div>
 		<p class="price">Стоимость: {{ item.amount * item.product.price | currency : '' : '' : '' : 'ru-RU' }}р.</p>
 	</div>
-	<div class="remove-btn" *ngIf="!disableCounter">
+	<div class="remove-btn" *ngIf="!disableCounter && auth.isAuthenticated">
 		<button type="button" (click)="removeItem(item.product.id)">Удалить</button>
 	</div>
 </div>

@@ -1,8 +1,8 @@
-<div class="order-item">
+<form class="order-item" [formGroup]="form">
 	<div class="contacts">
-		<input class="name" type="text" placeholder="Ф.И.О." />
-		<input class="phone" type="number" placeholder="Телефон" />
-		<input class="email" type="email" placeholder="Почта" />
+		<input class="name" type="text" placeholder="Ф.И.О." formControlName="name" />
+		<input class="phone" type="number" placeholder="Телефон" formControlName="phone" />
+		<input class="email" type="email" placeholder="Почта" formControlName="email" />
 	</div>
 	<div class="status-container">
 		<p class="status-label">статус:</p>
@@ -14,14 +14,14 @@
 	</div>
 	<div class="address-container">
 		<p class="address-label">адрес доставки:</p>
-		<input type="text" class="address" placeholder="Адрес" />
+		<input type="text" class="address" placeholder="Адрес" formControlName="address" />
 	</div>
 	<div class="comment-container">
 		<p class="comment-label">комментарий:</p>
-		<textarea class="comment" name="" id="" placeholder="Комментарий"></textarea>
+		<textarea class="comment" name="" id="" placeholder="Комментарий" formControlName="comment"></textarea>
 	</div>
 	<div class="price-container">
 		<span class="price-label">Сумма:</span>
-		<span class="price">28 566р.</span>
+		<span class="price">{{ summary | currency : '' : '' : '' : 'ru-Ru' }}р.</span>
 	</div>
-</div>
+</form>

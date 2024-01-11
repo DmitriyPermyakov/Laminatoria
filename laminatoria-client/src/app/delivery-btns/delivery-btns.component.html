@@ -21,7 +21,7 @@
 
 	<div class="remove-edit-btns" *ngIf="authService.isAuthenticated">
 		<button class="remove-btn btn" type="button">Удалить</button>
-		<button class="edit-btn btn" type="button">Редактировать</button>
+		<button class="edit-btn btn" type="button" [routerLink]="['/orders', orderId, 'edit']">Редактировать</button>
 		<button class="save-btn btn" type="button" *ngIf="editMode">Сохранить</button>
 		<button class="cancel-btn btn" type="button" *ngIf="editMode">Отмена</button>
 	</div>

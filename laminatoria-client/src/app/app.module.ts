@@ -32,7 +32,8 @@ import { ProductsService } from './services/products.service'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { ProductPropsComponent } from './product-props/product-props.component'
 import { AdditionalPropsComponent } from './additional-props/additional-props.component';
-import { PaginationComponent } from './pagination/pagination.component'
+import { PaginationComponent } from './pagination/pagination.component';
+import { ShoppingCartItemEditComponent } from './shopping-cart-item-edit/shopping-cart-item-edit.component'
 
 @NgModule({
 	declarations: [
@@ -61,6 +62,7 @@ import { PaginationComponent } from './pagination/pagination.component'
 		ProductPropsComponent,
 		AdditionalPropsComponent,
   PaginationComponent,
+  ShoppingCartItemEditComponent,
 	],
 	imports: [BrowserModule, AppRoutingModule, FormsModule, ReactiveFormsModule],
 	providers: [{ provide: LOCALE_ID, useValue: 'ru-RU' }],
