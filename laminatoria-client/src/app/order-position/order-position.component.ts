@@ -28,4 +28,8 @@ export class OrderPositionComponent implements OnInit {
 			else this.order = orders.filter((o) => o.id == this.id)[0]
 		}
 	}
+
+	public removeOrder(): void {
+		//remove
+	}
 }

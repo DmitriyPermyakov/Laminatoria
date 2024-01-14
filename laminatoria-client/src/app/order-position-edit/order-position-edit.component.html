@@ -6,5 +6,35 @@
 		</ng-container>
 	</ng-container>
 
-	<app-delivery-btns></app-delivery-btns>
+	<div class="radio-buttons-container">
+		<label for="pickup" class="pickup-label">
+			<input
+				type="radio"
+				class="delivery"
+				value="pickpup"
+				id="pickup"
+				name="delivery"
+				hidden
+				formControlName="delivery"
+			/>
+			<span>Сaмовывоз</span>
+		</label>
+
+		<label for="delivery1" class="delivery-label">
+			<input
+				type="radio"
+				class="delivery"
+				value="delivery"
+				id="delivery1"
+				name="delivery"
+				hidden
+				formControlName="delivery"
+			/>
+			<span>Доставка</span>
+		</label>
+	</div>
+	<div class="remove-edit-btns">
+		<button class="save-btn btn" type="button">Сохранить</button>
+		<button class="cancel-btn btn" type="button">Отмена</button>
+	</div>
 </div>

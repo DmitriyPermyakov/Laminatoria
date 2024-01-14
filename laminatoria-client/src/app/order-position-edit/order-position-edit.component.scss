@@ -1,4 +1,9 @@
+@import url('../../radio-buttons.scss');
+@import url('../../btn.scss');
+
 .order-position-container {
+	display: flex;
+	flex-direction: column;
 	padding: 0 4em 2em;
 	width: 100%;
 	height: calc(100vh - 10em);

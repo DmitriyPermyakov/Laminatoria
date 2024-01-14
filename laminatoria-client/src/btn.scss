@@ -19,10 +19,11 @@
 }
 
 .remove-edit-btns {
-	grid-row: 2 / 3;
-	grid-column: 1 / 3;
-
 	display: flex;
+	flex-direction: row;
+	justify-content: flex-end;
+	padding-right: 2em;
+	width: 100%;
 }
 
 @media (max-width: 600px) and (orientation: portrait) {
@@ -30,6 +31,7 @@
 		display: flex;
 		justify-content: space-around;
 		align-items: center;
+		padding-right: 0;
 		width: 100%;
 		height: 5em;
 

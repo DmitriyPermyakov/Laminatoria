@@ -7,7 +7,7 @@ export class AuthService {
 	public get isAuthenticated(): boolean {
 		return this._isAuthenticated
 	}
-	private _isAuthenticated: boolean = false
+	private _isAuthenticated: boolean = true
 
 	constructor() {}
 }
