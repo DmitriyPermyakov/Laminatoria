@@ -8,21 +8,4 @@
 		<input type="radio" class="delivery" id="delivery1" name="delivery" checked hidden />
 		<span>Доставка</span>
 	</label>
-
-	<button
-		class="order-btn btn"
-		type="button"
-		[disabled]="disabled"
-		*ngIf="!authService.isAuthenticated"
-		[routerLink]="['/accept-order']"
-	>
-		Заказать
-	</button>
-
-	<div class="remove-edit-btns" *ngIf="authService.isAuthenticated">
-		<button class="remove-btn btn" type="button">Удалить</button>
-		<button class="edit-btn btn" type="button" [routerLink]="['/orders', orderId, 'edit']">Редактировать</button>
-		<button class="save-btn btn" type="button" *ngIf="editMode">Сохранить</button>
-		<button class="cancel-btn btn" type="button" *ngIf="editMode">Отмена</button>
-	</div>
 </div>

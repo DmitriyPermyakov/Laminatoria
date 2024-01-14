@@ -13,7 +13,7 @@
 		</div>
 		<p class="price">Стоимость: {{ amount * product.price | currency : '' : '' : '' : 'ru-RU' }}р.</p>
 	</div>
-	<div class="remove-btn">
+	<div class="remove-btn" *ngIf="!auth.isAuthenticated">
 		<button type="button" (click)="removeItem()">Удалить</button>
 	</div>
 </form>

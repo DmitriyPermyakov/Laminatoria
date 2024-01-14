@@ -24,6 +24,18 @@ export class ProductsService {
 				600,
 				[]
 			),
+			new Product(
+				'aaaaa',
+				'Ясень белый',
+				'1345345345',
+				Category.Laminat,
+				prop,
+				additional,
+				typeOfProduct[typeOfProduct['units']],
+				typeOfMeasurement[typeOfMeasurement['roublesForUnit']],
+				600,
+				[]
+			),
 		]
 	}
 

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core'
 import { ShoppingCartService } from '../services/shopping-cart.service'
 import { OrderItem } from '../classes/orderItem'
+import { FormGroup } from '@angular/forms'
 
 @Component({
 	selector: 'app-shopping-cart',
@@ -8,11 +9,17 @@ import { OrderItem } from '../classes/orderItem'
 	styleUrls: ['./shopping-cart.component.scss'],
 })
 export class ShoppingCartComponent implements OnInit {
-	public productItems: OrderItem[]
+	public productItems: FormGroup[]
+	public form: FormGroup
 
 	constructor(private shoppingCart: ShoppingCartService) {}
 
 	ngOnInit(): void {
+		this.form = this.shoppingCart.form
 		this.productItems = this.shoppingCart.orderItems
+	}
+
+	public removeItem(event: number): void {
+		this.shoppingCart.removeFromCart(event)
 	}
 }

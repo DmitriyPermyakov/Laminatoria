@@ -2,11 +2,7 @@
 	<app-order-item-edit [form]="form" [summary]="order.summary"></app-order-item-edit>
 	<ng-container formArrayName="items">
 		<ng-container *ngFor="let item of items; index as i">
-			<app-shopping-cart-item-edit
-				[form]="item"
-				[index]="i"
-				(onRemoveItem)="removeItem($event)"
-			></app-shopping-cart-item-edit>
+			<app-shopping-cart-item [form]="item" [index]="i" (onRemoveItem)="removeItem($event)"></app-shopping-cart-item>
 		</ng-container>
 	</ng-container>
 

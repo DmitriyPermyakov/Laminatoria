@@ -1,9 +1,5 @@
 <div class="order-position-container">
 	<app-order-item [order]="order"></app-order-item>
-	<app-shoppint-cart-item
-		*ngFor="let item of order.orderItems"
-		[item]="item"
-		[disableCounter]="true"
-	></app-shoppint-cart-item>
+	<app-shopping-cart-item *ngFor="let item of order.orderItems"></app-shopping-cart-item>
 	<app-delivery-btns [orderId]="order.id"></app-delivery-btns>
 </div>

@@ -1,9 +1,47 @@
 <div class="shopping-cart-container">
-	<div class="shopping-cart">
-		<app-shoppint-cart-item *ngFor="let item of productItems" [item]="item"></app-shoppint-cart-item>
+	<form class="shopping-cart" [formGroup]="form">
+		<ng-container formArrayName="items">
+			<ng-container *ngFor="let item of productItems; index as i">
+				<app-shopping-cart-item
+					[form]="item"
+					(onRemoveItem)="removeItem($event)"
+					[index]="i"
+				></app-shopping-cart-item>
+			</ng-container>
+		</ng-container>
 		<p *ngIf="productItems.length < 1">Корзина пуста</p>
-		<app-delivery-btns [disabled]="productItems.length === 0"></app-delivery-btns>
-	</div>
+		<div class="radio-buttons-container" *ngIf="productItems.length > 0">
+			<label for="pickup" class="pickup-label">
+				<input
+					type="radio"
+					class="delivery"
+					value="pickup"
+					id="pickup"
+					name="delivery"
+					hidden
+					formControlName="delivery"
+				/>
+				<span>Сaмовывоз</span>
+			</label>
+
+			<label for="delivery1" class="delivery-label">
+				<input
+					type="radio"
+					class="delivery"
+					value="delivery"
+					id="delivery1"
+					name="delivery"
+					hidden
+					formControlName="delivery"
+				/>
+				<span>Доставка</span>
+			</label>
+		</div>
+
+		<div class="order-button">
+			<button class="order-btn btn" type="button" [routerLink]="['/accept-order']">Заказать</button>
+		</div>
+	</form>
 	<div class="related-products">
 		<app-related-products></app-related-products>
 	</div>

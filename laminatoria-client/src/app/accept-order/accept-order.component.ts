@@ -12,34 +12,25 @@ import { Contacts } from '../classes/contacts'
 })
 export class AcceptOrderComponent implements OnInit {
 	public form: FormGroup
-	private orderItems: OrderItem[]
 
-	constructor(private fb: FormBuilder, private shoppingCart: ShoppingCartService) {}
+	constructor(private shoppingCart: ShoppingCartService) {}
 
 	ngOnInit(): void {
-		this.form = this.fb.group({
-			name: [{ value: '', disabled: false }, Validators.required],
-			phone: [{ value: '', disabled: false }],
-			email: [{ value: '', disabled: false }, Validators.email],
-			address: [{ value: '', disabled: false }, Validators.required],
-			comment: [{ value: '', disabled: false }],
-			online: [{ value: false, disabled: false }, Validators.required],
-		})
-
-		this.orderItems = this.shoppingCart.orderItems
+		this.form = this.shoppingCart.form
 	}
 
 	public onSubmit(): void {
 		let contacts = new Contacts('0', this.form.value.name, this.form.value.email, this.form.value.phone)
-
+		let orderItems: OrderItem[] = this.form.value.items
+		console.log(orderItems)
 		let order = new Order(
 			'aaaa',
 			contacts,
 			this.form.value.address,
 			this.form.value.comment,
 			new Date(Date.now()),
-			this.orderItems,
-			'asdf'
+			orderItems,
+			this.form.value.delivery
 		)
 		console.log(order)
 		localStorage.setItem('order', JSON.stringify(order))

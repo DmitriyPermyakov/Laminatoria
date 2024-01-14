@@ -1,3 +1,6 @@
+@import url('../../btn.scss');
+@import url('../../radio-buttons.scss');
+
 .shopping-cart-container {
 	display: grid;
 	grid-template-columns: 1fr;
@@ -30,13 +33,36 @@ p {
 	font-size: 1.2rem;
 }
 
+.order-button {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: flex-end;
+	padding-right: 2em;
+	width: 100%;
+}
+
 @media (max-width: 600px) and (orientation: portrait) {
 	.shopping-cart-container {
-		padding-bottom: 0;
+		padding-bottom: 5em;
 		height: calc(100vh - 5em);
 	}
 
 	.shopping-cart {
 		padding: 1em 0 4em;
+	}
+
+	.order-button {
+		justify-content: center;
+		padding-right: 0;
+		height: 5rem;
+
+		background-color: var(--main-color);
+		box-shadow: 0 0 5px 0 var(--secondary-text);
+
+		position: fixed;
+		left: 0;
+		bottom: 0;
+		z-index: 3;
 	}
 }

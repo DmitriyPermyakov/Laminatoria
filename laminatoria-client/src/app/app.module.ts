@@ -16,7 +16,7 @@ import { ProductComponent } from './product/product.component'
 import { ProductCardComponent } from './product-card/product-card.component'
 import { RelatedProductsComponent } from './related-products/related-products.component'
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component'
-import { ShoppintCartItemComponent } from './shoppint-cart-item/shoppint-cart-item.component'
+import { ShoppingCartItemComponent } from './shopping-cart-item/shopping-cart-item.component'
 import { CounterComponent } from './counter/counter.component'
 import { AcceptOrderComponent } from './accept-order/accept-order.component'
 import { AuthService } from './services/auth.service'
@@ -28,12 +28,11 @@ import { DeliveryBtnsComponent } from './delivery-btns/delivery-btns.component'
 import { OrderItemEditComponent } from './order-item-edit/order-item-edit.component'
 import { OrderPositionEditComponent } from './order-position-edit/order-position-edit.component'
 import { LoginPageComponent } from './login-page/login-page.component'
-import { ProductsService } from './services/products.service'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { ProductPropsComponent } from './product-props/product-props.component'
-import { AdditionalPropsComponent } from './additional-props/additional-props.component';
-import { PaginationComponent } from './pagination/pagination.component';
-import { ShoppingCartItemEditComponent } from './shopping-cart-item-edit/shopping-cart-item-edit.component'
+import { AdditionalPropsComponent } from './additional-props/additional-props.component'
+import { PaginationComponent } from './pagination/pagination.component'
+import { ControlButtonsComponent } from './control-buttons/control-buttons.component'
 
 @NgModule({
 	declarations: [
@@ -48,7 +47,7 @@ import { ShoppingCartItemEditComponent } from './shopping-cart-item-edit/shoppin
 		ProductCardComponent,
 		RelatedProductsComponent,
 		ShoppingCartComponent,
-		ShoppintCartItemComponent,
+		ShoppingCartItemComponent,
 		CounterComponent,
 		AcceptOrderComponent,
 		EditProductComponent,
@@ -61,8 +60,8 @@ import { ShoppingCartItemEditComponent } from './shopping-cart-item-edit/shoppin
 		LoginPageComponent,
 		ProductPropsComponent,
 		AdditionalPropsComponent,
-  PaginationComponent,
-  ShoppingCartItemEditComponent,
+		PaginationComponent,
+		ControlButtonsComponent,
 	],
 	imports: [BrowserModule, AppRoutingModule, FormsModule, ReactiveFormsModule],
 	providers: [{ provide: LOCALE_ID, useValue: 'ru-RU' }],
