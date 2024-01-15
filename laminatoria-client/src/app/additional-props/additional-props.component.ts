@@ -39,7 +39,9 @@ export class AdditionalPropsComponent implements OnInit {
 	}
 
 	private InitResetValues(): void {
-		this.resetValues.name = this.additionalProps.value.name
-		this.resetValues.values = Array.from(this.additionalProps.value.values)
+		if (this.additionalProps.value !== '') {
+			this.resetValues.name = this.additionalProps.value.name
+			this.resetValues.values = Array.from(this.additionalProps.value.values)
+		}
 	}
 }

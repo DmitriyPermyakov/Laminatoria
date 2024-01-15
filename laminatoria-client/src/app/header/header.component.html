@@ -11,22 +11,22 @@
 		</button>
 		<ul class="nav-items" [ngClass]="{ opened: isMenuOpened == true }">
 			<li class="item">
-				<a [routerLink]="['products', 'linoleum']">Линолеум</a>
+				<a [routerLink]="['products']" [queryParams]="{ category: 'linoleum' }">Линолеум</a>
 			</li>
 			<li class="item">
-				<a [routerLink]="['products', 'laminate']">Ламинат</a>
+				<a [routerLink]="['products']" [queryParams]="{ category: 'laminate' }">Ламинат</a>
 			</li>
 			<li class="item">
-				<a [routerLink]="['products', 'carpet']">Ковролин</a>
+				<a [routerLink]="['products']" [queryParams]="{ category: 'carpet' }">Ковролин</a>
 			</li>
 			<li class="item">
-				<a [routerLink]="['products', 'lvt']">Винил</a>
+				<a [routerLink]="['products']" [queryParams]="{ category: 'lvt' }">Винил</a>
 			</li>
 			<li class="item">
-				<a [routerLink]="['products', 'grass']">Искусственная трава</a>
+				<a [routerLink]="['products']" [queryParams]="{ category: 'grass' }">Искусственная трава</a>
 			</li>
 			<li class="item">
-				<a [routerLink]="['products', 'accessories']">Аксуссуары</a>
+				<a [routerLink]="['products']" [queryParams]="{ category: 'accessories' }">Аксуссуары</a>
 			</li>
 			<li class="item">
 				<a [routerLink]="['product-cart']">Корзина</a>

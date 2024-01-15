@@ -33,7 +33,8 @@ import { ProductPropsComponent } from './product-props/product-props.component'
 import { AdditionalPropsComponent } from './additional-props/additional-props.component'
 import { PaginationComponent } from './pagination/pagination.component'
 import { ControlButtonsComponent } from './control-buttons/control-buttons.component';
-import { ShoppingCartItemInfoComponent } from './shopping-cart-item-info/shopping-cart-item-info.component'
+import { ShoppingCartItemInfoComponent } from './shopping-cart-item-info/shopping-cart-item-info.component';
+import { CreateProductComponent } from './create-product/create-product.component'
 
 @NgModule({
 	declarations: [
@@ -64,6 +65,7 @@ import { ShoppingCartItemInfoComponent } from './shopping-cart-item-info/shoppin
 		PaginationComponent,
 		ControlButtonsComponent,
   ShoppingCartItemInfoComponent,
+  CreateProductComponent,
 	],
 	imports: [BrowserModule, AppRoutingModule, FormsModule, ReactiveFormsModule],
 	providers: [{ provide: LOCALE_ID, useValue: 'ru-RU' }],

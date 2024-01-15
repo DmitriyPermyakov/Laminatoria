@@ -15,8 +15,8 @@ export class EditProductComponent implements OnInit {
 	public product: Product
 	public form: FormGroup
 
-	public typeOfProduct: typeOfProduct
-	public typeOfMeasurement: typeOfMeasurement
+	// public typeOfProduct: typeOfProduct
+	// public typeOfMeasurement: typeOfMeasurement
 
 	public get propertiesFormArray(): FormArray {
 		return this.form.controls['properties'] as FormArray

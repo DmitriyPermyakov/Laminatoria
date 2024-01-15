@@ -10,13 +10,15 @@ import { OrdersComponent } from './orders/orders.component'
 import { OrderPositionComponent } from './order-position/order-position.component'
 import { OrderPositionEditComponent } from './order-position-edit/order-position-edit.component'
 import { LoginPageComponent } from './login-page/login-page.component'
+import { CreateProductComponent } from './create-product/create-product.component'
 
 const routes: Routes = [
 	{ path: '', component: MainPageComponent },
 	{ path: 'product-cart', component: ShoppingCartComponent },
-	{ path: 'products/:category', component: ProductsPageComponent },
+	{ path: 'products', component: ProductsPageComponent },
+	{ path: 'products/create', component: CreateProductComponent },
 	{ path: 'products/:id/edit', component: EditProductComponent },
-	{ path: 'products/product/:id', component: ProductCardComponent },
+	{ path: 'products/:id', component: ProductCardComponent },
 	{ path: 'accept-order', component: AcceptOrderComponent },
 	{ path: 'orders', component: OrdersComponent },
 	{ path: 'orders/:id', component: OrderPositionComponent },
