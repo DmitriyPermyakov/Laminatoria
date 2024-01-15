@@ -1,31 +1,14 @@
 <p class="label">Характеристики:</p>
-<div class="prop" *ngFor="let p of props.value; index as i">
-	<input
-		class="prop-label"
-		type="text"
-		[value]="p.property"
-		placeholder="Характеристика"
-		(change)="onChangeExitstingPropName($event.target, i)"
-	/>
-	<input
-		class="prop-value"
-		type="text"
-		[value]="p.value"
-		placeholder="Значение"
-		(change)="onChangeExistingPropValue($event.target, i)"
-	/>
-	<button class="remove" (click)="removeValue(i)"></button>
-</div>
+<ng-container *ngFor="let propForm of propsFormGroup; index as i">
+	<form class="prop" [formGroup]="propForm">
+		<input class="prop-label" type="text" formControlName="property" placeholder="Характеристика" />
+		<input class="prop-value" type="text" formControlName="value" placeholder="Значение" />
+		<button class="remove" type="button" (click)="removeValue(i)"></button>
+	</form>
+</ng-container>
 
-<div class="add-btn">
-	<input
-		class="prop-label"
-		type="text"
-		(keydown.enter)="onChangePropName($event)"
-		(change)="onChangePropName($event)"
-		#propField
-		placeholder="Характеристика"
-	/>
-	<input class="prop-value" type="text" #valueField (keydown.enter)="onChangeValue($event)" placeholder="Значение" />
-	<button type="button" (click)="addValue()">Добавить</button>
-</div>
+<form class="add-btn" [formGroup]="newPropForm" (ngSubmit)="addValue()">
+	<input class="prop-label" type="text" placeholder="Характеристика" formControlName="property" />
+	<input class="prop-value" type="text" placeholder="Значение" formControlName="value" />
+	<button type="button" type="submit">Добавить</button>
+</form>

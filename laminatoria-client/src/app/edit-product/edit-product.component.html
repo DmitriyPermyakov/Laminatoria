@@ -29,7 +29,9 @@
 			</div>
 		</div>
 		<div class="description">
-			<app-product-props #props [props]="propertiesControl"></app-product-props>
+			<ng-container formArrayName="properties">
+				<app-product-props #props [props]="propertiesFormArray"></app-product-props>
+			</ng-container>
 		</div>
 		<div class="additional-props">
 			<app-additional-props #adProps [additionalProps]="additionalProps"></app-additional-props>

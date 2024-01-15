@@ -4,7 +4,7 @@ import { Product, typeOfMeasurement, typeOfProduct } from '../classes/product'
 import { ActivatedRoute } from '@angular/router'
 import { switchMap } from 'rxjs'
 import { ProductsService } from '../services/products.service'
-import { FormControl, FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms'
+import { FormArray, FormControl, FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms'
 
 @Component({
 	selector: 'app-edit-product',
@@ -18,8 +18,8 @@ export class EditProductComponent implements OnInit {
 	public typeOfProduct: typeOfProduct
 	public typeOfMeasurement: typeOfMeasurement
 
-	public get propertiesControl(): FormControl {
-		return this.form.controls['properties'] as FormControl
+	public get propertiesFormArray(): FormArray {
+		return this.form.controls['properties'] as FormArray
 	}
 
 	public get additionalProps(): FormControl {
@@ -65,7 +65,6 @@ export class EditProductComponent implements OnInit {
 	public resetForm(): void {
 		this.form.reset()
 		this.additionalPropComp.resetControls()
-		this.props.resetPropsValues()
 	}
 
 	private initForm(): void {
@@ -74,12 +73,21 @@ export class EditProductComponent implements OnInit {
 			name: [{ value: this.product.name, disabled: false }, Validators.required],
 			vendor: [{ value: this.product.vendor, disabled: false }, Validators.required],
 			categorid: [{ value: this.product.category, disabled: false }, Validators.required],
-			properties: [{ value: this.product.properties, disabled: false }, Validators.required],
+			properties: this.fb.array([]),
 			additional: [{ value: this.product.additionalProperty, disabled: false }],
 			type: [{ value: this.product.type, disabled: false }, Validators.required],
 			typeOfMeasurement: [{ value: this.product.typeOfMeasurement, disabled: false }, Validators.required],
 			price: [{ value: this.product.price, disabled: false }, Validators.required],
 			relatedProducts: [{ value: '' }],
+		})
+
+		this.product.properties.forEach((p) => {
+			this.propertiesFormArray.push(
+				this.fb.group({
+					property: [{ value: p.property, disabled: false }, Validators.required],
+					value: [{ value: p.value, disabled: false }, Validators.required],
+				})
+			)
 		})
 	}
 

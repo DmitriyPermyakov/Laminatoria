@@ -1,5 +1,5 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core'
-import { FormControl } from '@angular/forms'
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core'
+import { FormArray, FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms'
 import { Properties } from '../classes/properties'
 
 @Component({
@@ -8,97 +8,34 @@ import { Properties } from '../classes/properties'
 	styleUrls: ['./product-props.component.scss'],
 })
 export class ProductPropsComponent implements OnInit {
-	@Input() props: FormControl
-	@ViewChild('propField') name: ElementRef
-	@ViewChild('valueField') value: ElementRef
+	@Input() props: FormArray
 
-	private resetValues: Properties[] = []
+	public get propsFormGroup(): FormGroup[] {
+		return this.props.controls as FormGroup[]
+	}
+
+	public newPropForm: FormGroup
+
+	constructor(private fb: NonNullableFormBuilder) {}
 
 	ngOnInit(): void {
-		this.resetValues = this.initResetPropsValues()
-	}
-
-	public onChangeExitstingPropName(event, i: number): void {
-		if (event.value !== '') {
-			this.props.value[i].property = event.value
-		}
-	}
-
-	public onChangeExistingPropValue(event, i: number): void {
-		if (event.value !== '') {
-			this.props.value[i].value = event.value
-		}
-	}
-
-	public onChangePropName(event: Event): void {
-		event.preventDefault()
-		this.value.nativeElement.focus()
-	}
-
-	public onChangeValue(event: Event): void {
-		if (this.name.nativeElement.value === '') {
-			event.preventDefault()
-			this.name.nativeElement.focus()
-			return
-		}
-
-		if (this.value.nativeElement.value === '') {
-			event.preventDefault()
-			return
-		}
-
-		this.setValues()
-		this.clearInputs()
+		this.newPropForm = this.fb.group({
+			property: [{ value: '', disabled: false }, Validators.required],
+			value: [{ value: '', disabled: false }, Validators.required],
+		})
 	}
 
 	public addValue(): void {
-		if (this.name.nativeElement.value === '' || this.value.nativeElement.value === '') {
-			this.name.nativeElement.focus()
-			return
-		}
+		let form = this.fb.group({
+			property: [{ value: this.newPropForm.value.property, disabled: false }, Validators.required],
+			value: [{ value: this.newPropForm.value.value, disabled: false }, Validators.required],
+		})
 
-		this.setValues()
-		this.clearInputs()
+		this.props.push(form)
+		this.newPropForm.reset()
 	}
 
 	public removeValue(index: number): void {
-		let arr = Array.from(this.props.value)
-		arr.splice(index, 1)
-		this.props.patchValue(arr)
-	}
-
-	private setValues(): void {
-		this.props.setValue([
-			...this.props.value,
-			{
-				id: '0',
-				property: this.name.nativeElement.value,
-				value: this.value.nativeElement.value,
-			},
-		])
-	}
-
-	public resetPropsValues(): void {
-		for (let i = 0; i < this.props.value.length; i++) {
-			this.props.value[i].id = this.resetValues[i].id
-			this.props.value[i].property = this.resetValues[i].property
-			this.props.value[i].value = this.resetValues[i].value
-		}
-	}
-
-	private clearInputs(): void {
-		this.name.nativeElement.value = ''
-		this.value.nativeElement.value = ''
-	}
-
-	private initResetPropsValues(): Properties[] {
-		const value: Properties[] = []
-
-		for (let i = 0; i < this.props.value.length; i++) {
-			let prop = new Properties(this.props.value[i].id, this.props.value[i].property, this.props.value[i].value)
-			value.push(prop)
-		}
-
-		return value
+		this.props.removeAt(index)
 	}
 }
