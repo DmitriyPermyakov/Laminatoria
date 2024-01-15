@@ -1,0 +1,32 @@
+.radio-labels {
+	display: inline-block;
+	margin: 0.5em 0;
+	padding: 0.3em 0.9em;
+	border: 1px solid var(--button-color);
+	font-size: 1.2rem;
+}
+
+.mrl + .mrl {
+	margin-left: 0.5em;
+}
+
+label:has(input[type='radio']:checked) {
+	background-color: var(--button-color);
+	& > span {
+		color: var(--main-color);
+	}
+}
+
+input[type='radio'] {
+	position: absolute;
+	z-index: -1;
+	opacity: 0;
+
+	& + span::before {
+		display: none;
+	}
+
+	&:checked + span::before {
+		display: none;
+	}
+}
