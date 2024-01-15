@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core'
-import { ActivatedRoute, NavigationEnd, Router, RouterEvent } from '@angular/router'
+import { NavigationEnd, Router } from '@angular/router'
 import { FilterService } from '../services/filter.service'
 import { Subscription } from 'rxjs'
 import { ProductsService } from '../services/products.service'

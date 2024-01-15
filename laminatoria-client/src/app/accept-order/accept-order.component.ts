@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core'
-import { FormBuilder, FormGroup, Validators } from '@angular/forms'
+import { FormGroup } from '@angular/forms'
 import { ShoppingCartService } from '../services/shopping-cart.service'
 import { OrderItem } from '../classes/orderItem'
 import { Order } from '../classes/order'
@@ -32,7 +32,6 @@ export class AcceptOrderComponent implements OnInit {
 			orderItems,
 			this.form.value.delivery
 		)
-		console.log(order)
 		localStorage.setItem('order', JSON.stringify(order))
 	}
 }

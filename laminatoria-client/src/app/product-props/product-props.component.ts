@@ -1,6 +1,5 @@
 import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core'
 import { FormArray, FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms'
-import { Properties } from '../classes/properties'
 
 @Component({
 	selector: 'app-product-props',

@@ -4,7 +4,6 @@ import { ProductsService } from '../services/products.service'
 import { Product, typeOfMeasurement } from '../classes/product'
 import { ActivatedRoute } from '@angular/router'
 import { map, switchMap } from 'rxjs'
-import { CacheService } from '../services/cache.service'
 
 @Component({
 	selector: 'app-product-card',

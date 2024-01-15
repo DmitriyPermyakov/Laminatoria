@@ -1,6 +1,5 @@
 import { Injectable, OnDestroy } from '@angular/core'
 import { Product } from '../classes/product'
-import { OrderItem } from '../classes/orderItem'
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms'
 import { Subscription } from 'rxjs'
 
@@ -33,34 +32,20 @@ export class ShoppingCartService implements OnDestroy {
 	}
 
 	public addToCart(product: Product): void {
-		// if (this.orderItems.findIndex((p) => p.product.id == product.id) > -1) return
 		if (this.items.value.findIndex((p) => p.product.id == product.id) > -1) return
 
-		// this.orderItems.push(new OrderItem(product, 1))
 		let item = this.fb.group({
 			product: [{ value: product, disabled: false }],
 			amount: [{ value: 1, disabled: false }],
 		})
 
 		this.items.push(item)
-		// localStorage.setItem('shopping-cart', JSON.stringify(this.orderItems))
 		localStorage.setItem('shopping-cart', JSON.stringify(this.form.value))
 	}
 
 	public removeFromCart(id: number): void {
-		// let index = this.orderItems.findIndex((p) => p.product.id == id)
-		// let index = this.items.value.findIndex((p) => p.product.id == id)
-
-		// if (index < 0) return
-		// this.orderItems.splice(index, 1)
 		this.items.removeAt(id)
 
-		// if (this.orderItems.length == 0) {
-		// 	localStorage.removeItem('shopping-cart')
-		// 	return
-		// }
-
-		// localStorage.setItem('shopping-cart', JSON.stringify(this.orderItems))
 		localStorage.setItem('shopping-cart', JSON.stringify(this.form.value))
 	}
 
@@ -68,7 +53,6 @@ export class ShoppingCartService implements OnDestroy {
 		let itemString = localStorage.getItem('shopping-cart')
 
 		if (itemString !== null) {
-			// this.orderItems = JSON.parse(item)
 			let item = JSON.parse(itemString)
 			this.form.patchValue(item)
 			item.items.forEach((i) => {

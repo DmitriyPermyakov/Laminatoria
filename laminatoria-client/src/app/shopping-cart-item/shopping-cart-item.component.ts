@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core'
+import { Component, EventEmitter, Input, Output } from '@angular/core'
 import { FormGroup } from '@angular/forms'
 import { AuthService } from '../services/auth.service'
 import { Product } from '../classes/product'
@@ -8,7 +8,7 @@ import { Product } from '../classes/product'
 	templateUrl: './shopping-cart-item.component.html',
 	styleUrls: ['./shopping-cart-item.component.scss'],
 })
-export class ShoppingCartItemComponent implements OnInit {
+export class ShoppingCartItemComponent {
 	@Input() form: FormGroup
 	@Input() index: number
 	@Output() onRemoveItem: EventEmitter<number> = new EventEmitter()
@@ -22,9 +22,6 @@ export class ShoppingCartItemComponent implements OnInit {
 	}
 	constructor(public auth: AuthService) {}
 
-	ngOnInit(): void {
-		console.log(this.form)
-	}
 	public changeAmount(value: number): void {}
 
 	public removeItem(): void {

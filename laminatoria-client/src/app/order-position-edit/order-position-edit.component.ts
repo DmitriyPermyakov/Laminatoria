@@ -3,7 +3,7 @@ import { CacheService } from '../services/cache.service'
 import { OrdersService } from '../services/orders.service'
 import { Order } from '../classes/order'
 import { ActivatedRoute } from '@angular/router'
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
+import { FormArray, FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms'
 
 @Component({
 	selector: 'app-order-position-edit',
@@ -22,7 +22,7 @@ export class OrderPositionEditComponent implements OnInit {
 		private cacheService: CacheService,
 		private ordersService: OrdersService,
 		private activatedRoute: ActivatedRoute,
-		private fb: FormBuilder
+		private fb: NonNullableFormBuilder
 	) {
 		this.id = this.activatedRoute.snapshot.params['id']
 	}
@@ -44,6 +44,10 @@ export class OrderPositionEditComponent implements OnInit {
 		;(this.form.controls['items'] as FormArray).removeAt(event)
 	}
 
+	public resetForm(): void {
+		this.form.reset()
+	}
+
 	private initForm(): void {
 		// добавить статус
 		this.form = this.fb.group({
@@ -53,14 +57,15 @@ export class OrderPositionEditComponent implements OnInit {
 			address: [{ value: this.order.address, disabled: false }, Validators.required],
 			comment: [{ value: this.order.comment, disabled: false }],
 			delivery: [{ value: this.order.delivery, disabled: false }],
-			items: new FormArray([]),
+			items: this.fb.array([]),
 		})
 
 		this.order.orderItems.forEach((o) => {
-			let item = new FormGroup({
-				product: new FormControl(o.product),
-				amount: new FormControl(o.amount),
+			let item = this.fb.group({
+				product: [{ value: o.product, disabled: false }],
+				amount: [{ value: o.amount, disabled: false }],
 			})
+
 			this.items.push(item)
 		})
 	}

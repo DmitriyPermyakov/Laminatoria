@@ -1,5 +1,4 @@
 import { Component, Input } from '@angular/core'
-import { Router } from '@angular/router'
 import { Product } from '../classes/product'
 import { ShoppingCartService } from '../services/shopping-cart.service'
 

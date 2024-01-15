@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core'
-import { FormControl, FormControlState } from '@angular/forms'
-import { AdditionalProperty } from '../classes/product'
+import { FormControl } from '@angular/forms'
 
 @Component({
 	selector: 'app-additional-props',
@@ -32,7 +31,6 @@ export class AdditionalPropsComponent implements OnInit {
 		let arr = Array.from(this.additionalProps.value.values)
 		arr.splice(i, 1)
 		this.additionalProps.value.values = arr
-		console.log(this.additionalProps.value.values)
 	}
 
 	public resetControls(): void {

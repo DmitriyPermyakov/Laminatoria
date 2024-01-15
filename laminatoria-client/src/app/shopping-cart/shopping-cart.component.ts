@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core'
 import { ShoppingCartService } from '../services/shopping-cart.service'
-import { OrderItem } from '../classes/orderItem'
 import { FormGroup } from '@angular/forms'
 
 @Component({
