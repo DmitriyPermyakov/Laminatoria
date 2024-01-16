@@ -11,6 +11,7 @@ import { OrderPositionComponent } from './order-position/order-position.componen
 import { OrderPositionEditComponent } from './order-position-edit/order-position-edit.component'
 import { LoginPageComponent } from './login-page/login-page.component'
 import { CreateProductComponent } from './create-product/create-product.component'
+import { CreateOrderComponent } from './create-order/create-order.component'
 
 const routes: Routes = [
 	{ path: '', component: MainPageComponent },
@@ -21,6 +22,7 @@ const routes: Routes = [
 	{ path: 'products/:id', component: ProductCardComponent },
 	{ path: 'accept-order', component: AcceptOrderComponent },
 	{ path: 'orders', component: OrdersComponent },
+	{ path: 'orders/create', component: CreateOrderComponent },
 	{ path: 'orders/:id', component: OrderPositionComponent },
 	{ path: 'orders/:id/edit', component: OrderPositionEditComponent },
 	{ path: 'login', component: LoginPageComponent },

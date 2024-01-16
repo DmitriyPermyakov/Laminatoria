@@ -32,9 +32,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { ProductPropsComponent } from './product-props/product-props.component'
 import { AdditionalPropsComponent } from './additional-props/additional-props.component'
 import { PaginationComponent } from './pagination/pagination.component'
-import { ControlButtonsComponent } from './control-buttons/control-buttons.component';
-import { ShoppingCartItemInfoComponent } from './shopping-cart-item-info/shopping-cart-item-info.component';
+import { ControlButtonsComponent } from './control-buttons/control-buttons.component'
+import { ShoppingCartItemInfoComponent } from './shopping-cart-item-info/shopping-cart-item-info.component'
 import { CreateProductComponent } from './create-product/create-product.component'
+import { CreateOrderComponent } from './create-order/create-order.component'
+import { ClickOutsideDirective } from './directives/click-outside.directive'
 
 @NgModule({
 	declarations: [
@@ -64,8 +66,10 @@ import { CreateProductComponent } from './create-product/create-product.componen
 		AdditionalPropsComponent,
 		PaginationComponent,
 		ControlButtonsComponent,
-  ShoppingCartItemInfoComponent,
-  CreateProductComponent,
+		ShoppingCartItemInfoComponent,
+		CreateProductComponent,
+		CreateOrderComponent,
+		ClickOutsideDirective,
 	],
 	imports: [BrowserModule, AppRoutingModule, FormsModule, ReactiveFormsModule],
 	providers: [{ provide: LOCALE_ID, useValue: 'ru-RU' }],

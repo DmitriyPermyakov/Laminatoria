@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core'
 import { CacheService } from '../services/cache.service'
 import { OrdersService } from '../services/orders.service'
 import { Order } from '../classes/order'
 import { ActivatedRoute } from '@angular/router'
 import { FormArray, FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms'
+import { Product } from '../classes/product'
+import { ProductsService } from '../services/products.service'
 
 @Component({
 	selector: 'app-order-position-edit',
@@ -13,16 +15,20 @@ import { FormArray, FormGroup, NonNullableFormBuilder, Validators } from '@angul
 export class OrderPositionEditComponent implements OnInit {
 	public order: Order
 	public form: FormGroup
+	public products: Product[] = []
+	public id: string
+
+	@ViewChild('productContainer') productContainer: ElementRef
 
 	public get items(): FormGroup[] {
 		return (this.form.controls['items'] as FormArray).controls as FormGroup[]
 	}
-	private id: string
 	constructor(
 		private cacheService: CacheService,
 		private ordersService: OrdersService,
 		private activatedRoute: ActivatedRoute,
-		private fb: NonNullableFormBuilder
+		private fb: NonNullableFormBuilder,
+		private productService: ProductsService
 	) {
 		this.id = this.activatedRoute.snapshot.params['id']
 	}
@@ -38,14 +44,29 @@ export class OrderPositionEditComponent implements OnInit {
 			this.order = orders.filter((o) => o.id == this.id)[0]
 			this.initForm()
 		}
+
+		this.productService.getAll().subscribe((p) => (this.products = p))
+	}
+
+	public addItem(product: Product): void {
+		;(this.productContainer.nativeElement as HTMLElement).classList.remove('visible')
+		let item = this.fb.group({
+			product: [{ value: product, disabled: false }],
+			amount: [{ value: 1, disabled: false }],
+		})
+		this.items.push(item)
 	}
 
 	public removeItem(event: number): void {
 		;(this.form.controls['items'] as FormArray).removeAt(event)
 	}
 
-	public resetForm(): void {
-		this.form.reset()
+	public showMenu(): void {
+		;(this.productContainer.nativeElement as HTMLElement).classList.add('visible')
+	}
+
+	public closeMenu(): void {
+		;(this.productContainer.nativeElement as HTMLElement).classList.remove('visible')
 	}
 
 	private initForm(): void {

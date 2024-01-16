@@ -4,8 +4,6 @@ import { Directive, HostListener } from '@angular/core'
 	selector: '[appOpenCloseMenu]',
 })
 export class OpenCloseMenuDirective {
-	constructor() {}
-
 	@HostListener('click', ['$event.target'])
 	public onClick(target) {
 		if (target.nextSibling.classList.contains('opened')) {

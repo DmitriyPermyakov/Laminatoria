@@ -14,6 +14,7 @@ import { FormArray, FormControl, FormGroup, NonNullableFormBuilder, Validators }
 export class EditProductComponent implements OnInit {
 	public product: Product
 	public form: FormGroup
+	public id: string
 
 	// public typeOfProduct: typeOfProduct
 	// public typeOfMeasurement: typeOfMeasurement
@@ -36,19 +37,19 @@ export class EditProductComponent implements OnInit {
 	) {}
 
 	ngOnInit(): void {
-		let id = this.activatedRoute.snapshot.paramMap.get('id')
+		this.id = this.activatedRoute.snapshot.paramMap.get('id')
 		const data = this.cacheService.get('products')
 
 		if (!data) {
 			this.productService
 				.getAll()
-				.pipe(switchMap((prod) => prod.filter((p) => p.id == id)))
+				.pipe(switchMap((prod) => prod.filter((p) => p.id == this.id)))
 				.subscribe((product) => {
 					this.product = product
 					this.initForm()
 				})
 		} else {
-			this.product = data.filter((p) => p.id == id)[0]
+			this.product = data.filter((p) => p.id == this.id)[0]
 			this.initForm()
 		}
 
@@ -60,11 +61,6 @@ export class EditProductComponent implements OnInit {
 
 	public onSubmit(): void {
 		console.log(JSON.stringify(this.form.value))
-	}
-
-	public resetForm(): void {
-		this.form.reset()
-		this.additionalPropComp.resetControls()
 	}
 
 	private initForm(): void {

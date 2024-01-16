@@ -1,5 +1,5 @@
 <div class="order-position-container" [formGroup]="form">
-	<app-order-item-edit [form]="form" [summary]="order.summary"></app-order-item-edit>
+	<app-order-item-edit [form]="form" [summary]="summary"></app-order-item-edit>
 	<ng-container formArrayName="items">
 		<ng-container *ngFor="let item of items; index as i">
 			<app-shopping-cart-item [form]="item" [index]="i" (onRemoveItem)="removeItem($event)"></app-shopping-cart-item>
@@ -59,6 +59,6 @@
 	</div>
 	<div class="remove-edit-btns">
 		<button class="save-btn btn" type="button">Сохранить</button>
-		<button class="cancel-btn btn" type="button" [routerLink]="['/orders', id]">Отмена</button>
+		<button class="cancel-btn btn" type="button" [routerLink]="['/orders']">Отмена</button>
 	</div>
 </div>

@@ -60,7 +60,7 @@
 		<div class="btn-container auth">
 			<div class="edit-btns-container">
 				<button type="button" (click)="onSubmit()">Сохранить</button>
-				<button type="button" (click)="resetForm()">Отмена</button>
+				<button type="button" [routerLink]="['/products', id]">Отмена</button>
 			</div>
 		</div>
 	</form>
