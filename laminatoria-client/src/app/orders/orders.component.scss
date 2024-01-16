@@ -1,3 +1,5 @@
+@import url('../../add-button.scss');
+
 .orders-container {
 	display: grid;
 	grid-template-columns: 1fr 3fr;
@@ -7,6 +9,7 @@
 	padding-right: 2em;
 	width: 100%;
 	height: calc(100vh - 10em);
+	position: relative;
 }
 
 .filter-container {
@@ -50,7 +53,7 @@
 		align-content: start;
 		padding: 1em;
 		height: unset;
-		min-height: calc(100vh);
+		min-height: calc(100vh - 5em);
 		position: relative;
 	}
 

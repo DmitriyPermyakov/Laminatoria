@@ -1,0 +1,43 @@
+.add-btn {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	padding: 0.7em 2em;
+
+	border: none;
+	background-color: var(--button-color);
+
+	color: var(--main-color);
+	font-size: 0.9rem;
+	font-family: inherit;
+
+	position: absolute;
+	bottom: 2em;
+	right: 4em;
+
+	& > svg {
+		display: none;
+	}
+
+	&:hover {
+		background-color: var(--button-hover);
+	}
+}
+
+@media (max-width: 600px) and (orientation: portrait) {
+	.add-btn {
+		bottom: 2em;
+		right: 2em;
+		padding: 1em;
+		border-radius: 50%;
+
+		& > span {
+			display: none;
+		}
+
+		& > svg {
+			display: block;
+		}
+	}
+}

@@ -1,3 +1,5 @@
+@import url('../../add-button.scss');
+
 .products-container {
 	display: grid;
 	grid-template-columns: 1fr 3fr;
@@ -8,6 +10,8 @@
 
 	width: 100%;
 	height: calc(100vh - 10em);
+
+	position: relative;
 }
 
 .filter-container {
@@ -56,16 +60,16 @@
 @media (max-width: 600px) and (orientation: portrait) {
 	.products-container {
 		grid-template-columns: 1fr;
-		grid-template-rows: auto;
+		grid-template-rows: auto 1fr;
 		padding: 1em;
 
-		// height: calc(100vh - 5em);
-		// height: calc(100svh - 5em);
+		height: calc(100vh - 5em);
+		height: calc(100svh - 5em);
 
 		// height: 105vh;
 		// height: 105svh;
 
-		height: unset;
+		// height: unset;
 		position: relative;
 	}
 
