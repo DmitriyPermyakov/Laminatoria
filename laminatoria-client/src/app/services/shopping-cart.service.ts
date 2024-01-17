@@ -34,7 +34,7 @@ export class ShoppingCartService implements OnDestroy {
 	public addToCart(product: Product, additionalPropValue?: string): void {
 		if (this.items.value.findIndex((p) => p.additionalPropValue == additionalPropValue) > -1) return
 
-		if (additionalPropValue == '' && product.additionalProperty !== null) {
+		if (!additionalPropValue && product.additionalProperty !== null) {
 			additionalPropValue = product.additionalProperty.values[0]
 		}
 		let item = this.fb.group({

@@ -16,15 +16,24 @@ export class ShoppingCartItemComponent {
 	public CategoryEnum = Category
 
 	public get product(): Product {
-		return this.form.controls['product'].value
+		return this.form.controls['product']?.value
 	}
 
 	public get amount(): number {
-		return this.form.controls['amount'].value
+		return this.form.controls['amount']?.value
 	}
+
+	public get additionalPropsValue(): string {
+		return this.form.controls['additionalPropValue']?.value
+	}
+
 	constructor(public auth: AuthService) {}
 
-	public changeAmount(value: number): void {}
+	// public changeAmount(value: number): void {}
+
+	public changeAdditionalProp(event: Event): void {
+		this.form.controls['additionalPropValue']?.setValue((event.target as HTMLInputElement).value)
+	}
 
 	public removeItem(): void {
 		this.onRemoveItem.emit(this.index)

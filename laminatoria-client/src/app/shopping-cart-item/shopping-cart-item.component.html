@@ -16,8 +16,27 @@
 			<app-counter formControlName="amount"></app-counter>
 			<p class="result-value">Площадь: 124м2</p>
 		</div>
-		<p class="price">Стоимость: {{ amount * product.price | currency : '' : '' : '' : 'ru-RU' }}р.</p>
+		<div class="additional-props" *ngIf="additionalPropsValue">
+			<p class="label">{{ product.additionalProperty.name }}</p>
+			<label
+				[for]="i + product.id + index"
+				class="radio-labels"
+				*ngFor="let p of product.additionalProperty.values; index as i"
+			>
+				<input
+					type="radio"
+					[id]="i + product.id + index"
+					name="additional-props"
+					[value]="p"
+					hidden
+					[checked]="p === additionalPropsValue"
+					(change)="changeAdditionalProp($event)"
+				/>
+				<span>{{ p }}</span>
+			</label>
+		</div>
 	</div>
+	<p class="price">Стоимость: {{ amount * product.price | currency : '' : '' : '' : 'ru-RU' }}р.</p>
 	<div class="remove-btn" *ngIf="!auth.isAuthenticated">
 		<button type="button" (click)="removeItem()">Удалить</button>
 	</div>
