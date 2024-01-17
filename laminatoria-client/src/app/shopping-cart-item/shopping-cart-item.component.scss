@@ -35,8 +35,16 @@
 }
 
 .name {
+	display: block;
 	margin-bottom: 0.3em;
 	font-size: 1.625rem;
+
+	color: var(--main-text);
+	text-decoration: none;
+
+	&:hover {
+		text-decoration: underline;
+	}
 }
 
 .vendor {

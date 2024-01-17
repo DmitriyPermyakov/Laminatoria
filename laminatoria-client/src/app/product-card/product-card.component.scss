@@ -1,4 +1,5 @@
 @import url('../../images.scss');
+@import url('../../filled-radio-buttons.scss');
 
 :host {
 	display: block;
@@ -23,7 +24,7 @@
 
 	display: grid;
 	grid-template-columns: 1fr 1fr;
-	grid-template-rows: auto minmax(300px, auto) auto 1fr;
+	grid-template-rows: auto auto auto auto 1fr;
 
 	margin-bottom: 4em;
 	width: 100%;
@@ -54,22 +55,12 @@
 
 	overflow-y: hidden;
 	position: relative;
-	& > .label {
-		padding: 0.4em 0.2em;
+}
+.label {
+	padding: 0.4em 0.2em;
 
-		margin-bottom: 0.8em;
-		background-color: var(--label-color);
-	}
-
-	&::after {
-		content: '';
-		width: 100%;
-		height: 50px;
-		background: linear-gradient(to top, var(--main-color), transparent);
-		position: absolute;
-		bottom: 0;
-		left: 0;
-	}
+	margin-bottom: 0.8em;
+	background-color: var(--label-color);
 }
 
 .prop {
@@ -81,10 +72,12 @@
 }
 
 .additional-props {
+	grid-row: 3 / 4;
+	grid-column: 2 / 3;
 }
 
 .price {
-	grid-row: 3 / 4;
+	grid-row: 4 / 5;
 	grid-column: 2 / 3;
 
 	align-self: center;
@@ -93,7 +86,7 @@
 }
 
 .btn-container {
-	grid-row: 4 / 5;
+	grid-row: 5 / 6;
 	grid-column: 2 / 3;
 
 	align-self: self-end;

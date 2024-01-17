@@ -31,12 +31,16 @@ export class ShoppingCartService implements OnDestroy {
 		if (this.valueChangeSub) this.valueChangeSub.unsubscribe()
 	}
 
-	public addToCart(product: Product): void {
-		if (this.items.value.findIndex((p) => p.product.id == product.id) > -1) return
+	public addToCart(product: Product, additionalPropValue?: string): void {
+		if (this.items.value.findIndex((p) => p.additionalPropValue == additionalPropValue) > -1) return
 
+		if (additionalPropValue == '' && product.additionalProperty !== null) {
+			additionalPropValue = product.additionalProperty.values[0]
+		}
 		let item = this.fb.group({
 			product: [{ value: product, disabled: false }],
 			amount: [{ value: 1, disabled: false }],
+			additionalPropValue: [{ value: additionalPropValue, disabled: false }],
 		})
 
 		this.items.push(item)
@@ -59,6 +63,7 @@ export class ShoppingCartService implements OnDestroy {
 				let item = this.fb.group({
 					product: [{ value: i.product, disabled: false }],
 					amount: [{ value: i.amount, disabled: false }],
+					additionalPropValue: [{ value: i.additionalPropValue, disabled: false }],
 				})
 				;(<FormArray>this.form.controls['items']).push(item)
 			})

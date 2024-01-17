@@ -34,7 +34,7 @@ export class OrderPositionEditComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
-		let orders: Order[] = this.cacheService.get('orders' + this.cacheService.pageNumber)
+		let orders: Order[] = this.cacheService.get('orders' + this.cacheService.orderPageNumber)
 		if (!orders)
 			this.ordersService.getById(this.id).subscribe((o) => {
 				this.order = o

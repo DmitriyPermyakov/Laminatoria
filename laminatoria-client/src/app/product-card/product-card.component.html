@@ -29,13 +29,28 @@
 				<span class="prop-value">{{ prop.value }}</span>
 			</div>
 		</div>
+		<div class="additional-props">
+			<p class="label">{{ product.additionalProperty.name }}</p>
+			<label [for]="i" class="radio-labels" *ngFor="let p of product.additionalProperty.values; index as i">
+				<input
+					type="radio"
+					[id]="i"
+					name="additional-props"
+					[value]="p"
+					hidden
+					[checked]="i == 0"
+					(change)="additionalPropChangeValue($event)"
+				/>
+				<span>{{ p }}</span>
+			</label>
+		</div>
 		<p class="price">{{ product.price }}{{ typeOfMeasurement[product.typeOfMeasurement] }}</p>
 		<div class="btn-container">
-			<button class="to-cart" *ngIf="!auth.isAuthenticated">В корзину</button>
+			<button class="to-cart" type="button" *ngIf="!auth.isAuthenticated" (click)="addToCart()">В корзину</button>
 			<ng-container *ngIf="auth.isAuthenticated">
 				<div class="edit-btns-container">
-					<button class="remove-btn">Удалить</button>
-					<button class="edit-btn" [routerLink]="['/products', id, 'edit']">Редактировать</button>
+					<button class="remove-btn" type="button">Удалить</button>
+					<button class="edit-btn" type="button" [routerLink]="['/products', id, 'edit']">Редактировать</button>
 				</div>
 			</ng-container>
 		</div>

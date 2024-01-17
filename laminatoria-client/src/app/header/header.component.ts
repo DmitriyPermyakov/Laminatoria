@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core'
 import { FilterService } from '../services/filter.service'
 import { NavigationEnd, Router } from '@angular/router'
 import { Subscription } from 'rxjs'
+import { AuthService } from '../services/auth.service'
 
 @Component({
 	selector: 'app-header',
@@ -13,7 +14,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
 	private routerSub: Subscription
 
-	constructor(public filterService: FilterService, private router: Router) {}
+	constructor(public filterService: FilterService, public auth: AuthService, private router: Router) {}
 
 	ngOnInit(): void {
 		this.routerSub = this.router.events.subscribe((event) => {

@@ -10,6 +10,13 @@
 	<div class="products">
 		<app-product *ngFor="let p of products" [product]="p"></app-product>
 	</div>
+	<div class="pagination">
+		<app-pagination
+			[pageCount]="pageCount"
+			[currentPage]="currentPage"
+			[elementsOnPage]="elementsOnPage"
+		></app-pagination>
+	</div>
 	<button class="add-btn" [routerLink]="['/products/create']">
 		<span>Добавить</span>
 		<svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">

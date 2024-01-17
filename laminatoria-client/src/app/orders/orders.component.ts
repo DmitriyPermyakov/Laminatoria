@@ -23,13 +23,13 @@ export class OrdersComponent implements OnInit {
 	) {}
 
 	ngOnInit(): void {
-		if (this.cacheService.pageNumber < 0) {
+		if (this.cacheService.orderPageNumber < 0) {
 			//получить данные первой страницы с сервера
-			this.cacheService.pageNumber = 1
+			this.cacheService.orderPageNumber = 1
 			this.currentPage = 1
 			this.loadAndCacheOrders()
 		} else {
-			this.currentPage = this.cacheService.pageNumber
+			this.currentPage = this.cacheService.orderPageNumber
 			let ordersFromCache = this.cacheService.get('orders' + this.currentPage)
 			if (!ordersFromCache) {
 				this.loadAndCacheOrders()

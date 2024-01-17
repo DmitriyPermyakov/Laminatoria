@@ -4,7 +4,8 @@ import { Injectable } from '@angular/core'
 	providedIn: 'root',
 })
 export class CacheService {
-	public pageNumber: number = -1
+	public orderPageNumber: number = -1
+	public productPageNumber: number = -1
 
 	private cache = new Map<string, any[]>()
 
