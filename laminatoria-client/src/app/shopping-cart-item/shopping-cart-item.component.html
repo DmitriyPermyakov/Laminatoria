@@ -26,7 +26,7 @@
 				<input
 					type="radio"
 					[id]="i + product.id + index"
-					name="additional-props"
+					[name]="'additional-props' + index"
 					[value]="p"
 					hidden
 					[checked]="p === additionalPropsValue"

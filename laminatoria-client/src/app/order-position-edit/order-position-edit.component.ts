@@ -53,6 +53,7 @@ export class OrderPositionEditComponent implements OnInit {
 		let item = this.fb.group({
 			product: [{ value: product, disabled: false }],
 			amount: [{ value: 1, disabled: false }],
+			additionalPropValue: [{ value: product.additionalProperty.values[0], disabled: false }],
 		})
 		this.items.push(item)
 	}
@@ -85,6 +86,7 @@ export class OrderPositionEditComponent implements OnInit {
 			let item = this.fb.group({
 				product: [{ value: o.product, disabled: false }],
 				amount: [{ value: o.amount, disabled: false }],
+				additionalPropValue: [{ value: o.additionalPropValue, disabled: false }],
 			})
 
 			this.items.push(item)

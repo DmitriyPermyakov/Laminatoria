@@ -1,6 +1,10 @@
 <div class="order-position-container">
 	<app-order-item [order]="order"></app-order-item>
-	<app-shopping-cart-item-info *ngFor="let item of order.orderItems" [item]="item"></app-shopping-cart-item-info>
+	<app-shopping-cart-item-info
+		*ngFor="let item of order.orderItems; index as i"
+		[item]="item"
+		[cartIndex]="i"
+	></app-shopping-cart-item-info>
 	<div class="remove-edit-btns">
 		<button class="remove-btn btn" type="button">Удалить</button>
 		<button class="edit-btn btn" type="button" [routerLink]="['/orders', order.id, 'edit']">Редактировать</button>

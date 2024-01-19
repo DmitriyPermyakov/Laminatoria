@@ -9,6 +9,7 @@ import { Category } from '../classes/product'
 })
 export class ShoppingCartItemInfoComponent {
 	@Input() item: OrderItem
+	@Input() cartIndex: number
 
 	public categoryEnum = Category
 }
