@@ -25,7 +25,7 @@ export class OrderPositionComponent implements OnInit {
 		if (this.id !== '') {
 			let orders: Order[] = this.cacheService.get('orders' + this.cacheService.orderPageNumber)
 			if (!orders) this.orderService.getById(this.id).subscribe((o) => (this.order = o))
-			else this.order = orders.filter((o) => o.id == this.id)[0]
+			else this.order = orders.filter((o) => o.id == +this.id)[0]
 		}
 	}
 

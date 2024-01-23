@@ -62,7 +62,7 @@ export class ProductCardComponent implements OnInit, AfterViewInit {
 		this.productService
 			.getAll()
 			.pipe(
-				map((p) => p.filter((p) => p.id == this.id)),
+				map((p) => p.filter((p) => p.id == +this.id)),
 				switchMap((p) => p)
 			)
 			.subscribe((p) => {

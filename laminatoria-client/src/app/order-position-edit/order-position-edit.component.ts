@@ -41,7 +41,7 @@ export class OrderPositionEditComponent implements OnInit {
 				this.initForm()
 			})
 		else {
-			this.order = orders.filter((o) => o.id == this.id)[0]
+			this.order = orders.filter((o) => o.id == +this.id)[0]
 			this.initForm()
 		}
 

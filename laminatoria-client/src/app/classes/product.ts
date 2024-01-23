@@ -1,7 +1,7 @@
 import { Properties } from './properties'
 
 export class Product {
-	id: string
+	id: number
 	name: string
 	vendor: string
 	category: Category
@@ -10,10 +10,10 @@ export class Product {
 	type: string
 	typeOfMeasurement: string
 	price: number
-	relatedProduct: Product[]
+	relatedProductsId: number[]
 
 	constructor(
-		id: string,
+		id: number,
 		name: string,
 		vendor: string,
 		category: Category, //ламинат, линолеум и тд
@@ -22,7 +22,7 @@ export class Product {
 		type: string, // отрезной или штучный
 		typeOfMeasurement: string, // руб.шт руб.м2 руб.м
 		price: number,
-		relatedProducts: Product[]
+		relatedProductsId: number[]
 	) {
 		this.id = id
 		this.name = name
@@ -33,16 +33,16 @@ export class Product {
 		this.type = type
 		this.typeOfMeasurement = typeOfMeasurement
 		this.price = price
-		this.relatedProduct = relatedProducts
+		this.relatedProductsId = relatedProductsId
 	}
 }
 
 export class AdditionalProperty {
-	id: string
+	id: number
 	name: string
 	values: string[]
 
-	constructor(id: string, name: string, values: string[]) {
+	constructor(id: number, name: string, values: string[]) {
 		this.id = id
 		this.name = name
 		this.values = values

@@ -10,19 +10,19 @@ export class ProductsService {
 	private products: Product[]
 	constructor() {
 		let prop = [
-			new Properties('1', 'Бренд', 'IDEAL'),
-			new Properties('2', 'Толщина', '1.8мм'),
-			new Properties('1', 'Бренд', 'IDEAL'),
-			new Properties('2', 'Толщина', '1.8мм'),
-			new Properties('1', 'Бренд', 'IDEAL'),
-			new Properties('2', 'Толщина', '1.8мм'),
-			new Properties('1', 'Бренд', 'IDEAL'),
-			new Properties('2', 'Толщина', '1.8мм'),
+			new Properties(1, 'Бренд', 'IDEAL'),
+			new Properties(2, 'Толщина', '1.8мм'),
+			new Properties(3, 'Бренд', 'IDEAL'),
+			new Properties(4, 'Толщина', '1.8мм'),
+			new Properties(5, 'Бренд', 'IDEAL'),
+			new Properties(6, 'Толщина', '1.8мм'),
+			new Properties(7, 'Бренд', 'IDEAL'),
+			new Properties(8, 'Толщина', '1.8мм'),
 		]
-		let additional = new AdditionalProperty('0', 'Ширина', ['2.50', '3', '4'])
+		let additional = new AdditionalProperty(1, 'Ширина', ['2.50', '3', '4'])
 		this.products = [
 			new Product(
-				'asdfaf',
+				1,
 				'Дуб ривьера',
 				'1345345345',
 				Category.Laminat,
@@ -34,7 +34,7 @@ export class ProductsService {
 				[]
 			),
 			new Product(
-				'aaaaa',
+				2,
 				'Ясень белый',
 				'1345345345',
 				Category.Laminat,
@@ -46,7 +46,7 @@ export class ProductsService {
 				[]
 			),
 			new Product(
-				'asdfaf',
+				3,
 				'Дуб ривьера',
 				'1345345345',
 				Category.Laminat,
@@ -58,7 +58,7 @@ export class ProductsService {
 				[]
 			),
 			new Product(
-				'aaaaa',
+				4,
 				'Ясень белый',
 				'1345345345',
 				Category.Laminat,
@@ -70,7 +70,7 @@ export class ProductsService {
 				[]
 			),
 			new Product(
-				'asdfaf',
+				5,
 				'Дуб ривьера',
 				'1345345345',
 				Category.Laminat,
@@ -82,7 +82,7 @@ export class ProductsService {
 				[]
 			),
 			new Product(
-				'aaaaa',
+				6,
 				'Ясень белый',
 				'1345345345',
 				Category.Laminat,

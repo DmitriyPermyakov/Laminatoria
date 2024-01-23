@@ -20,11 +20,11 @@ export class AcceptOrderComponent implements OnInit {
 	}
 
 	public onSubmit(): void {
-		let contacts = new Contacts('0', this.form.value.name, this.form.value.email, this.form.value.phone)
+		let contacts = new Contacts(0, this.form.value.name, this.form.value.email, this.form.value.phone)
 		let orderItems: OrderItem[] = this.form.value.items
 		console.log(orderItems)
 		let order = new Order(
-			'aaaa',
+			0,
 			contacts,
 			this.form.value.address,
 			this.form.value.comment,

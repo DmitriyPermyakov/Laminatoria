@@ -43,7 +43,7 @@ export class EditProductComponent implements OnInit {
 		if (!data) {
 			this.productService
 				.getAll()
-				.pipe(switchMap((prod) => prod.filter((p) => p.id == this.id)))
+				.pipe(switchMap((prod) => prod.filter((p) => p.id == +this.id)))
 				.subscribe((product) => {
 					this.product = product
 					this.initForm()
