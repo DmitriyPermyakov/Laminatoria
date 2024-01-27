@@ -59,6 +59,7 @@ export enum typeOfMeasurement {
 	'roublesForUnit',
 }
 
+//категории в отдельную таблицу
 export enum Category {
 	Linoleum,
 	Laminat,
