@@ -3,7 +3,12 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33122.133
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Laminatoria", "Laminatoria.csproj", "{BD30EEDA-A32A-4E49-90FB-19717610E535}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Laminatoria", "Laminatoria.csproj", "{BD30EEDA-A32A-4E49-90FB-19717610E535}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F0913264-6E02-47D4-B9CC-AC82A06497BF}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

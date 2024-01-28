@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Laminatoria.Migrations
 {
     [DbContext(typeof(LaminatoriaDbContext))]
-    [Migration("20240127160248_Init")]
+    [Migration("20240128142510_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -62,7 +62,6 @@ namespace Laminatoria.Migrations
                         .HasColumnType("smallint");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.HasKey("Id");
@@ -74,6 +73,121 @@ namespace Laminatoria.Migrations
                         {
                             Id = (short)1,
                             Name = "Laminat"
+                        });
+                });
+
+            modelBuilder.Entity("Laminatoria.Models.Contact", b =>
+                {
+                    b.Property<short>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("smallint");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("OrderId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrderId")
+                        .IsUnique();
+
+                    b.ToTable("Contact");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = (short)1,
+                            Email = "andrey@mail.ru",
+                            Name = "Андрей Иванов",
+                            OrderId = 1,
+                            Phone = "+79994442233"
+                        });
+                });
+
+            modelBuilder.Entity("Laminatoria.Models.Order", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Comments")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Delivery")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<decimal>("Summary")
+                        .HasColumnType("decimal(65,30)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Orders");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Address = "ул. Новосибирская 23, кв 45",
+                            Comments = "slgksag;saj;sf",
+                            Date = new DateTime(2024, 1, 28, 19, 25, 10, 575, DateTimeKind.Local).AddTicks(2330),
+                            Delivery = "delivery",
+                            Summary = 1500m
+                        });
+                });
+
+            modelBuilder.Entity("Laminatoria.Models.OrderItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("AdditionalPropValue")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<float>("Amount")
+                        .HasColumnType("float");
+
+                    b.Property<int>("OrderId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ProductId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrderId");
+
+                    b.ToTable("OrderItem");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AdditionalPropValue = "2.5",
+                            Amount = 8f,
+                            OrderId = 1,
+                            ProductId = 1
                         });
                 });
 
@@ -167,6 +281,28 @@ namespace Laminatoria.Migrations
                     b.Navigation("Product");
                 });
 
+            modelBuilder.Entity("Laminatoria.Models.Contact", b =>
+                {
+                    b.HasOne("Laminatoria.Models.Order", "Order")
+                        .WithOne("Contact")
+                        .HasForeignKey("Laminatoria.Models.Contact", "OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Order");
+                });
+
+            modelBuilder.Entity("Laminatoria.Models.OrderItem", b =>
+                {
+                    b.HasOne("Laminatoria.Models.Order", "Order")
+                        .WithMany("OrderItems")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Order");
+                });
+
             modelBuilder.Entity("Laminatoria.Models.Product", b =>
                 {
                     b.HasOne("Laminatoria.Models.Category", "Category")
@@ -190,6 +326,13 @@ namespace Laminatoria.Migrations
             modelBuilder.Entity("Laminatoria.Models.Category", b =>
                 {
                     b.Navigation("Products");
+                });
+
+            modelBuilder.Entity("Laminatoria.Models.Order", b =>
+                {
+                    b.Navigation("Contact");
+
+                    b.Navigation("OrderItems");
                 });
 
             modelBuilder.Entity("Laminatoria.Models.Product", b =>

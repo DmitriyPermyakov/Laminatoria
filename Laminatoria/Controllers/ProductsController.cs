@@ -37,11 +37,13 @@ namespace Laminatoria.Controllers
             try
             {
                 ProductResponse p = await this.repository.GetProductByIdAsync(id);
+                if (p == null)
+                    return NotFound($"Product with id {id} not found");
                 return Ok(p);
             }
             catch (Exception e)
             {
-                return NotFound("Product not found");
+                return NotFound(e.Message);
             }
         }
 
@@ -84,7 +86,7 @@ namespace Laminatoria.Controllers
             }
         }
 
-        [HttpPost("delete/{id}")]
+        [HttpDelete("delete/{id}")]
         public IActionResult DeleteProduct(int id)
         {
             try
