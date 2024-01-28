@@ -9,7 +9,7 @@ namespace Laminatoria.Repository
         public DbSet<Category> Categories { get; set; }
         public DbSet<AdditionalProperty> AdditionalProperties { get; set; }
         public DbSet<Properties> Properties { get; set; }
-        //public DbSet<Order> Orders { get; set; }
+        public DbSet<Order> Orders { get; set; }
         public LaminatoriaDbContext(DbContextOptions<LaminatoriaDbContext> opts): base(opts)
         {
           
@@ -23,6 +23,8 @@ namespace Laminatoria.Repository
             modelBuilder.Entity<Product>()
                 .Property(p => p.TypeOfProduct)
                 .HasConversion<string>();
+
+
 
             //modelBuilder.Entity<Product>()
             //    .HasData(
