@@ -5,10 +5,10 @@ namespace Laminatoria.Repository
 {
     public interface IProductRepository
     {
-        IQueryable<Product> GetAllProducts(string category);
-        Task<Product> GetProductByIdAsync(int id);
+        IQueryable<ProductResponse> GetAllProducts(string category);
+        Task<ProductResponse> GetProductByIdAsync(int id);
         Task<int> CreateProductAsync(ProductRequest product);
-        void UpdateProduct(Product product);
+        Task UpdateProductAsync(ProductRequest product);
         void DeleteProduct(int id);
     }
 

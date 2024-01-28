@@ -17,26 +17,26 @@ namespace Laminatoria.Controllers
             this.repository = repository;
         }
         [HttpGet("getAll")]
-        public async Task<IActionResult> GetAllProduct([FromQuery] string category)
+        public async Task<IActionResult> GetAllProductAsync([FromQuery] string category)
         {
             try
             {
-                List<Product> products = await this.repository.GetAllProducts(category).ToListAsync();
+                List<ProductResponse> products = await this.repository.GetAllProducts(category).ToListAsync();
                 return Ok(products);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
-                return NotFound("Product not found");
+                return NotFound("Products not found");
             }
+
         }
 
         [HttpGet("getById/{id}")]
         public async Task<IActionResult> GetProductById(int id)
         {
-            Console.WriteLine(id);
             try
             {
-                Product p = await this.repository.GetProductByIdAsync(id);
+                ProductResponse p = await this.repository.GetProductByIdAsync(id);
                 return Ok(p);
             }
             catch (Exception e)
@@ -60,9 +60,41 @@ namespace Laminatoria.Controllers
                 int createdProductIdTask = await this.repository.CreateProductAsync(product);
                 return Ok(createdProductIdTask);
             }
-            catch(Exception e)
+            catch (Exception e)
+            {
+                return BadRequest("Can't update product");
+            }
+        }
+
+        [HttpPost("update")]
+        public async Task<IActionResult> UpdateProduct([FromBody] ProductRequest product)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest("Can't update product");
+                }                
+                await this.repository.UpdateProductAsync(product);
+                return Ok("Product successfully updated");
+            }
+            catch (Exception e)
             {
                 return BadRequest(e.Message);
+            }
+        }
+
+        [HttpPost("delete/{id}")]
+        public IActionResult DeleteProduct(int id)
+        {
+            try
+            {
+                this.repository.DeleteProduct(id);
+                return Ok("Product was removed");
+            }
+            catch (Exception e)
+            {
+                return BadRequest("Can't delete product");
             }
         }
     }

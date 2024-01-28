@@ -12,7 +12,7 @@ namespace Laminatoria.Models
         public TypeOfMeasurement TypeOfMeasurement { get; set; }
         public TypeOfProduct TypeOfProduct { get; set; }
         public short? CategoryId { get; set; }
-        public Category Category { get; set; }        
+        public Category? Category { get; set; }        
         public AdditionalProperty AdditionalProperty { get; set; }
 
         [Column(TypeName = "decimal(5,2)")]

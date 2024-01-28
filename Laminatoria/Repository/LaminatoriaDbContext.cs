@@ -16,13 +16,13 @@ namespace Laminatoria.Repository
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {   
-            //modelBuilder.Entity<Product>()
-            //    .Property(p => p.TypeOfMeasurement)
-            //    .HasConversion<int>();
-            //modelBuilder.Entity<Product>()
-            //    .Property(p => p.TypeOfProduct)
-            //    .HasConversion<string>();
+        {
+            modelBuilder.Entity<Product>()
+                .Property(p => p.TypeOfMeasurement)
+                .HasConversion<int>();
+            modelBuilder.Entity<Product>()
+                .Property(p => p.TypeOfProduct)
+                .HasConversion<string>();
 
             //modelBuilder.Entity<Product>()
             //    .HasData(

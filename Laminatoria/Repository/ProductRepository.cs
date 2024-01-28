@@ -1,9 +1,6 @@
 ﻿using Laminatoria.DTO;
 using Laminatoria.Models;
 using Microsoft.EntityFrameworkCore;
-using System.Text.Json.Serialization;
-using System.Text.Json;
-
 
 namespace Laminatoria.Repository
 {
@@ -15,28 +12,50 @@ namespace Laminatoria.Repository
         {
             this.context = context;
         }
-        public IQueryable<Product> GetAllProducts(string category)
+        public IQueryable<ProductResponse> GetAllProducts(string category)
         {
             return context.Products
                 .Where(p => p.Category.Name == category)
                 .Include(p => p.Category)
                 .Include(p => p.AdditionalProperty)
-                .Include(p => p.Properties);      
+                .Include(p => p.Properties)
+                .Select(p => new ProductResponse
+                {
+                    Id = p.Id,
+                    Name = p.Name,
+                    Vendor = p.Vendor,
+                    TypeOfMeasurement = p.TypeOfMeasurement,
+                    TypeOfProduct = p.TypeOfProduct,
+                    CategoryId = p.Category.Id,
+                    Category = p.Category.Name,
+                    AdditionalProperty = p.AdditionalProperty,
+                    Properties = p.Properties,
+                    Price = p.Price,
+                });                     
         }
 
-        public async Task<Product> GetProductByIdAsync(int id)
+        public async Task<ProductResponse> GetProductByIdAsync(int id)
         {
             return await context.Products                
                 .Include(p => p.Properties)
+                .Select(p => new ProductResponse
+                {
+                    Id = p.Id,
+                    Name = p.Name,
+                    Vendor = p.Vendor,
+                    TypeOfMeasurement = p.TypeOfMeasurement,
+                    TypeOfProduct = p.TypeOfProduct,
+                    CategoryId = p.Category.Id,
+                    Category = p.Category.Name,
+                    AdditionalProperty = p.AdditionalProperty,
+                    Properties = p.Properties,
+                    Price = p.Price,
+                })
                 .FirstOrDefaultAsync(p => p.Id == id);
         }
 
         public async Task<int> CreateProductAsync(ProductRequest newProduct)
         {
-            Console.WriteLine(JsonSerializer.Serialize(newProduct));
-
-           
-
             Product product = new Product
             {
                 Id = 0,
@@ -48,8 +67,6 @@ namespace Laminatoria.Repository
                 Price = newProduct.Price,
             };
             await context.Products.AddAsync(product);
-
-
 
             AdditionalProperty additionalProperty = new AdditionalProperty
             {
@@ -76,10 +93,23 @@ namespace Laminatoria.Repository
             return product.Id;
         }
 
-        public void UpdateProduct(Product product)
-        {
-            context.Products.Update(product);
-            context.SaveChanges();
+        public async Task UpdateProductAsync(ProductRequest product)
+        {     
+            Product originalProduct = context.Products.Find(product.Id);
+
+            if (originalProduct != null)
+            {
+                originalProduct.Name = product.Name;
+                originalProduct.Vendor = product.Vendor;
+                originalProduct.TypeOfMeasurement = product.TypeOfMeasurement;
+                originalProduct.TypeOfProduct = product.TypeOfProduct;
+                originalProduct.Price = product.Price;
+                originalProduct.AdditionalProperty = product.AdditionalProperty;
+                originalProduct.Properties = product.Properties;
+                originalProduct.CategoryId = product.CategoryId;
+            }
+
+            await context.SaveChangesAsync();
         }
 
         public void DeleteProduct(int id)
