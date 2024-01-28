@@ -5,7 +5,7 @@ namespace Laminatoria.Models
     public class Order
     {
         public int Id { get; set; }
-        public Contact ContactContact { get; set; }
+        public Contact Contact { get; set; }
         public string Address { get; set; }
         public string Comments { get; set; }
         public DateTime Date { get; set; }

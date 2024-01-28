@@ -24,7 +24,40 @@ namespace Laminatoria.Repository
                 .Property(p => p.TypeOfProduct)
                 .HasConversion<string>();
 
+            Contact contact = new Contact
+            {
+                Id = 1,
+                Name = "Андрей Иванов",
+                Email = "andrey@mail.ru",
+                Phone = "+79994442233",
+            };
 
+            OrderItem item = new OrderItem
+            {
+                Id = 1,
+                AdditionalPropValue = "2.5",
+                Amount = 8,
+                ProductId = 1,
+            };
+
+            List<OrderItem> orderItems = new List<OrderItem>();
+            orderItems.Add(item);
+
+
+            modelBuilder.Entity<Order>()
+                .HasData(
+                    new Order
+                    {
+                        Id = 1,
+                        Contact = contact,
+                        Address = "ул. Новосибирская 23, кв 45",
+                        Comments = "slgksag;saj;sf",
+                        Date = DateTime.Now,
+                        Delivery = "delivery",
+                        Summary = 1500,
+                        OrderItems = orderItems
+                    }
+                );
 
             //modelBuilder.Entity<Product>()
             //    .HasData(
