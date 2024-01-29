@@ -19,10 +19,10 @@ namespace Laminatoria.Repository
         {
             modelBuilder.Entity<Product>()
                 .Property(p => p.TypeOfMeasurement)
-                .HasConversion<int>();
+                .HasConversion<byte>();
             modelBuilder.Entity<Product>()
                 .Property(p => p.TypeOfProduct)
-                .HasConversion<string>();
+                .HasConversion<byte>();
 
             Contact contact = new Contact
             {

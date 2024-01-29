@@ -8,7 +8,7 @@
 	/>
 	<div class="additional-props-list">
 		<ng-container *ngIf="additionalProps.value">
-			<div class="prop-container" *ngFor="let prop of additionalProps.value.values.split(' '); index as i">
+			<div class="prop-container" *ngFor="let prop of additionalProps.value.values?.trim().split(' '); index as i">
 				<span class="prop-value">{{ prop }}</span>
 				<button type="button" class="remove-prop" (click)="removeAdditionalProp(i)">
 					<svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">

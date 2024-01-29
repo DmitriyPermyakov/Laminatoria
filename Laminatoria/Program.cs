@@ -18,6 +18,18 @@ ServerVersion serverVersion = new MySqlServerVersion(new Version(8, 3, 0));
 builder.Services.AddDbContext<LaminatoriaDbContext>(options => options.UseMySql(connectionString, serverVersion));
 
 
+string localOrigins = "localOrigin";
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: localOrigins,
+        policy =>
+        {
+            policy.WithOrigins("http://localhost:4200");
+        });
+});
+
+
 Console.WriteLine(connectionString);
 
 builder.Services.AddTransient<IOrderRepository, OrderRepository>();
@@ -43,6 +55,8 @@ app.UseStaticFiles();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseCors(localOrigins);
 
 
 

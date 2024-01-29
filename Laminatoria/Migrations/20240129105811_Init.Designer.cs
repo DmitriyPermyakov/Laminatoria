@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Laminatoria.Migrations
 {
     [DbContext(typeof(LaminatoriaDbContext))]
-    [Migration("20240128142510_Init")]
+    [Migration("20240129105811_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -149,7 +149,7 @@ namespace Laminatoria.Migrations
                             Id = 1,
                             Address = "ул. Новосибирская 23, кв 45",
                             Comments = "slgksag;saj;sf",
-                            Date = new DateTime(2024, 1, 28, 19, 25, 10, 575, DateTimeKind.Local).AddTicks(2330),
+                            Date = new DateTime(2024, 1, 29, 15, 58, 10, 878, DateTimeKind.Local).AddTicks(7430),
                             Delivery = "delivery",
                             Summary = 1500m
                         });
@@ -207,12 +207,11 @@ namespace Laminatoria.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(5,2)");
 
-                    b.Property<int>("TypeOfMeasurement")
-                        .HasColumnType("int");
+                    b.Property<byte>("TypeOfMeasurement")
+                        .HasColumnType("tinyint unsigned");
 
-                    b.Property<string>("TypeOfProduct")
-                        .IsRequired()
-                        .HasColumnType("longtext");
+                    b.Property<byte>("TypeOfProduct")
+                        .HasColumnType("tinyint unsigned");
 
                     b.Property<string>("Vendor")
                         .IsRequired()
@@ -231,8 +230,8 @@ namespace Laminatoria.Migrations
                             CategoryId = (short)1,
                             Name = "Дуб Ривьера",
                             Price = 900m,
-                            TypeOfMeasurement = 0,
-                            TypeOfProduct = "cutting",
+                            TypeOfMeasurement = (byte)0,
+                            TypeOfProduct = (byte)0,
                             Vendor = "12 2354 zz"
                         });
                 });

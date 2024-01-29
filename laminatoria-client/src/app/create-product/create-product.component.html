@@ -34,26 +34,26 @@
 			</ng-container>
 		</div>
 		<div class="additional-props">
-			<!-- <app-additional-props #adProps [additionalProps]="additionalProps"></app-additional-props> -->
+			<app-additional-props #adProps [additionalProps]="additionalProps"></app-additional-props>
 		</div>
 		<div class="type-of-products">
 			<label for="cutting" class="radio-labels">
-				<input type="radio" id="cutting" hidden value="cutting" formControlName="type" />
+				<input type="radio" id="cutting" hidden [value]="0" formControlName="typeOfProduct" />
 				<span>Отрезной</span>
 			</label>
 			<label for="piece" class="radio-labels">
-				<input type="radio" id="piece" hidden value="units" formControlName="type" />
+				<input type="radio" id="piece" hidden [value]="1" formControlName="typeOfProduct" />
 				<span>Штучный</span>
 			</label>
 		</div>
 		<div class="price-container">
 			<input class="price" type="number" placeholder="Цена" formControlName="price" />
 			<label for="m2" class="radio-labels">
-				<input type="radio" id="m2" value="roublesForSquareMeter" hidden formControlName="typeOfMeasurement" />
+				<input type="radio" id="m2" [value]="0" hidden formControlName="typeOfMeasurement" />
 				<span>р./м2</span>
 			</label>
 			<label for="sht" class="radio-labels">
-				<input type="radio" id="sht" value="roublesForUnit" hidden formControlName="typeOfMeasurement" />
+				<input type="radio" id="sht" [value]="1" hidden formControlName="typeOfMeasurement" />
 				<span>р./шт.</span>
 			</label>
 		</div>

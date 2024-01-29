@@ -17,8 +17,8 @@ export class CreateProductComponent implements OnInit {
 		return this.form.controls['properties'] as FormArray
 	}
 
-	public get additionalProps(): FormControl {
-		return this.form.controls['additional'] as FormControl
+	public get additionalProps(): FormGroup {
+		return this.form.controls['additionalProperty'] as FormGroup
 	}
 	constructor(private productService: ProductsService, private fb: FormBuilder) {}
 
@@ -32,7 +32,7 @@ export class CreateProductComponent implements OnInit {
 
 	public resetForm(): void {
 		this.form.reset()
-		this.additionalPropComp.resetControls()
+		// this.additionalPropComp.resetControls()
 	}
 
 	private initForm(): void {
@@ -42,11 +42,12 @@ export class CreateProductComponent implements OnInit {
 			vendor: [{ value: '', disabled: false }, Validators.required],
 			categorid: [{ value: '', disabled: false }, Validators.required],
 			properties: this.fb.array([]),
-			additional: this.fb.group({
+			additionalProperty: this.fb.group({
+				id: [{ value: 0, disabled: false }],
 				name: [{ value: '', disabled: false }],
-				values: [{ value: [], disabled: false }],
+				values: [{ value: '', disabled: false }],
 			}),
-			type: [{ value: '', disabled: false }, Validators.required],
+			typeOfProduct: [{ value: '', disabled: false }, Validators.required],
 			typeOfMeasurement: [{ value: '', disabled: false }, Validators.required],
 			price: [{ value: '', disabled: false }, Validators.required],
 			relatedProducts: [{ value: '' }],
