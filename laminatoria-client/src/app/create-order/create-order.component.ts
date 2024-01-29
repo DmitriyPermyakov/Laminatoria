@@ -26,7 +26,7 @@ export class CreateOrderComponent {
 
 	ngOnInit(): void {
 		this.initForm()
-		this.productService.getAll().subscribe((p) => (this.products = p))
+		// this.productService.getAll().subscribe((p) => (this.products = p))
 	}
 
 	public addItem(product: Product): void {

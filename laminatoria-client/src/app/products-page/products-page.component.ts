@@ -37,16 +37,17 @@ export class ProductsPageComponent implements OnInit {
 		// })
 
 		let queryParam = this.activatedRoute.snapshot.queryParams['category']
+		this.cacheService.productCategory = queryParam
 		console.log(queryParam)
 		if (this.cacheService.productPageNumber < 0) {
 			this.cacheService.productPageNumber = 1
 			this.currentPage = 1
-			this.loadAndCacheProducts()
+			this.loadAndCacheProducts(this.cacheService.productCategory)
 		} else {
 			this.currentPage = this.cacheService.productPageNumber
 			let productsFromCache = this.cacheService.get('products' + this.currentPage)
 			if (!productsFromCache) {
-				this.loadAndCacheProducts()
+				this.loadAndCacheProducts(this.cacheService.productCategory)
 			} else {
 				this.products = productsFromCache
 			}
@@ -57,8 +58,8 @@ export class ProductsPageComponent implements OnInit {
 		this.isOpen = this.filterService.toggleFilter()
 	}
 
-	public loadAndCacheProducts(): void {
-		this.productService.getAll().subscribe((p) => {
+	public loadAndCacheProducts(category: string): void {
+		this.productService.getAll(category).subscribe((p) => {
 			this.products = p
 			this.pageCount = Math.ceil(this.products.length / this.elementsOnPage)
 			this.cacheService.set('products' + this.currentPage, p)

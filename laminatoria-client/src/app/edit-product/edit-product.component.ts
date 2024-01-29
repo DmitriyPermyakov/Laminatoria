@@ -23,8 +23,8 @@ export class EditProductComponent implements OnInit {
 		return this.form.controls['properties'] as FormArray
 	}
 
-	public get additionalProps(): FormControl {
-		return this.form.controls['additional'] as FormControl
+	public get additionalProps(): FormGroup {
+		return this.form.controls['additional'] as FormGroup
 	}
 
 	@ViewChild('adProps') private additionalPropComp
@@ -38,20 +38,8 @@ export class EditProductComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.id = this.activatedRoute.snapshot.paramMap.get('id')
-		const data = this.cacheService.get('products')
 
-		if (!data) {
-			this.productService
-				.getAll()
-				.pipe(switchMap((prod) => prod.filter((p) => p.id == +this.id)))
-				.subscribe((product) => {
-					this.product = product
-					this.initForm()
-				})
-		} else {
-			this.product = data.filter((p) => p.id == this.id)[0]
-			this.initForm()
-		}
+		this.loadProduct()
 
 		this.checkAdditionalProperties()
 
@@ -70,8 +58,12 @@ export class EditProductComponent implements OnInit {
 			vendor: [{ value: this.product.vendor, disabled: false }, Validators.required],
 			categorid: [{ value: this.product.category, disabled: false }, Validators.required],
 			properties: this.fb.array([]),
-			additional: [{ value: this.product.additionalProperty, disabled: false }],
-			type: [{ value: this.product.type, disabled: false }, Validators.required],
+			additional: this.fb.group({
+				id: [{ value: this.product.additionalProperty?.id ?? 0, disabled: false }],
+				name: [{ value: this.product.additionalProperty?.name ?? '', disabled: false }],
+				values: [{ value: this.product.additionalProperty?.values ?? '', disabled: false }],
+			}),
+			typeOfProduct: [{ value: this.product.typeOfProduct, disabled: false }, Validators.required],
 			typeOfMeasurement: [{ value: this.product.typeOfMeasurement, disabled: false }, Validators.required],
 			price: [{ value: this.product.price, disabled: false }, Validators.required],
 			relatedProducts: [{ value: '' }],
@@ -80,6 +72,7 @@ export class EditProductComponent implements OnInit {
 		this.product.properties.forEach((p) => {
 			this.propertiesFormArray.push(
 				this.fb.group({
+					id: [{ value: p.id, disabled: false }],
 					property: [{ value: p.property, disabled: false }, Validators.required],
 					value: [{ value: p.value, disabled: false }, Validators.required],
 				})
@@ -87,6 +80,26 @@ export class EditProductComponent implements OnInit {
 		})
 	}
 
+	private loadProduct(): void {
+		if (this.id != '') {
+			const data = this.cacheService.get('products' + this.cacheService.productPageNumber)
+
+			if (data != undefined) {
+				this.product = data.find((p) => p.id == this.id)
+				if (!this.product) this.loadProductFromServer(+this.id)
+				else this.initForm()
+			} else {
+				this.loadProductFromServer(+this.id)
+			}
+		}
+	}
+
+	private loadProductFromServer(id: number): void {
+		this.productService.getById(+this.id).subscribe((product) => {
+			this.product = product
+			this.initForm()
+		})
+	}
 	private checkAdditionalProperties(): void {
 		//#TODO: проверить наличие дополнительных свойств
 	}

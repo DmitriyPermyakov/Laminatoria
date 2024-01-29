@@ -45,7 +45,7 @@ export class OrderPositionEditComponent implements OnInit {
 			this.initForm()
 		}
 
-		this.productService.getAll().subscribe((p) => (this.products = p))
+		this.productService.getAll(this.cacheService.productCategory).subscribe((p) => (this.products = p))
 	}
 
 	public addItem(product: Product): void {

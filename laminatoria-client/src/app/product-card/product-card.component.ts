@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core'
 import { AuthService } from '../services/auth.service'
 import { ProductsService } from '../services/products.service'
-import { Product, typeOfMeasurement } from '../classes/product'
+import { Product, typeOfMeasurement, typeOfMeasurementMap } from '../classes/product'
 import { ActivatedRoute } from '@angular/router'
 import { map, switchMap } from 'rxjs'
 import { ShoppingCartService } from '../services/shopping-cart.service'
@@ -14,7 +14,7 @@ import { CacheService } from '../services/cache.service'
 })
 export class ProductCardComponent implements OnInit, AfterViewInit {
 	public product: Product
-	public typeOfMeasurement = typeOfMeasurement
+	public typeOfMeasurement: string = ''
 	public additionalPropValue: string
 
 	public id: string
@@ -30,24 +30,11 @@ export class ProductCardComponent implements OnInit, AfterViewInit {
 	ngOnInit(): void {
 		this.id = this.activatedRoute.snapshot.paramMap.get('id')
 
-		if (this.id !== '') {
-			let productsFromCache = this.cache.get('products' + this.cache.productPageNumber)
-
-			if (productsFromCache != undefined) {
-				let prod = productsFromCache.find((p) => p.id == this.id)
-				if (!prod) {
-					this.loadFromServer()
-				} else {
-					this.product = prod
-				}
-			} else {
-				this.loadFromServer()
-			}
-		}
+		this.loadProduct()
 	}
 
 	ngAfterViewInit(): void {
-		this.additionalPropValue = this.product.additionalProperty.values[0]
+		if (this.product) this.additionalPropValue = this.product.additionalProperty.values.split(' ')[0]
 	}
 
 	public addToCart(): void {
@@ -58,15 +45,25 @@ export class ProductCardComponent implements OnInit, AfterViewInit {
 		this.additionalPropValue = (event.target as HTMLInputElement).value
 	}
 
-	private loadFromServer(): void {
-		this.productService
-			.getAll()
-			.pipe(
-				map((p) => p.filter((p) => p.id == +this.id)),
-				switchMap((p) => p)
-			)
-			.subscribe((p) => {
-				this.product = p
-			})
+	private loadProduct(): void {
+		if (this.id !== '') {
+			let productsFromCache = this.cache.get('products' + this.cache.productPageNumber)
+
+			if (productsFromCache != undefined) {
+				this.product = productsFromCache.find((p) => p.id == this.id)
+				this.typeOfMeasurement = typeOfMeasurementMap.get(this.product?.typeOfMeasurement) ?? ''
+
+				if (!this.product) this.loadFromServer(+this.id)
+			} else {
+				this.loadFromServer(+this.id)
+			}
+		}
+	}
+
+	private loadFromServer(id: number): void {
+		this.productService.getById(id).subscribe((p) => {
+			this.product = p
+			this.typeOfMeasurement = typeOfMeasurementMap.get(this.product?.typeOfMeasurement) ?? ''
+		})
 	}
 }

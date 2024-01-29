@@ -7,8 +7,8 @@ export class Product {
 	category: Category
 	properties: Properties[]
 	additionalProperty: AdditionalProperty //запрашивать с сервера
-	type: string
-	typeOfMeasurement: string
+	typeOfProduct: number
+	typeOfMeasurement: number
 	price: number
 	relatedProductsId: number[]
 
@@ -19,8 +19,8 @@ export class Product {
 		category: Category, //ламинат, линолеум и тд
 		properties: Properties[],
 		additionalProperty: AdditionalProperty,
-		type: string, // отрезной или штучный
-		typeOfMeasurement: string, // руб.шт руб.м2 руб.м
+		typeOfProduct: number, // отрезной или штучный
+		typeOfMeasurement: number, // руб.шт руб.м2 руб.м
 		price: number,
 		relatedProductsId: number[]
 	) {
@@ -30,7 +30,7 @@ export class Product {
 		this.category = category
 		this.properties = properties
 		this.additionalProperty = additionalProperty
-		this.type = type
+		this.typeOfProduct = typeOfProduct
 		this.typeOfMeasurement = typeOfMeasurement
 		this.price = price
 		this.relatedProductsId = relatedProductsId
@@ -40,9 +40,9 @@ export class Product {
 export class AdditionalProperty {
 	id: number
 	name: string
-	values: string[]
+	values: string
 
-	constructor(id: number, name: string, values: string[]) {
+	constructor(id: number, name: string, values: string) {
 		this.id = id
 		this.name = name
 		this.values = values
@@ -54,10 +54,20 @@ export enum typeOfProduct {
 	'units',
 }
 
+export const typeOfProductMap: Map<number, string> = new Map()
+
+typeOfProductMap.set(0, 'Отрезной')
+typeOfProductMap.set(1, 'Штучный')
+
 export enum typeOfMeasurement {
 	'roublesForSquareMeter',
 	'roublesForUnit',
 }
+
+export const typeOfMeasurementMap: Map<number, string> = new Map()
+
+typeOfMeasurementMap.set(0, 'р./м2')
+typeOfMeasurementMap.set(1, 'р./шт.')
 
 //категории в отдельную таблицу
 export enum Category {

@@ -14,7 +14,7 @@
 			<p class="prop-value">130*68</p>
 		</div>
 		<div class="prop">
-			<p class="price">{{ product.price }}rub</p>
+			<p class="price">{{ product.price + typeOfMeasurement }}</p>
 		</div>
 		<button class="to-cart" *ngIf="!auth.isAuthenticated" (click)="addToCart()">В корзину</button>
 		<button class="to-cart" *ngIf="auth.isAuthenticated" [routerLink]="['/products', product.id, 'edit']">

@@ -1,5 +1,6 @@
 import { NgModule, LOCALE_ID } from '@angular/core'
 import { BrowserModule } from '@angular/platform-browser'
+import { HttpClientModule } from '@angular/common/http'
 import { registerLocaleData } from '@angular/common'
 import localeRu from '@angular/common/locales/ru'
 import '@angular/common/locales/global/ru'
@@ -71,7 +72,7 @@ import { ClickOutsideDirective } from './directives/click-outside.directive'
 		CreateOrderComponent,
 		ClickOutsideDirective,
 	],
-	imports: [BrowserModule, AppRoutingModule, FormsModule, ReactiveFormsModule],
+	imports: [BrowserModule, AppRoutingModule, FormsModule, ReactiveFormsModule, HttpClientModule],
 	providers: [{ provide: LOCALE_ID, useValue: 'ru-RU' }],
 	bootstrap: [AppComponent],
 })
