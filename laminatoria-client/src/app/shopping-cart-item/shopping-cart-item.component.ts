@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core'
 import { FormGroup } from '@angular/forms'
 import { AuthService } from '../services/auth.service'
-import { Category, Product } from '../classes/product'
+import { Product } from '../classes/product'
 
 @Component({
 	selector: 'app-shopping-cart-item',
@@ -12,8 +12,6 @@ export class ShoppingCartItemComponent {
 	@Input() form: FormGroup
 	@Input() index: number
 	@Output() onRemoveItem: EventEmitter<number> = new EventEmitter()
-
-	public CategoryEnum = Category
 
 	public get product(): Product {
 		return this.form.controls['product']?.value

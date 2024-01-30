@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core'
 import { ProductsService } from '../services/products.service'
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
+import { CategoriesService } from '../services/categories.service'
+import { Category } from '../classes/category'
 
 @Component({
 	selector: 'app-create-product',
@@ -9,6 +11,7 @@ import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@ang
 })
 export class CreateProductComponent implements OnInit {
 	public form: FormGroup
+	public categories: Category[]
 
 	@ViewChild('adProps') private additionalPropComp
 	@ViewChild('props') private props
@@ -20,9 +23,15 @@ export class CreateProductComponent implements OnInit {
 	public get additionalProps(): FormGroup {
 		return this.form.controls['additionalProperty'] as FormGroup
 	}
-	constructor(private productService: ProductsService, private fb: FormBuilder) {}
+
+	constructor(
+		private productService: ProductsService,
+		private fb: FormBuilder,
+		private categoriesService: CategoriesService
+	) {}
 
 	ngOnInit(): void {
+		this.categoriesService.getCategories().subscribe((c) => (this.categories = c))
 		this.initForm()
 	}
 
@@ -40,7 +49,7 @@ export class CreateProductComponent implements OnInit {
 			id: '0',
 			name: [{ value: '', disabled: false }, Validators.required],
 			vendor: [{ value: '', disabled: false }, Validators.required],
-			categorid: [{ value: '', disabled: false }, Validators.required],
+			category: [{ value: '', disabled: false }, Validators.required],
 			properties: this.fb.array([]),
 			additionalProperty: this.fb.group({
 				id: [{ value: 0, disabled: false }],
@@ -52,5 +61,9 @@ export class CreateProductComponent implements OnInit {
 			price: [{ value: '', disabled: false }, Validators.required],
 			relatedProducts: [{ value: '' }],
 		})
+	}
+
+	public remove() {
+		console.log('remove')
 	}
 }

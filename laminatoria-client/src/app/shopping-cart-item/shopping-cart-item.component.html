@@ -7,7 +7,7 @@
 			<a
 				class="name"
 				[routerLink]="['/products']"
-				[queryParams]="{ category: CategoryEnum[product.category].toLowerCase() }"
+				[queryParams]="{ category: product.category.name.toLowerCase() }"
 				>{{ product.name }}</a
 			>
 			<p class="vendor">{{ product.vendor }}</p>

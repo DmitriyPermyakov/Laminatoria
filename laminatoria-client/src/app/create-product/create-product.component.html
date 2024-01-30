@@ -33,6 +33,11 @@
 				<app-product-props #props [props]="propertiesFormArray"></app-product-props>
 			</ng-container>
 		</div>
+		<div class="categories">
+			<select name="categories" class="product-categories" formControlName="category">
+				<option *ngFor="let c of categories; index as i" [value]="c.id">{{ c.value }}</option>
+			</select>
+		</div>
 		<div class="additional-props">
 			<app-additional-props #adProps [additionalProps]="additionalProps"></app-additional-props>
 		</div>

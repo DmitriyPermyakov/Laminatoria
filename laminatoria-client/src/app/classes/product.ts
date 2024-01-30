@@ -1,3 +1,4 @@
+import { Category } from './category'
 import { Properties } from './properties'
 
 export class Product {
@@ -68,13 +69,3 @@ export const typeOfMeasurementMap: Map<number, string> = new Map()
 
 typeOfMeasurementMap.set(0, 'р./м2')
 typeOfMeasurementMap.set(1, 'р./шт.')
-
-//категории в отдельную таблицу
-export enum Category {
-	Linoleum,
-	Laminat,
-	Carpetin,
-	Vinil,
-	Grass,
-	Accessories,
-}

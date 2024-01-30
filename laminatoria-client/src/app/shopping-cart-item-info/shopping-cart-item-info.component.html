@@ -4,12 +4,9 @@
 	</div>
 	<div class="item-description">
 		<div class="main-desc">
-			<a
-				class="name"
-				[routerLink]="['/products']"
-				[queryParams]="{ category: categoryEnum[item.product.category] }"
-				>{{ item.product.name }}</a
-			>
+			<a class="name" [routerLink]="['/products']" [queryParams]="{ category: item.product.category.name }">{{
+				item.product.name
+			}}</a>
 			<p class="vendor">{{ item.product.vendor }}</p>
 		</div>
 		<div class="amounts">

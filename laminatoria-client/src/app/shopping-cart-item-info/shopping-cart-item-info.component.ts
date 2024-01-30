@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core'
 import { OrderItem } from '../classes/orderItem'
-import { Category } from '../classes/product'
 
 @Component({
 	selector: 'app-shopping-cart-item-info',
@@ -10,6 +9,4 @@ import { Category } from '../classes/product'
 export class ShoppingCartItemInfoComponent {
 	@Input() item: OrderItem
 	@Input() cartIndex: number
-
-	public categoryEnum = Category
 }

@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core'
-import { Observable, catchError, of, throwError } from 'rxjs'
-import { AdditionalProperty, Category, Product, typeOfMeasurement, typeOfProduct } from '../classes/product'
-import { Properties } from '../classes/properties'
+import { Observable, catchError, throwError } from 'rxjs'
+import { Product } from '../classes/product'
 import { HttpClient, HttpParams } from '@angular/common/http'
 import { environment } from 'src/environments/environment.development'
 
