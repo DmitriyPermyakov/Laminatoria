@@ -93,7 +93,7 @@ namespace Laminatoria.Repository
             return product.Id;
         }
 
-        public async Task UpdateProductAsync(ProductRequest product)
+        public async Task<int> UpdateProductAsync(ProductRequest product)
         {     
             Product originalProduct = context.Products.Find(product.Id);
 
@@ -110,6 +110,7 @@ namespace Laminatoria.Repository
             }
 
             await context.SaveChangesAsync();
+            return originalProduct.Id;
         }
 
         public void DeleteProduct(int id)

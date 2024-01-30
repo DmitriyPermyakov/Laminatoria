@@ -25,7 +25,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy(name: localOrigins,
         policy =>
         {
-            policy.WithOrigins("http://localhost:4200");
+            policy.WithOrigins("http://localhost:4200").AllowAnyHeader().AllowAnyMethod();
         });
 });
 
@@ -34,6 +34,7 @@ Console.WriteLine(connectionString);
 
 builder.Services.AddTransient<IOrderRepository, OrderRepository>();
 builder.Services.AddTransient<IProductRepository, ProductRepository>();
+builder.Services.AddTransient<ICategoryRepository, CategoriesRepository>();
 
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

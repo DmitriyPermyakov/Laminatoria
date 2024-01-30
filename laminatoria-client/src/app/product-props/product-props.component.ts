@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core'
+import { Component, Input, OnInit } from '@angular/core'
 import { FormArray, FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms'
 
 @Component({
@@ -19,6 +19,7 @@ export class ProductPropsComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.newPropForm = this.fb.group({
+			id: [{ value: 0, disabled: false }],
 			property: [{ value: '', disabled: false }, Validators.required],
 			value: [{ value: '', disabled: false }, Validators.required],
 		})
@@ -26,6 +27,7 @@ export class ProductPropsComponent implements OnInit {
 
 	public addValue(): void {
 		let form = this.fb.group({
+			id: [{ value: 0, disabled: false }],
 			property: [{ value: this.newPropForm.value.property, disabled: false }, Validators.required],
 			value: [{ value: this.newPropForm.value.value, disabled: false }, Validators.required],
 		})

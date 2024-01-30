@@ -54,21 +54,19 @@ namespace Laminatoria.Controllers
             {
                 if (!ModelState.IsValid)
                 {
-                    Console.WriteLine("Model state is not valid");
                     return BadRequest(product);
                 }
-                Console.WriteLine("****model state is valid*****");
 
                 int createdProductIdTask = await this.repository.CreateProductAsync(product);
                 return Ok(createdProductIdTask);
             }
             catch (Exception e)
             {
-                return BadRequest("Can't update product");
+                return BadRequest(e.Message);
             }
         }
 
-        [HttpPost("update")]
+        [HttpPut("update")]
         public async Task<IActionResult> UpdateProduct([FromBody] ProductRequest product)
         {
             try
@@ -77,8 +75,8 @@ namespace Laminatoria.Controllers
                 {
                     return BadRequest("Can't update product");
                 }                
-                await this.repository.UpdateProductAsync(product);
-                return Ok("Product successfully updated");
+                int id = await this.repository.UpdateProductAsync(product);
+                return Ok(id);
             }
             catch (Exception e)
             {
@@ -92,11 +90,11 @@ namespace Laminatoria.Controllers
             try
             {
                 this.repository.DeleteProduct(id);
-                return Ok("Product was removed");
+                return Ok();
             }
             catch (Exception e)
             {
-                return BadRequest("Can't delete product");
+                return BadRequest(e.Message);
             }
         }
     }

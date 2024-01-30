@@ -2,7 +2,7 @@ import { AfterViewInit, Component, OnInit } from '@angular/core'
 import { AuthService } from '../services/auth.service'
 import { ProductsService } from '../services/products.service'
 import { Product, typeOfMeasurement, typeOfMeasurementMap } from '../classes/product'
-import { ActivatedRoute } from '@angular/router'
+import { ActivatedRoute, Router } from '@angular/router'
 import { map, switchMap } from 'rxjs'
 import { ShoppingCartService } from '../services/shopping-cart.service'
 import { CacheService } from '../services/cache.service'
@@ -24,7 +24,8 @@ export class ProductCardComponent implements OnInit, AfterViewInit {
 		private productService: ProductsService,
 		private activatedRoute: ActivatedRoute,
 		private shoppingCart: ShoppingCartService,
-		private cache: CacheService
+		private cache: CacheService,
+		private router: Router
 	) {}
 
 	ngOnInit(): void {
@@ -43,6 +44,13 @@ export class ProductCardComponent implements OnInit, AfterViewInit {
 
 	public additionalPropChangeValue(event: Event): void {
 		this.additionalPropValue = (event.target as HTMLInputElement).value
+	}
+
+	public removeProduct(id: number): void {
+		this.productService.removeProduct(id).subscribe(() => {
+			console.log('Product was deleted')
+			this.router.navigate(['/products'], { queryParams: { category: 'laminate' } })
+		})
 	}
 
 	private loadProduct(): void {

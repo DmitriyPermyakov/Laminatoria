@@ -34,6 +34,14 @@
 					<app-product-props #props [props]="propertiesFormArray"></app-product-props>
 				</ng-container>
 			</div>
+			<div class="categories">
+				<p class="label">Категории:</p>
+				<select name="categories" class="product-categories" (change)="changeCategory($event)">
+					<option *ngFor="let c of categories" [ngValue]="c" [selected]="c.id == product.category.id">
+						{{ c.value }}
+					</option>
+				</select>
+			</div>
 			<div class="additional-props">
 				<app-additional-props #adProps [additionalProps]="additionalProps"></app-additional-props>
 			</div>

@@ -1,54 +1,72 @@
-import { Component, OnInit, ViewChild } from '@angular/core'
+import { AfterViewInit, Component, OnInit } from '@angular/core'
 import { CacheService } from '../services/cache.service'
-import { Product, typeOfMeasurement, typeOfProduct } from '../classes/product'
-import { ActivatedRoute } from '@angular/router'
-import { switchMap } from 'rxjs'
+import { Product } from '../classes/product'
+import { ActivatedRoute, Router } from '@angular/router'
 import { ProductsService } from '../services/products.service'
 import { FormArray, FormControl, FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms'
+import { CategoriesService } from '../services/categories.service'
+import { Category } from '../classes/category'
 
 @Component({
 	selector: 'app-edit-product',
 	templateUrl: './edit-product.component.html',
 	styleUrls: ['./edit-product.component.scss'],
 })
-export class EditProductComponent implements OnInit {
+export class EditProductComponent implements OnInit, AfterViewInit {
 	public product: Product
 	public form: FormGroup
 	public id: string
-
-	// public typeOfProduct: typeOfProduct
-	// public typeOfMeasurement: typeOfMeasurement
+	public categories: Category[]
 
 	public get propertiesFormArray(): FormArray {
 		return this.form.controls['properties'] as FormArray
 	}
 
 	public get additionalProps(): FormGroup {
-		return this.form.controls['additional'] as FormGroup
+		return this.form.controls['additionalProperty'] as FormGroup
 	}
 
-	@ViewChild('adProps') private additionalPropComp
-	@ViewChild('props') private props
+	public get category(): FormControl {
+		return this.form.controls['category'] as FormControl
+	}
+
 	constructor(
+		private categorisService: CategoriesService,
 		private cacheService: CacheService,
 		private activatedRoute: ActivatedRoute,
 		private productService: ProductsService,
-		private fb: NonNullableFormBuilder
+		private fb: NonNullableFormBuilder,
+		private router: Router
 	) {}
 
 	ngOnInit(): void {
 		this.id = this.activatedRoute.snapshot.paramMap.get('id')
 
-		this.loadProduct()
+		this.categorisService.getCategories().subscribe((c) => {
+			this.categories = c
+		})
 
-		this.checkAdditionalProperties()
+		this.loadProduct()
 
 		//#TODO: обработка ошибок
 		//#TODO: запомнить обратную навигацию
 	}
 
+	ngAfterViewInit(): void {}
+
 	public onSubmit(): void {
-		console.log(JSON.stringify(this.form.value))
+		console.log(this.form.value)
+		this.productService.updateProduct(this.form.value).subscribe((id) => {
+			if (id > 0) {
+				this.router.navigate(['/products', id])
+			}
+		})
+	}
+
+	public changeCategory(event: any): void {
+		let category = this.categories.find((c) => c.value == event.target.value)
+		console.log(category)
+		this.category.setValue(category)
 	}
 
 	private initForm(): void {
@@ -56,9 +74,9 @@ export class EditProductComponent implements OnInit {
 			id: this.product.id,
 			name: [{ value: this.product.name, disabled: false }, Validators.required],
 			vendor: [{ value: this.product.vendor, disabled: false }, Validators.required],
-			categorid: [{ value: this.product.category, disabled: false }, Validators.required],
+			category: [{ value: this.product.category, disabled: false }, Validators.required],
 			properties: this.fb.array([]),
-			additional: this.fb.group({
+			additionalProperty: this.fb.group({
 				id: [{ value: this.product.additionalProperty?.id ?? 0, disabled: false }],
 				name: [{ value: this.product.additionalProperty?.name ?? '', disabled: false }],
 				values: [{ value: this.product.additionalProperty?.values ?? '', disabled: false }],
@@ -99,8 +117,5 @@ export class EditProductComponent implements OnInit {
 			this.product = product
 			this.initForm()
 		})
-	}
-	private checkAdditionalProperties(): void {
-		//#TODO: проверить наличие дополнительных свойств
 	}
 }
