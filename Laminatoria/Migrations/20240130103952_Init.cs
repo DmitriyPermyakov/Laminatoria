@@ -19,7 +19,9 @@ namespace Laminatoria.Migrations
                 {
                     Id = table.Column<short>(type: "smallint", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(type: "longtext", nullable: true)
+                    Name = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Value = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>
@@ -175,13 +177,13 @@ namespace Laminatoria.Migrations
 
             migrationBuilder.InsertData(
                 table: "Categories",
-                columns: new[] { "Id", "Name" },
-                values: new object[] { (short)1, "Laminat" });
+                columns: new[] { "Id", "Name", "Value" },
+                values: new object[] { (short)1, "laminate", "Ламинат" });
 
             migrationBuilder.InsertData(
                 table: "Orders",
                 columns: new[] { "Id", "Address", "Comments", "Date", "Delivery", "Summary" },
-                values: new object[] { 1, "ул. Новосибирская 23, кв 45", "slgksag;saj;sf", new DateTime(2024, 1, 29, 15, 58, 10, 878, DateTimeKind.Local).AddTicks(7430), "delivery", 1500m });
+                values: new object[] { 1, "ул. Новосибирская 23, кв 45", "slgksag;saj;sf", new DateTime(2024, 1, 30, 15, 39, 51, 749, DateTimeKind.Local).AddTicks(2025), "delivery", 1500m });
 
             migrationBuilder.InsertData(
                 table: "Contact",

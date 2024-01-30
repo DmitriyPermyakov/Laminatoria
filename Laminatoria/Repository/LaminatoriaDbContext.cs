@@ -24,6 +24,8 @@ namespace Laminatoria.Repository
                 .Property(p => p.TypeOfProduct)
                 .HasConversion<byte>();
 
+
+
             Contact contact = new Contact
             {
                 Id = 1,
@@ -41,6 +43,7 @@ namespace Laminatoria.Repository
                 ProductId = 1,
                 OrderId = 1
             };
+
 
             modelBuilder.Entity<Contact>()
                  .HasData(contact);
@@ -76,10 +79,18 @@ namespace Laminatoria.Repository
                      }
                 );
 
+
+            Category category = new Category
+            {
+                Id = 1,
+                Name = "laminate",
+                Value = "Ламинат"
+            };
+
             modelBuilder.Entity<Category>()
-                .HasData(
-                    new Category { Id = 1, Name = "Laminat" }
-                );
+                .HasData(category);
+
+
 
             modelBuilder.Entity<AdditionalProperty>()
                 .HasData(

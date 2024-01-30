@@ -17,7 +17,7 @@ namespace Laminatoria.DTO
         [Required]
         public TypeOfProduct TypeOfProduct { get; set; }
         [Required]
-        public short? CategoryId { get; set; }       
+        public Category Category{ get; set; }       
         public AdditionalProperty AdditionalProperty { get; set; }
         [Required]
         public decimal Price { get; set; }

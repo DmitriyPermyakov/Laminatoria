@@ -60,6 +60,11 @@ namespace Laminatoria.Migrations
                         .HasColumnType("smallint");
 
                     b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Value")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.HasKey("Id");
@@ -70,7 +75,8 @@ namespace Laminatoria.Migrations
                         new
                         {
                             Id = (short)1,
-                            Name = "Laminat"
+                            Name = "laminate",
+                            Value = "Ламинат"
                         });
                 });
 
@@ -147,7 +153,7 @@ namespace Laminatoria.Migrations
                             Id = 1,
                             Address = "ул. Новосибирская 23, кв 45",
                             Comments = "slgksag;saj;sf",
-                            Date = new DateTime(2024, 1, 29, 15, 58, 10, 878, DateTimeKind.Local).AddTicks(7430),
+                            Date = new DateTime(2024, 1, 30, 15, 39, 51, 749, DateTimeKind.Local).AddTicks(2025),
                             Delivery = "delivery",
                             Summary = 1500m
                         });

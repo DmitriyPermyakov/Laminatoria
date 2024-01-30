@@ -25,9 +25,8 @@ namespace Laminatoria.Repository
                     Name = p.Name,
                     Vendor = p.Vendor,
                     TypeOfMeasurement = p.TypeOfMeasurement,
-                    TypeOfProduct = p.TypeOfProduct,
-                    CategoryId = p.Category.Id,
-                    Category = p.Category.Name,
+                    TypeOfProduct = p.TypeOfProduct,                   
+                    Category = p.Category,
                     AdditionalProperty = p.AdditionalProperty,
                     Properties = p.Properties,
                     Price = p.Price,
@@ -44,9 +43,8 @@ namespace Laminatoria.Repository
                     Name = p.Name,
                     Vendor = p.Vendor,
                     TypeOfMeasurement = p.TypeOfMeasurement,
-                    TypeOfProduct = p.TypeOfProduct,
-                    CategoryId = p.Category.Id,
-                    Category = p.Category.Name,
+                    TypeOfProduct = p.TypeOfProduct,                    
+                    Category = p.Category,
                     AdditionalProperty = p.AdditionalProperty,
                     Properties = p.Properties,
                     Price = p.Price,
@@ -54,8 +52,10 @@ namespace Laminatoria.Repository
                 .FirstOrDefaultAsync(p => p.Id == id);
         }
 
+
         public async Task<int> CreateProductAsync(ProductRequest newProduct)
         {
+
             Product product = new Product
             {
                 Id = 0,
@@ -63,7 +63,7 @@ namespace Laminatoria.Repository
                 Vendor = newProduct.Vendor,
                 TypeOfMeasurement = newProduct.TypeOfMeasurement,
                 TypeOfProduct = newProduct.TypeOfProduct,
-                CategoryId = newProduct.CategoryId,
+                CategoryId = newProduct.Category.Id,
                 Price = newProduct.Price,
             };
             await context.Products.AddAsync(product);
@@ -106,7 +106,7 @@ namespace Laminatoria.Repository
                 originalProduct.Price = product.Price;
                 originalProduct.AdditionalProperty = product.AdditionalProperty;
                 originalProduct.Properties = product.Properties;
-                originalProduct.CategoryId = product.CategoryId;
+                originalProduct.CategoryId = product.Category.Id;
             }
 
             await context.SaveChangesAsync();
