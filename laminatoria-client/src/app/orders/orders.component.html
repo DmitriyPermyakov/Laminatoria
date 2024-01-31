@@ -8,12 +8,14 @@
 		<button class="filter-btn" (click)="openFilter()">Фильтр</button>
 	</div>
 	<div class="orders">
-		<app-order-item *ngFor="let order of orders" [order]="order"></app-order-item>
-		<app-pagination
-			[pageCount]="pageCount"
-			[currentPage]="currentPage"
-			[elementsOnPage]="elementsOnPage"
-		></app-pagination>
+		<ng-container *ngIf="orders">
+			<app-order-item *ngFor="let order of orders" [order]="order"></app-order-item>
+			<app-pagination
+				[pageCount]="pageCount"
+				[currentPage]="currentPage"
+				[elementsOnPage]="elementsOnPage"
+			></app-pagination>
+		</ng-container>
 	</div>
 	<button class="add-btn" [routerLink]="['/orders/create']">
 		<span>Добавить</span>

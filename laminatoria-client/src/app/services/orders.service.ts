@@ -1,31 +1,27 @@
 import { Injectable } from '@angular/core'
-import { Observable } from 'rxjs'
+import { Observable, catchError, of, throwError } from 'rxjs'
 import { Order } from '../classes/order'
+import { HttpClient } from '@angular/common/http'
+import { environment } from 'src/environments/environment.development'
 
 @Injectable({
 	providedIn: 'root',
 })
 export class OrdersService {
-	constructor() {}
+	constructor(private http: HttpClient) {}
 
 	public getAll(): Observable<Order[]> {
-		let orderString = localStorage.getItem('order')
-		let order = JSON.parse(orderString)
-		let orders: Order[] = []
-		orders.push(order)
-
-		return new Observable((observer) => {
-			observer.next(orders)
-			observer.complete()
-		})
+		return this.http.get<Order[]>(`${environment.ordersUrl}/getAll`).pipe(
+			catchError((error) => {
+				throwError(() => console.log(error))
+				return []
+			})
+		)
 	}
 
 	public getById(id: string): Observable<Order> {
-		let orderString = localStorage.getItem('order')
-		let order = JSON.parse(orderString)
-
-		return new Observable((observer) => {
-			observer.next(order)
-		})
+		return this.http
+			.get<Order>(`${environment.ordersUrl}/getById/${+id}`)
+			.pipe(catchError((error) => throwError(() => console.log(error))))
 	}
 }

@@ -27,16 +27,16 @@ namespace Laminatoria.Repository
             await this.context.Orders.AddAsync(newOrder);
 
 
-            Contact contact = new Contact
+            Contact contacts = new Contact
             {
                 Id = 0,
-                Name = order.Contact.Name,
-                Email = order.Contact.Email,
-                Phone = order.Contact.Phone,
+                Name = order.Contacts.Name,
+                Email = order.Contacts.Email,
+                Phone = order.Contacts.Phone,
                 Order = newOrder
             };
 
-            await context.AddAsync(contact);
+            await context.AddAsync(contacts);
 
             List<OrderItem> items = new List<OrderItem>();
             foreach (var item in order.OrderItems)
@@ -55,15 +55,17 @@ namespace Laminatoria.Repository
         public IQueryable<Order> GetAllOrders()
         {
             return this.context.Orders
-                .Include(o => o.Contact)
+                .Include(o => o.Contacts)
                 .Include(o => o.OrderItems);
         }
 
         public async Task<Order> GetOrderByIdAsync(int id)
         {
             Order order = await this.context.Orders
-                .Include(o => o.Contact)
+                .Include(o => o.Contacts)
                 .Include(o => o.OrderItems)
+                .ThenInclude(i => i.Product)
+                .ThenInclude(p => p.AdditionalProperty)
                 .FirstOrDefaultAsync(o => o.Id == id);
             return order;
         }
@@ -73,7 +75,7 @@ namespace Laminatoria.Repository
             Order originalOrder = await this.context.Orders.FindAsync(order.Id);
             if(originalOrder != null)
             {
-                originalOrder.Contact = order.Contact;
+                originalOrder.Contacts = order.Contacts;
                 originalOrder.Address = order.Address;
                 originalOrder.Comments = order.Comments;
                 originalOrder.Date = order.Date;

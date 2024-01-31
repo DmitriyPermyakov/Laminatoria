@@ -1,37 +1,37 @@
 <div class="shopping-cart-item-container">
-	<div class="item-image">
-		<img src="../../assets/laminat_tarket_pervaja_sibirskaja_5.png" alt="" />
-	</div>
-	<div class="item-description">
-		<div class="main-desc">
-			<a class="name" [routerLink]="['/products']" [queryParams]="{ category: item.product.category.name }">{{
-				item.product.name
-			}}</a>
-			<p class="vendor">{{ item.product.vendor }}</p>
+	<ng-container *ngIf="item">
+		<div class="item-image">
+			<img src="../../assets/laminat_tarket_pervaja_sibirskaja_5.png" alt="" />
 		</div>
-		<div class="amounts">
-			<app-counter [value]="item.amount" [disabled]="true"></app-counter>
-			<p class="result-value">Площадь: 124м2</p>
+		<div class="item-description">
+			<div class="main-desc">
+				<a class="name" [routerLink]="['/products', item.product.id]">{{ item.product.name }}</a>
+				<p class="vendor">{{ item.product.vendor }}</p>
+			</div>
+			<div class="amounts">
+				<app-counter [value]="item.amount" [disabled]="true"></app-counter>
+				<p class="result-value">Площадь: 124м2</p>
+			</div>
+			<div class="additional-props" *ngIf="item.additionalPropValue">
+				<p class="label">{{ item.product.additionalProperty.name }}</p>
+				<label
+					[for]="i + item.product.id + cartIndex"
+					class="radio-labels"
+					*ngFor="let p of item.product.additionalProperty.values.trim().split(' '); index as i"
+				>
+					<input
+						type="radio"
+						[id]="i + item.product.id + cartIndex"
+						[name]="'additional-props' + cartIndex"
+						[value]="p"
+						hidden
+						[checked]="p === item.additionalPropValue"
+						disabled
+					/>
+					<span>{{ p }}</span>
+				</label>
+			</div>
 		</div>
-		<div class="additional-props" *ngIf="item.additionalPropValue">
-			<p class="label">{{ item.product.additionalProperty.name }}</p>
-			<label
-				[for]="i + item.product.id + cartIndex"
-				class="radio-labels"
-				*ngFor="let p of item.product.additionalProperty.values; index as i"
-			>
-				<input
-					type="radio"
-					[id]="i + item.product.id + cartIndex"
-					[name]="'additional-props' + cartIndex"
-					[value]="p"
-					hidden
-					[checked]="p === item.additionalPropValue"
-					disabled
-				/>
-				<span>{{ p }}</span>
-			</label>
-		</div>
-	</div>
-	<p class="price">Стоимость: {{ item.amount * item.product.price | currency : '' : '' : '' : 'ru-RU' }}р.</p>
+		<p class="price">Стоимость: {{ item.amount * item.product.price | currency : '' : '' : '' : 'ru-RU' }}р.</p>
+	</ng-container>
 </div>

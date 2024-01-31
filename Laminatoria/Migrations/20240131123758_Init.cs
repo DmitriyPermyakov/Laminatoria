@@ -183,7 +183,7 @@ namespace Laminatoria.Migrations
             migrationBuilder.InsertData(
                 table: "Orders",
                 columns: new[] { "Id", "Address", "Comments", "Date", "Delivery", "Summary" },
-                values: new object[] { 1, "ул. Новосибирская 23, кв 45", "slgksag;saj;sf", new DateTime(2024, 1, 30, 15, 39, 51, 749, DateTimeKind.Local).AddTicks(2025), "delivery", 1500m });
+                values: new object[] { 1, "ул. Новосибирская 23, кв 45", "slgksag;saj;sf", new DateTime(2024, 1, 31, 17, 37, 58, 139, DateTimeKind.Local).AddTicks(2953), "delivery", 1500m });
 
             migrationBuilder.InsertData(
                 table: "Contact",

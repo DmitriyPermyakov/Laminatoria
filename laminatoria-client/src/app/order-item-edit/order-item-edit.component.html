@@ -1,4 +1,4 @@
-<form class="order-item" [formGroup]="form">
+<form class="order-item" [formGroup]="form" *ngIf="form">
 	<div class="contacts">
 		<input class="name" type="text" placeholder="Ф.И.О." formControlName="name" />
 		<input class="phone" type="number" placeholder="Телефон" formControlName="phone" />

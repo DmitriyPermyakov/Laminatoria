@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Laminatoria.Migrations
 {
     [DbContext(typeof(LaminatoriaDbContext))]
-    [Migration("20240130103952_Init")]
+    [Migration("20240131123758_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -155,7 +155,7 @@ namespace Laminatoria.Migrations
                             Id = 1,
                             Address = "ул. Новосибирская 23, кв 45",
                             Comments = "slgksag;saj;sf",
-                            Date = new DateTime(2024, 1, 30, 15, 39, 51, 749, DateTimeKind.Local).AddTicks(2025),
+                            Date = new DateTime(2024, 1, 31, 17, 37, 58, 139, DateTimeKind.Local).AddTicks(2953),
                             Delivery = "delivery",
                             Summary = 1500m
                         });
@@ -289,7 +289,7 @@ namespace Laminatoria.Migrations
             modelBuilder.Entity("Laminatoria.Models.Contact", b =>
                 {
                     b.HasOne("Laminatoria.Models.Order", "Order")
-                        .WithOne("Contact")
+                        .WithOne("Contacts")
                         .HasForeignKey("Laminatoria.Models.Contact", "OrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -335,7 +335,7 @@ namespace Laminatoria.Migrations
 
             modelBuilder.Entity("Laminatoria.Models.Order", b =>
                 {
-                    b.Navigation("Contact");
+                    b.Navigation("Contacts");
 
                     b.Navigation("OrderItems");
                 });

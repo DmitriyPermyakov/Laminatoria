@@ -1,64 +1,70 @@
-<div class="order-position-container" [formGroup]="form">
-	<app-order-item-edit [form]="form" [summary]="order.summary"></app-order-item-edit>
-	<ng-container formArrayName="items">
-		<ng-container *ngFor="let item of items; index as i">
-			<app-shopping-cart-item [form]="item" [index]="i" (onRemoveItem)="removeItem($event)"></app-shopping-cart-item>
+<ng-container *ngIf="form">
+	<div class="order-position-container" [formGroup]="form">
+		<app-order-item-edit [form]="form" [summary]="order.summary"></app-order-item-edit>
+		<ng-container formArrayName="items">
+			<ng-container *ngFor="let item of items; index as i">
+				<app-shopping-cart-item
+					[form]="item"
+					[index]="i"
+					(onRemoveItem)="removeItem($event)"
+				></app-shopping-cart-item>
+			</ng-container>
 		</ng-container>
-	</ng-container>
 
-	<div class="add-product-container" #productContainer appClickOutside>
-		<div class="products">
-			<button class="close-menu-btn icon" (click)="closeMenu()">
-				<svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
-					<line y1="17" x2="34" y2="17" stroke="white" stroke-width="2" />
-					<line x1="17" x2="17" y2="34" stroke="white" stroke-width="2" />
-				</svg>
-			</button>
-			<div class="product" *ngFor="let p of products" (click)="addItem(p)">
-				<img src="../../assets/laminat_tarket_pervaja_sibirskaja_5.png" alt="" />
-				<p class="product-name">{{ p.name }}</p>
-				<p class="product-vendor">{{ p.vendor }}</p>
-				<p class="product-price">{{ p.price | currency : '' : '' : '' : 'ru-RU' }}р.</p>
+		<div class="add-product-container" #productContainer appClickOutside>
+			<div class="products">
+				<button class="close-menu-btn icon" (click)="closeMenu()">
+					<svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<line y1="17" x2="34" y2="17" stroke="white" stroke-width="2" />
+						<line x1="17" x2="17" y2="34" stroke="white" stroke-width="2" />
+					</svg>
+				</button>
+				<div class="product" *ngFor="let p of products" (click)="addItem(p)">
+					<img src="../../assets/laminat_tarket_pervaja_sibirskaja_5.png" alt="" />
+					<p class="product-name">{{ p.name }}</p>
+					<p class="product-vendor">{{ p.vendor }}</p>
+					<p class="product-price">{{ p.price | currency : '' : '' : '' : 'ru-RU' }}р.</p>
+				</div>
 			</div>
 		</div>
-	</div>
 
-	<button class="add-item icon" (click)="showMenu()">
-		<svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
-			<line y1="17" x2="34" y2="17" stroke="white" stroke-width="2" />
-			<line x1="17" x2="17" y2="34" stroke="white" stroke-width="2" />
-		</svg>
-	</button>
+		<button class="add-item icon" (click)="showMenu()">
+			<svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+				<line y1="17" x2="34" y2="17" stroke="white" stroke-width="2" />
+				<line x1="17" x2="17" y2="34" stroke="white" stroke-width="2" />
+			</svg>
+		</button>
 
-	<div class="radio-buttons-container">
-		<label for="pickup" class="pickup-label">
-			<input
-				type="radio"
-				class="delivery"
-				value="pickpup"
-				id="pickup"
-				name="delivery"
-				hidden
-				formControlName="delivery"
-			/>
-			<span>Сaмовывоз</span>
-		</label>
+		<div class="radio-buttons-container">
+			<label for="pickup" class="pickup-label">
+				<input
+					type="radio"
+					class="delivery"
+					value="pickpup"
+					id="pickup"
+					name="delivery"
+					hidden
+					formControlName="delivery"
+				/>
+				<span>Сaмовывоз</span>
+			</label>
 
-		<label for="delivery1" class="delivery-label">
-			<input
-				type="radio"
-				class="delivery"
-				value="delivery"
-				id="delivery1"
-				name="delivery"
-				hidden
-				formControlName="delivery"
-			/>
-			<span>Доставка</span>
-		</label>
+			<label for="delivery1" class="delivery-label">
+				<input
+					type="radio"
+					class="delivery"
+					value="delivery"
+					id="delivery1"
+					name="delivery"
+					hidden
+					formControlName="delivery"
+				/>
+				<span>Доставка</span>
+			</label>
+		</div>
+		<div class="remove-edit-btns">
+			<button class="save-btn btn" type="button">Сохранить</button>
+			<button class="cancel-btn btn" type="button" [routerLink]="['/orders', id]">Отмена</button>
+		</div>
 	</div>
-	<div class="remove-edit-btns">
-		<button class="save-btn btn" type="button">Сохранить</button>
-		<button class="cancel-btn btn" type="button" [routerLink]="['/orders', id]">Отмена</button>
-	</div>
-</div>
+</ng-container>

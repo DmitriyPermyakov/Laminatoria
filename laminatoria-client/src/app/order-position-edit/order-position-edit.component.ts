@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core'
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core'
 import { CacheService } from '../services/cache.service'
 import { OrdersService } from '../services/orders.service'
 import { Order } from '../classes/order'
@@ -12,7 +12,7 @@ import { ProductsService } from '../services/products.service'
 	templateUrl: './order-position-edit.component.html',
 	styleUrls: ['./order-position-edit.component.scss'],
 })
-export class OrderPositionEditComponent implements OnInit {
+export class OrderPositionEditComponent implements OnInit, AfterViewInit {
 	public order: Order
 	public form: FormGroup
 	public products: Product[] = []
@@ -34,18 +34,15 @@ export class OrderPositionEditComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
-		let orders: Order[] = this.cacheService.get('orders' + this.cacheService.orderPageNumber)
-		if (!orders)
-			this.ordersService.getById(this.id).subscribe((o) => {
-				this.order = o
-				this.initForm()
-			})
-		else {
-			this.order = orders.filter((o) => o.id == +this.id)[0]
-			this.initForm()
-		}
+		this.loadProduct()
 
 		this.productService.getAll(this.cacheService.productCategory).subscribe((p) => (this.products = p))
+	}
+
+	ngAfterViewInit(): void {
+		// if (this.order) {
+		// 	this.initForm()
+		// }
 	}
 
 	public addItem(product: Product): void {
@@ -70,9 +67,23 @@ export class OrderPositionEditComponent implements OnInit {
 		;(this.productContainer.nativeElement as HTMLElement).classList.remove('visible')
 	}
 
+	private loadProduct(): void {
+		let orders: Order[] = this.cacheService.get('orders' + this.cacheService.orderPageNumber)
+		if (!orders)
+			this.ordersService.getById(this.id).subscribe((o) => {
+				this.order = o
+				this.initForm()
+			})
+		else {
+			this.order = orders.filter((o) => o.id == +this.id)[0]
+			this.initForm()
+		}
+	}
+
 	private initForm(): void {
 		// добавить статус
 		this.form = this.fb.group({
+			id: [{ value: this.order.id, disabled: false }],
 			name: [{ value: this.order.contacts.name, disabled: false }, Validators.required],
 			phone: [{ value: this.order.contacts.phone, disabled: false }, Validators.required],
 			email: [{ value: this.order.contacts.email, disabled: false }, Validators.email],
@@ -84,6 +95,7 @@ export class OrderPositionEditComponent implements OnInit {
 
 		this.order.orderItems.forEach((o) => {
 			let item = this.fb.group({
+				id: [{ value: o.id, disabled: false }],
 				product: [{ value: o.product, disabled: false }],
 				amount: [{ value: o.amount, disabled: false }],
 				additionalPropValue: [{ value: o.additionalPropValue, disabled: false }],
