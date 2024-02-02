@@ -1,4 +1,5 @@
-﻿using Laminatoria.Models;
+﻿using Laminatoria.Infrastructure;
+using Laminatoria.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Laminatoria.Repository
@@ -58,6 +59,7 @@ namespace Laminatoria.Repository
                     {
                         Id = 1,                        
                         Address = "ул. Новосибирская 23, кв 45",
+                        Status = Status.InProcess,
                         Comments = "slgksag;saj;sf",
                         Date = DateTime.Now,
                         Delivery = "delivery",

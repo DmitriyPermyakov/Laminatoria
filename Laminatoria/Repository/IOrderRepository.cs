@@ -1,4 +1,5 @@
-﻿using Laminatoria.Models;
+﻿using Laminatoria.DTO;
+using Laminatoria.Models;
 
 namespace Laminatoria.Repository
 {
@@ -6,8 +7,8 @@ namespace Laminatoria.Repository
     {
         IQueryable<Order> GetAllOrders();
         Task<Order> GetOrderByIdAsync(int id);
-        Task<int> CreateOrderAsync(Order order);
-        Task UpdateOrderAsync(Order order);
+        Task<int> CreateOrderAsync(OrderRequest order);
+        Task UpdateOrderAsync(OrderRequest order);
         void DeleteOrder(int id);
     }
 }

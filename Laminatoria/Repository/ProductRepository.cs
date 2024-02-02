@@ -14,28 +14,52 @@ namespace Laminatoria.Repository
         }
         public IQueryable<ProductResponse> GetAllProducts(string category)
         {
-            return context.Products
-                .Where(p => p.Category.Name == category)
-                .Include(p => p.Category)
-                .Include(p => p.AdditionalProperty)
-                .Include(p => p.Properties)
-                .Select(p => new ProductResponse
-                {
-                    Id = p.Id,
-                    Name = p.Name,
-                    Vendor = p.Vendor,
-                    TypeOfMeasurement = p.TypeOfMeasurement,
-                    TypeOfProduct = p.TypeOfProduct,                   
-                    Category = p.Category,
-                    AdditionalProperty = p.AdditionalProperty,
-                    Properties = p.Properties,
-                    Price = p.Price,
-                });                     
+            IQueryable<Product> products = context.Products;
+
+            if (string.IsNullOrEmpty(category))
+            {
+                return products                    
+                    .Include(p => p.Category)
+                    .Include(p => p.AdditionalProperty)
+                    .Include(p => p.Properties)
+                    .Select(p => new ProductResponse
+                    {
+                        Id = p.Id,
+                        Name = p.Name,
+                        Vendor = p.Vendor,
+                        TypeOfMeasurement = p.TypeOfMeasurement,
+                        TypeOfProduct = p.TypeOfProduct,
+                        Category = p.Category,
+                        AdditionalProperty = p.AdditionalProperty,
+                        Properties = p.Properties,
+                        Price = p.Price,
+                    });
+            } else
+            {
+                return products
+                   .Where(p => p.Category.Name == category)
+                   .Include(p => p.Category)
+                   .Include(p => p.AdditionalProperty)
+                   .Include(p => p.Properties)
+                   .Select(p => new ProductResponse
+                   {
+                       Id = p.Id,
+                       Name = p.Name,
+                       Vendor = p.Vendor,
+                       TypeOfMeasurement = p.TypeOfMeasurement,
+                       TypeOfProduct = p.TypeOfProduct,
+                       Category = p.Category,
+                       AdditionalProperty = p.AdditionalProperty,
+                       Properties = p.Properties,
+                       Price = p.Price,
+                   });
+            }
+            
         }
 
         public async Task<ProductResponse> GetProductByIdAsync(int id)
         {
-            return await context.Products                
+            return await context.Products
                 .Include(p => p.Properties)
                 .Select(p => new ProductResponse
                 {
@@ -43,7 +67,7 @@ namespace Laminatoria.Repository
                     Name = p.Name,
                     Vendor = p.Vendor,
                     TypeOfMeasurement = p.TypeOfMeasurement,
-                    TypeOfProduct = p.TypeOfProduct,                    
+                    TypeOfProduct = p.TypeOfProduct,
                     Category = p.Category,
                     AdditionalProperty = p.AdditionalProperty,
                     Properties = p.Properties,
@@ -73,7 +97,7 @@ namespace Laminatoria.Repository
                 Id = 0,
                 Name = newProduct.AdditionalProperty.Name,
                 Values = newProduct.AdditionalProperty.Values,
-                Product  = product
+                Product = product
             };
 
             await context.AddAsync(additionalProperty);
@@ -94,7 +118,7 @@ namespace Laminatoria.Repository
         }
 
         public async Task<int> UpdateProductAsync(ProductRequest product)
-        {     
+        {
             Product originalProduct = context.Products.Find(product.Id);
 
             if (originalProduct != null)

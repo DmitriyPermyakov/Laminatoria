@@ -2,17 +2,21 @@ import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angula
 import { CacheService } from '../services/cache.service'
 import { OrdersService } from '../services/orders.service'
 import { Order } from '../classes/order'
-import { ActivatedRoute } from '@angular/router'
+import { ActivatedRoute, Router } from '@angular/router'
 import { FormArray, FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms'
 import { Product } from '../classes/product'
 import { ProductsService } from '../services/products.service'
+import { Contacts } from '../classes/contacts'
+import { OrderItem } from '../classes/orderItem'
+import { OrderRequest } from '../classes/orderRequest'
+import { OrderItemRequest } from '../classes/orderItemRequest'
 
 @Component({
 	selector: 'app-order-position-edit',
 	templateUrl: './order-position-edit.component.html',
 	styleUrls: ['./order-position-edit.component.scss'],
 })
-export class OrderPositionEditComponent implements OnInit, AfterViewInit {
+export class OrderPositionEditComponent implements OnInit {
 	public order: Order
 	public form: FormGroup
 	public products: Product[] = []
@@ -23,36 +27,41 @@ export class OrderPositionEditComponent implements OnInit, AfterViewInit {
 	public get items(): FormGroup[] {
 		return (this.form.controls['items'] as FormArray).controls as FormGroup[]
 	}
+
+	public get summary(): number {
+		return this.items.reduce((sum, curr) => {
+			return sum + curr.value.product.price * curr.value.amount
+		}, 0)
+	}
 	constructor(
 		private cacheService: CacheService,
 		private ordersService: OrdersService,
 		private activatedRoute: ActivatedRoute,
 		private fb: NonNullableFormBuilder,
-		private productService: ProductsService
+		private productService: ProductsService,
+		private orderService: OrdersService,
+		private router: Router
 	) {
 		this.id = this.activatedRoute.snapshot.params['id']
 	}
 
 	ngOnInit(): void {
 		this.loadProduct()
-
+		// #TODO: изменить параметр
 		this.productService.getAll(this.cacheService.productCategory).subscribe((p) => (this.products = p))
-	}
-
-	ngAfterViewInit(): void {
-		// if (this.order) {
-		// 	this.initForm()
-		// }
 	}
 
 	public addItem(product: Product): void {
 		;(this.productContainer.nativeElement as HTMLElement).classList.remove('visible')
 		let item = this.fb.group({
+			id: [{ value: 0, disabled: false }],
 			product: [{ value: product, disabled: false }],
 			amount: [{ value: 1, disabled: false }],
-			additionalPropValue: [{ value: product.additionalProperty.values[0], disabled: false }],
+			additionalPropValue: [{ value: product.additionalProperty.values.trim().split(' ')[0], disabled: false }],
+			orderId: [{ value: this.order.id, disabled: false }],
 		})
-		this.items.push(item)
+
+		;(this.form.controls['items'] as FormArray).push(item)
 	}
 
 	public removeItem(event: number): void {
@@ -81,14 +90,14 @@ export class OrderPositionEditComponent implements OnInit, AfterViewInit {
 	}
 
 	private initForm(): void {
-		// добавить статус
 		this.form = this.fb.group({
 			id: [{ value: this.order.id, disabled: false }],
 			name: [{ value: this.order.contacts.name, disabled: false }, Validators.required],
+			status: [{ value: this.order.status, disabled: false }, Validators.required],
 			phone: [{ value: this.order.contacts.phone, disabled: false }, Validators.required],
 			email: [{ value: this.order.contacts.email, disabled: false }, Validators.email],
 			address: [{ value: this.order.address, disabled: false }, Validators.required],
-			comment: [{ value: this.order.comment, disabled: false }],
+			comment: [{ value: this.order.comments, disabled: false }],
 			delivery: [{ value: this.order.delivery, disabled: false }],
 			items: this.fb.array([]),
 		})
@@ -99,9 +108,49 @@ export class OrderPositionEditComponent implements OnInit, AfterViewInit {
 				product: [{ value: o.product, disabled: false }],
 				amount: [{ value: o.amount, disabled: false }],
 				additionalPropValue: [{ value: o.additionalPropValue, disabled: false }],
+				orderId: [{ value: this.order.id, disabled: false }],
 			})
 
 			this.items.push(item)
+		})
+	}
+
+	public updateOrder(): void {
+		let contacts: Contacts = new Contacts(
+			this.order.contacts.id,
+			this.form.controls['name'].value,
+			this.form.controls['email'].value,
+			this.form.controls['phone'].value,
+			this.order.id
+		)
+
+		let orderItems: OrderItemRequest[] = []
+		this.items.forEach((fg: FormGroup) => {
+			let item = new OrderItemRequest(
+				fg.controls['id'].value,
+				fg.controls['amount'].value,
+				fg.controls['additionalPropValue'].value,
+				fg.controls['orderId'].value,
+				fg.controls['product'].value.id
+			)
+			orderItems.push(item)
+		})
+
+		let order: OrderRequest = new OrderRequest(
+			this.order.id,
+			contacts,
+			+this.form.controls['status'].value,
+
+			this.form.controls['address'].value,
+			this.form.controls['comment'].value,
+			this.order.date,
+			orderItems,
+			this.form.controls['delivery'].value,
+			this.summary
+		)
+
+		this.orderService.updateOrder(order).subscribe(() => {
+			this.router.navigate(['orders', +this.id])
 		})
 	}
 }

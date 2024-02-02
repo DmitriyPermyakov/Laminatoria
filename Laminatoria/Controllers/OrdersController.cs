@@ -1,4 +1,5 @@
-﻿using Laminatoria.Models;
+﻿using Laminatoria.DTO;
+using Laminatoria.Models;
 using Laminatoria.Repository;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -46,13 +47,18 @@ namespace Laminatoria.Controllers
             }
         }
 
-        [HttpPost("update")]
-        public async Task<IActionResult> UpdateOrderAsync([FromBody] Order order)
+        [HttpPut("update")]
+        public async Task<IActionResult> UpdateOrderAsync( OrderRequest order)
         {
+            Console.WriteLine("***************** in update method");
+
             try
             {
+                Console.WriteLine(order);
+                if (!ModelState.IsValid)
+                    return BadRequest(order);
                 await this.repository.UpdateOrderAsync(order);
-                return Ok("Order successfully updated");
+                return Ok();
             }
             catch(Exception e)
             {
@@ -61,7 +67,7 @@ namespace Laminatoria.Controllers
         }
 
         [HttpPost("create")]
-        public async Task<IActionResult> CreateOrder([FromBody] Order order)
+        public async Task<IActionResult> CreateOrder([FromBody] OrderRequest order)
         {
             try
             {

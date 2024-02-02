@@ -14,13 +14,13 @@
 		<div class="additional-props" *ngIf="additionalPropsValue">
 			<p class="label">{{ product.additionalProperty.name }}</p>
 			<label
-				[for]="i + product.id + index"
+				[for]="i.toString() + product.id.toString() + index.toString()"
 				class="radio-labels"
 				*ngFor="let p of product.additionalProperty.values.trim().split(' '); index as i"
 			>
 				<input
 					type="radio"
-					[id]="i + product.id + index"
+					[id]="i.toString() + product.id.toString() + index.toString()"
 					[name]="'additional-props' + index"
 					[value]="p"
 					hidden
@@ -32,7 +32,7 @@
 		</div>
 	</div>
 	<p class="price">Стоимость: {{ amount * product.price | currency : '' : '' : '' : 'ru-RU' }}р.</p>
-	<div class="remove-btn" *ngIf="!auth.isAuthenticated">
+	<div class="remove-btn" *ngIf="auth.isAuthenticated">
 		<button type="button" (click)="removeItem()">Удалить</button>
 	</div>
 </form>

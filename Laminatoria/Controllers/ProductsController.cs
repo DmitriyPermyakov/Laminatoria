@@ -17,10 +17,11 @@ namespace Laminatoria.Controllers
             this.repository = repository;
         }
         [HttpGet("getAll")]
-        public async Task<IActionResult> GetAllProductAsync([FromQuery] string category)
+        public async Task<IActionResult> GetAllProductAsync([FromQuery] string? category)
         {
             try
             {
+                
                 List<ProductResponse> products = await this.repository.GetAllProducts(category).ToListAsync();
                 return Ok(products);
             }

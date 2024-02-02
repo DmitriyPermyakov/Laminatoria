@@ -38,6 +38,7 @@ namespace Laminatoria.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Address = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
+                    Status = table.Column<int>(type: "int", nullable: false),
                     Comments = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Date = table.Column<DateTime>(type: "datetime(6)", nullable: false),
@@ -104,30 +105,6 @@ namespace Laminatoria.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "OrderItem",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Amount = table.Column<float>(type: "float", nullable: false),
-                    AdditionalPropValue = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    ProductId = table.Column<int>(type: "int", nullable: true),
-                    OrderId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_OrderItem", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_OrderItem_Orders_OrderId",
-                        column: x => x.OrderId,
-                        principalTable: "Orders",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.CreateTable(
                 name: "AdditionalProperties",
                 columns: table => new
                 {
@@ -148,6 +125,35 @@ namespace Laminatoria.Migrations
                         principalTable: "Products",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "OrderItem",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Amount = table.Column<float>(type: "float", nullable: false),
+                    AdditionalPropValue = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    ProductId = table.Column<int>(type: "int", nullable: true),
+                    OrderId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OrderItem", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_OrderItem_Orders_OrderId",
+                        column: x => x.OrderId,
+                        principalTable: "Orders",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_OrderItem_Products_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "Products",
+                        principalColumn: "Id");
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -182,18 +188,13 @@ namespace Laminatoria.Migrations
 
             migrationBuilder.InsertData(
                 table: "Orders",
-                columns: new[] { "Id", "Address", "Comments", "Date", "Delivery", "Summary" },
-                values: new object[] { 1, "ул. Новосибирская 23, кв 45", "slgksag;saj;sf", new DateTime(2024, 1, 31, 17, 37, 58, 139, DateTimeKind.Local).AddTicks(2953), "delivery", 1500m });
+                columns: new[] { "Id", "Address", "Comments", "Date", "Delivery", "Status", "Summary" },
+                values: new object[] { 1, "ул. Новосибирская 23, кв 45", "slgksag;saj;sf", new DateTime(2024, 2, 1, 19, 53, 53, 605, DateTimeKind.Local).AddTicks(9651), "delivery", 0, 1500m });
 
             migrationBuilder.InsertData(
                 table: "Contact",
                 columns: new[] { "Id", "Email", "Name", "OrderId", "Phone" },
                 values: new object[] { (short)1, "andrey@mail.ru", "Андрей Иванов", 1, "+79994442233" });
-
-            migrationBuilder.InsertData(
-                table: "OrderItem",
-                columns: new[] { "Id", "AdditionalPropValue", "Amount", "OrderId", "ProductId" },
-                values: new object[] { 1, "2.5", 8f, 1, 1 });
 
             migrationBuilder.InsertData(
                 table: "Products",
@@ -204,6 +205,11 @@ namespace Laminatoria.Migrations
                 table: "AdditionalProperties",
                 columns: new[] { "Id", "Name", "ProductId", "Values" },
                 values: new object[] { 1, "Ширина", 1, "2 3.5 4" });
+
+            migrationBuilder.InsertData(
+                table: "OrderItem",
+                columns: new[] { "Id", "AdditionalPropValue", "Amount", "OrderId", "ProductId" },
+                values: new object[] { 1, "2.5", 8f, 1, 1 });
 
             migrationBuilder.InsertData(
                 table: "Properties",
@@ -226,6 +232,11 @@ namespace Laminatoria.Migrations
                 name: "IX_OrderItem_OrderId",
                 table: "OrderItem",
                 column: "OrderId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OrderItem_ProductId",
+                table: "OrderItem",
+                column: "ProductId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Products_CategoryId",

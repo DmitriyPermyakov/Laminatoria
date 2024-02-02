@@ -1,14 +1,15 @@
 import { Contacts } from './contacts'
 import { OrderItem } from './orderItem'
+import { OrderItemRequest } from './orderItemRequest'
 
-export class Order {
+export class OrderRequest {
 	id: number
 	contacts: Contacts
 	status: number
 	address: string
 	comments: string
 	date: Date
-	orderItems: OrderItem[]
+	orderItems: OrderItemRequest[]
 	delivery: string
 	summary: number
 
@@ -19,7 +20,7 @@ export class Order {
 		address: string,
 		comments: string,
 		date: Date,
-		orderItems: OrderItem[],
+		orderItems: OrderItemRequest[],
 		delivery: string,
 		summary: number
 	) {

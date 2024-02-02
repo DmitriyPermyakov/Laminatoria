@@ -1,15 +1,17 @@
 <form class="order-item" [formGroup]="form" *ngIf="form">
 	<div class="contacts">
 		<input class="name" type="text" placeholder="Ф.И.О." formControlName="name" />
-		<input class="phone" type="number" placeholder="Телефон" formControlName="phone" />
+		<input class="phone" type="tel" placeholder="Телефон" formControlName="phone" />
 		<input class="email" type="email" placeholder="Почта" formControlName="email" />
 	</div>
 	<div class="status-container">
 		<p class="status-label">статус:</p>
-		<select class="status">
-			<option>В обработке</option>
-			<option>В доставке</option>
-			<option>Завершен</option>
+		<select class="status" formControlName="status">
+			<option value="0">В обработке</option>
+			<option value="1">В доставке</option>
+			<option value="2">Оплачен</option>
+			<option value="3">Завершен</option>
+			<option value="4">Отменен</option>
 		</select>
 	</div>
 	<div class="address-container">
@@ -18,7 +20,13 @@
 	</div>
 	<div class="comment-container">
 		<p class="comment-label">комментарий:</p>
-		<textarea class="comment" name="" id="" placeholder="Комментарий" formControlName="comment"></textarea>
+		<textarea
+			class="comment"
+			name="comment"
+			id="comment"
+			placeholder="Комментарий"
+			formControlName="comment"
+		></textarea>
 	</div>
 	<div class="price-container">
 		<span class="price-label">Сумма:</span>

@@ -1,6 +1,6 @@
 <ng-container *ngIf="form">
 	<div class="order-position-container" [formGroup]="form">
-		<app-order-item-edit [form]="form" [summary]="order.summary"></app-order-item-edit>
+		<app-order-item-edit [form]="form" [summary]="summary"></app-order-item-edit>
 		<ng-container formArrayName="items">
 			<ng-container *ngFor="let item of items; index as i">
 				<app-shopping-cart-item
@@ -63,7 +63,7 @@
 			</label>
 		</div>
 		<div class="remove-edit-btns">
-			<button class="save-btn btn" type="button">Сохранить</button>
+			<button class="save-btn btn" type="button" (click)="updateOrder()">Сохранить</button>
 			<button class="cancel-btn btn" type="button" [routerLink]="['/orders', id]">Отмена</button>
 		</div>
 	</div>

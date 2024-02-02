@@ -1,13 +1,14 @@
-﻿namespace Laminatoria.Models
+﻿using Laminatoria.Models;
+
+namespace Laminatoria.DTO
 {
-    public class OrderItem
+    public class OrderItemRequest
     {
         public int Id { get; set; }
         public float Amount { get; set; }
         public string AdditionalPropValue { get; set; }
-        public int? ProductId { get; set; }
-        public Product? Product { get; set; }
+        public int ProductId { get; set; }        
         public int OrderId { get; set; }
-        public Order Order { get; set; }
+       
     }
 }

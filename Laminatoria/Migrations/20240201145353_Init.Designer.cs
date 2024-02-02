@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Laminatoria.Migrations
 {
     [DbContext(typeof(LaminatoriaDbContext))]
-    [Migration("20240131123758_Init")]
+    [Migration("20240201145353_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -142,6 +142,9 @@ namespace Laminatoria.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
                     b.Property<decimal>("Summary")
                         .HasColumnType("decimal(65,30)");
 
@@ -155,8 +158,9 @@ namespace Laminatoria.Migrations
                             Id = 1,
                             Address = "ул. Новосибирская 23, кв 45",
                             Comments = "slgksag;saj;sf",
-                            Date = new DateTime(2024, 1, 31, 17, 37, 58, 139, DateTimeKind.Local).AddTicks(2953),
+                            Date = new DateTime(2024, 2, 1, 19, 53, 53, 605, DateTimeKind.Local).AddTicks(9651),
                             Delivery = "delivery",
+                            Status = 0,
                             Summary = 1500m
                         });
                 });
@@ -183,6 +187,8 @@ namespace Laminatoria.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("OrderId");
+
+                    b.HasIndex("ProductId");
 
                     b.ToTable("OrderItem");
 
@@ -305,7 +311,13 @@ namespace Laminatoria.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Laminatoria.Models.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId");
+
                     b.Navigation("Order");
+
+                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("Laminatoria.Models.Product", b =>

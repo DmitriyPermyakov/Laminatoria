@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core'
+import { Component, Input } from '@angular/core'
 import { FormGroup } from '@angular/forms'
 
 @Component({
@@ -6,11 +6,7 @@ import { FormGroup } from '@angular/forms'
 	templateUrl: './order-item-edit.component.html',
 	styleUrls: ['./order-item-edit.component.scss'],
 })
-export class OrderItemEditComponent implements OnInit {
+export class OrderItemEditComponent {
 	@Input() form: FormGroup
 	@Input() summary: number
-
-	ngOnInit(): void {
-		console.log(this.form.value)
-	}
 }

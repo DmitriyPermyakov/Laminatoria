@@ -20,17 +20,22 @@ export class AcceptOrderComponent implements OnInit {
 	}
 
 	public onSubmit(): void {
-		let contacts = new Contacts(0, this.form.value.name, this.form.value.email, this.form.value.phone)
+		let contacts = new Contacts(0, this.form.value.name, this.form.value.email, this.form.value.phone, 0)
 		let orderItems: OrderItem[] = this.form.value.items
+		let summary: number = orderItems.reduce((sum, curr) => {
+			return sum + curr.amount * curr.product.price
+		}, 0)
 		console.log(orderItems)
 		let order = new Order(
 			0,
 			contacts,
+			0,
 			this.form.value.address,
 			this.form.value.comment,
 			new Date(Date.now()),
 			orderItems,
-			this.form.value.delivery
+			this.form.value.delivery,
+			summary
 		)
 		localStorage.setItem('order', JSON.stringify(order))
 	}

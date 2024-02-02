@@ -1,5 +1,6 @@
 ﻿
 
+using Laminatoria.DTO;
 using Laminatoria.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,8 +13,26 @@ namespace Laminatoria.Repository
         {
             this.context = context;
         }
-        public async Task<int> CreateOrderAsync(Order order)
+        public async Task<int> CreateOrderAsync(OrderRequest order)
         {
+
+            List<OrderItem> items = new List<OrderItem>();
+            foreach (var item in order.OrderItems)
+            {
+                OrderItem orderItem = new OrderItem
+                {
+                    Id = 0,
+                    AdditionalPropValue = item.AdditionalPropValue,
+                    Amount = item.Amount,
+                    OrderId = item.OrderId,
+                    ProductId = item.ProductId,
+                };
+
+                items.Add(orderItem);
+            }
+
+            
+
             Order newOrder = new Order
             {
                 Id = 0,
@@ -23,6 +42,8 @@ namespace Laminatoria.Repository
                 Delivery = order.Delivery,
                 Summary = order.Summary,                
             };
+
+            newOrder.OrderItems.AddRange(items);
 
             await this.context.Orders.AddAsync(newOrder);
 
@@ -38,15 +59,15 @@ namespace Laminatoria.Repository
 
             await context.AddAsync(contacts);
 
-            List<OrderItem> items = new List<OrderItem>();
-            foreach (var item in order.OrderItems)
-            {
-                item.Id = 0;
-                item.Order = newOrder;                
-                items.Add(item);
-            }
+            //List<OrderItemRequest> items = new List<OrderItemRequest>();
+            //foreach (var item in order.OrderItems)
+            //{
+            //    item.Id = 0;
+            //    item.Order = newOrder;                
+            //    items.Add(item);
+            //}
 
-            await context.AddRangeAsync(items);
+            //await context.AddRangeAsync(items);
 
             await context.SaveChangesAsync();
             return newOrder.Id;
@@ -70,19 +91,47 @@ namespace Laminatoria.Repository
             return order;
         }
 
-        public async Task UpdateOrderAsync(Order order)
-        {
-            Order originalOrder = await this.context.Orders.FindAsync(order.Id);
+        public async Task UpdateOrderAsync(OrderRequest order)
+        {            
+            Order originalOrder = await this.context.Orders
+                .Include(o => o.Contacts)
+                .Include(o => o.OrderItems)
+                .FirstOrDefaultAsync(o => o.Id == order.Id);
+
             if(originalOrder != null)
             {
+                context.Entry(originalOrder).CurrentValues.SetValues(order);
                 originalOrder.Contacts = order.Contacts;
-                originalOrder.Address = order.Address;
-                originalOrder.Comments = order.Comments;
-                originalOrder.Date = order.Date;
-                originalOrder.Delivery = order.Delivery;
-                originalOrder.Summary = order.Summary;
-                originalOrder.OrderItems = order.OrderItems;
+                foreach(var item in order.OrderItems)
+                {
+                    var originalItem = originalOrder.OrderItems.FirstOrDefault(i => i.Id == item.Id);
+                    if(originalItem == null)
+                    {
+                        var newOrderItem = new OrderItem
+                        {
+                            Id = item.Id,
+                            Amount = item.Amount,
+                            AdditionalPropValue = item.AdditionalPropValue,
+                            OrderId = item.OrderId,
+                            ProductId = item.ProductId,
+                        };
+                        originalOrder.OrderItems.Add(newOrderItem);
+                    }
+                    else
+                    {
+                        context.Entry(originalItem).CurrentValues.SetValues(item);
+                    }
+                }
+
+                foreach(var item in originalOrder.OrderItems)
+                {
+                    if(!order.OrderItems.Any(i => i.Id == item.Id))
+                    {
+                        context.Remove(item);
+                    }
+                }
             }
+
             await this.context.SaveChangesAsync();
         }
 
