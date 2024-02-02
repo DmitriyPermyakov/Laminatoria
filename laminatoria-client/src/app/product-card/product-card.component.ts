@@ -1,9 +1,8 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core'
 import { AuthService } from '../services/auth.service'
 import { ProductsService } from '../services/products.service'
-import { Product, typeOfMeasurement, typeOfMeasurementMap } from '../classes/product'
+import { Product, typeOfMeasurementMap } from '../classes/product'
 import { ActivatedRoute, Router } from '@angular/router'
-import { map, switchMap } from 'rxjs'
 import { ShoppingCartService } from '../services/shopping-cart.service'
 import { CacheService } from '../services/cache.service'
 
@@ -48,7 +47,6 @@ export class ProductCardComponent implements OnInit, AfterViewInit {
 
 	public removeProduct(id: number): void {
 		this.productService.removeProduct(id).subscribe(() => {
-			console.log('Product was deleted')
 			this.router.navigate(['/products'], { queryParams: { category: 'laminate' } })
 		})
 	}

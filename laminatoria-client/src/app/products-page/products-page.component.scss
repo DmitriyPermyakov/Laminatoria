@@ -81,14 +81,14 @@
 		background-color: var(--main-color);
 
 		position: absolute;
-		top: -1em;
+		top: 0em;
 		left: -105vw;
 
 		transition: 0.15s;
 
 		&.opened {
 			display: block;
-			left: -1em;
+			left: 0em;
 		}
 	}
 

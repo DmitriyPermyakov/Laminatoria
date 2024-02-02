@@ -164,6 +164,11 @@
 		grid-column: 1 / 2;
 	}
 
+	.additional-props {
+		grid-row: 5 / 6;
+		grid-column: 1 / 2;
+	}
+
 	.btn-container {
 		display: flex;
 		align-items: center;

@@ -100,7 +100,8 @@ button {
 @media (max-width: 600px) and (orientation: portrait) {
 	.filter {
 		width: 100%;
-		min-height: 100vh;
+		min-height: calc(100vh - 5em);
+		min-height: calc(100svh - 5em);
 
 		background-color: var(--main-color);
 		box-shadow: 0 0 5px 0 var(--secondary-text);

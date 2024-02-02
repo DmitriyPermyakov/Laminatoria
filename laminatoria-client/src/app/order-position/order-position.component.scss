@@ -1,11 +1,22 @@
 @import url('../../btn.scss');
+@import url('../../radio-buttons.scss');
 
 .order-position-container {
+	display: flex;
+	flex-direction: column;
 	padding: 0 4em 2em;
 	width: 100%;
 	height: calc(100vh - 10em);
 	height: calc(100svh - 10em);
 	overflow-y: auto;
+}
+
+.radio-btns {
+	display: flex;
+	flex-wrap: nowrap;
+	flex-direction: row;
+
+	justify-content: flex-end;
 }
 
 @media (max-width: 600px) and (orientation: portrait) {

@@ -6,6 +6,37 @@
 			[item]="item"
 			[cartIndex]="i"
 		></app-shopping-cart-item-info>
+		<div class="radio-btns">
+			<div class="radio-buttons-container">
+				<label for="pickup" class="pickup-label">
+					<input
+						type="radio"
+						class="delivery"
+						[(ngModel)]="delivery"
+						value="pickup"
+						id="pickup"
+						name="delivery"
+						hidden
+						disabled
+					/>
+					<span>Сaмовывоз</span>
+				</label>
+
+				<label for="delivery1" class="delivery-label">
+					<input
+						type="radio"
+						class="delivery"
+						[(ngModel)]="delivery"
+						value="delivery"
+						id="delivery1"
+						name="delivery"
+						hidden
+						disabled
+					/>
+					<span>Доставка</span>
+				</label>
+			</div>
+		</div>
 		<div class="remove-edit-btns">
 			<button class="remove-btn btn" type="button" (click)="removeOrder()">Удалить</button>
 			<button class="edit-btn btn" type="button" [routerLink]="['/orders', order.id, 'edit']">Редактировать</button>

@@ -12,6 +12,7 @@ import { OrdersService } from '../services/orders.service'
 export class OrderPositionComponent implements OnInit {
 	public id: string
 	public order: Order
+	public delivery: string
 
 	constructor(
 		private activatedRoute: ActivatedRoute,
@@ -27,10 +28,13 @@ export class OrderPositionComponent implements OnInit {
 			let orders: Order[] = this.cacheService.get('orders' + this.cacheService.productPageNumber)
 			if (orders == undefined) this.loadFromServer()
 			else {
-				let order = orders.filter((o) => o.id == +this.id)[0]
-				if (!order) {
+				this.order = orders.filter((o) => o.id == +this.id)[0]
+				if (!this.order) {
 					this.loadFromServer()
+					return
 				}
+				this.delivery = this.order.delivery
+				console.log(this.delivery)
 			}
 		}
 	}
@@ -45,6 +49,8 @@ export class OrderPositionComponent implements OnInit {
 	private loadFromServer(): void {
 		this.orderService.getById(this.id).subscribe((o) => {
 			this.order = o
+			this.delivery = this.order.delivery
+			console.log(this.delivery)
 		})
 	}
 }
