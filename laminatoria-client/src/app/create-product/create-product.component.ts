@@ -4,6 +4,7 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { CategoriesService } from '../services/categories.service'
 import { Category } from '../classes/category'
 import { Router } from '@angular/router'
+import { CacheService } from '../services/cache.service'
 
 @Component({
 	selector: 'app-create-product',
@@ -26,13 +27,13 @@ export class CreateProductComponent implements OnInit {
 		private productService: ProductsService,
 		private fb: FormBuilder,
 		private categoriesService: CategoriesService,
-		private router: Router
+		private router: Router,
+		private cache: CacheService
 	) {}
 
 	ngOnInit(): void {
 		this.categoriesService.getCategories().subscribe((c) => {
 			this.categories = c
-			console.log(this.categories)
 		})
 		this.initForm()
 	}
@@ -41,9 +42,9 @@ export class CreateProductComponent implements OnInit {
 		this.productService.createProduct(this.form.value).subscribe((id) => {
 			if (id > 0) {
 				this.router.navigate(['/products', id])
+				this.cache.shouldUpdateProducts = true
 			}
 		})
-		console.log(JSON.stringify(this.form.value))
 	}
 
 	public resetForm(): void {

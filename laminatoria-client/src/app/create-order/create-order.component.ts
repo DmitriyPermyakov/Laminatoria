@@ -9,6 +9,7 @@ import { OrderItemRequest } from '../classes/orderItemRequest'
 import { OrderRequest } from '../classes/orderRequest'
 import { OrdersService } from '../services/orders.service'
 import { Router } from '@angular/router'
+import { CacheService } from '../services/cache.service'
 
 @Component({
 	selector: 'app-create-order',
@@ -36,7 +37,8 @@ export class CreateOrderComponent {
 		private fb: NonNullableFormBuilder,
 		private productService: ProductsService,
 		private orderService: OrdersService,
-		private router: Router
+		private router: Router,
+		private cacheService: CacheService
 	) {}
 
 	ngOnInit(): void {
@@ -105,7 +107,10 @@ export class CreateOrderComponent {
 		console.log(order)
 
 		this.orderService.createOrder(order).subscribe((id: number) => {
-			if (id > 0) this.router.navigate(['orders', id])
+			if (id > 0) {
+				this.router.navigate(['orders', id])
+				this.cacheService.shouldUpdateOrders = true
+			}
 		})
 	}
 

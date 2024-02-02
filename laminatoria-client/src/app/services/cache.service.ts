@@ -6,6 +6,8 @@ import { Injectable } from '@angular/core'
 export class CacheService {
 	public orderPageNumber: number = -1
 	public productPageNumber: number = -1
+	public shouldUpdateOrders: boolean = false
+	public shouldUpdateProducts: boolean = false
 
 	public get productCategory(): string {
 		return localStorage.getItem('category')

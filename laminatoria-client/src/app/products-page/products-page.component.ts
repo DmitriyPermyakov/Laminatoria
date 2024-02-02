@@ -30,16 +30,10 @@ export class ProductsPageComponent implements OnInit {
 	) {}
 
 	ngOnInit(): void {
-		// this.routerSub = this.router.events.subscribe((event) => {
-		// 	if (event instanceof NavigationEnd) {
-		// 		console.log(event.url.replace('/products/', ''))
-		// 	}
-		// })
-
 		let queryParam = this.activatedRoute.snapshot.queryParams['category']
 		this.cacheService.productCategory = queryParam
-		console.log(queryParam)
-		if (this.cacheService.productPageNumber < 0) {
+
+		if (this.cacheService.productPageNumber < 0 || this.cacheService.shouldUpdateProducts) {
 			this.cacheService.productPageNumber = 1
 			this.currentPage = 1
 			this.loadAndCacheProducts(this.cacheService.productCategory)
@@ -50,6 +44,7 @@ export class ProductsPageComponent implements OnInit {
 				this.loadAndCacheProducts(this.cacheService.productCategory)
 			} else {
 				this.products = productsFromCache
+				this.pageCount = Math.ceil(this.products.length / this.elementsOnPage)
 			}
 		}
 	}
@@ -63,6 +58,7 @@ export class ProductsPageComponent implements OnInit {
 			this.products = p
 			this.pageCount = Math.ceil(this.products.length / this.elementsOnPage)
 			this.cacheService.set('products' + this.currentPage, p)
+			this.cacheService.shouldUpdateProducts = false
 		})
 	}
 }

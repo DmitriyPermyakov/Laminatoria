@@ -23,8 +23,7 @@ export class OrdersComponent implements OnInit {
 	) {}
 
 	ngOnInit(): void {
-		if (this.cacheService.orderPageNumber < 0) {
-			//получить данные первой страницы с сервера
+		if (this.cacheService.orderPageNumber < 0 || this.cacheService.shouldUpdateOrders) {
 			this.cacheService.orderPageNumber = 1
 			this.currentPage = 1
 			this.loadAndCacheOrders()
@@ -35,6 +34,7 @@ export class OrdersComponent implements OnInit {
 				this.loadAndCacheOrders()
 			} else {
 				this.orders = ordersFromCache
+				this.pageCount = Math.ceil(this.orders.length / this.elementsOnPage)
 			}
 		}
 	}
@@ -48,6 +48,7 @@ export class OrdersComponent implements OnInit {
 			this.orders = orders
 			this.pageCount = Math.ceil(this.orders.length / this.elementsOnPage)
 			this.cacheService.set('orders' + this.currentPage, this.orders)
+			this.cacheService.shouldUpdateOrders = false
 		})
 	}
 }

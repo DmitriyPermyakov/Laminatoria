@@ -89,7 +89,7 @@ namespace Laminatoria.Controllers
             try
             {
                 this.repository.DeleteOrder(id);
-                return Ok("Order was removed");
+                return Ok();
             }
             catch(Exception ex)
             {

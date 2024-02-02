@@ -47,9 +47,6 @@ export class EditProductComponent implements OnInit, AfterViewInit {
 		})
 
 		this.loadProduct()
-
-		//#TODO: обработка ошибок
-		//#TODO: запомнить обратную навигацию
 	}
 
 	ngAfterViewInit(): void {}
@@ -59,13 +56,13 @@ export class EditProductComponent implements OnInit, AfterViewInit {
 		this.productService.updateProduct(this.form.value).subscribe((id) => {
 			if (id > 0) {
 				this.router.navigate(['/products', id])
+				this.cacheService.shouldUpdateProducts = true
 			}
 		})
 	}
 
 	public changeCategory(event: any): void {
 		let category = this.categories.find((c) => c.value == event.target.value)
-		console.log(category)
 		this.category.setValue(category)
 	}
 
@@ -102,12 +99,15 @@ export class EditProductComponent implements OnInit, AfterViewInit {
 		if (this.id != '') {
 			const data = this.cacheService.get('products' + this.cacheService.productPageNumber)
 
-			if (data != undefined) {
-				this.product = data.find((p) => p.id == this.id)
-				if (!this.product) this.loadProductFromServer(+this.id)
-				else this.initForm()
-			} else {
+			if (data == undefined) {
 				this.loadProductFromServer(+this.id)
+			} else {
+				this.product = data.find((p) => p.id == this.id)
+				if (!this.product) {
+					this.loadProductFromServer(+this.id)
+					return
+				}
+				this.initForm()
 			}
 		}
 	}

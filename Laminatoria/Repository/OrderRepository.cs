@@ -77,7 +77,9 @@ namespace Laminatoria.Repository
         {
             return this.context.Orders
                 .Include(o => o.Contacts)
-                .Include(o => o.OrderItems);
+                .Include(o => o.OrderItems)
+                .ThenInclude(i => i.Product)
+                .ThenInclude(p => p.AdditionalProperty);
         }
 
         public async Task<Order> GetOrderByIdAsync(int id)

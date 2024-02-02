@@ -30,7 +30,7 @@ export class OrderPositionEditComponent implements OnInit {
 
 	public get summary(): number {
 		return this.items.reduce((sum, curr) => {
-			return sum + curr.value.product.price * curr.value.amount
+			return sum + curr?.value?.product?.price * curr.value.amount
 		}, 0)
 	}
 	constructor(
@@ -48,7 +48,7 @@ export class OrderPositionEditComponent implements OnInit {
 	ngOnInit(): void {
 		this.loadProduct()
 		// #TODO: изменить параметр
-		this.productService.getAll(this.cacheService.productCategory).subscribe((p) => (this.products = p))
+		this.productService.getAll(' ').subscribe((p) => (this.products = p))
 	}
 
 	public addItem(product: Product): void {
@@ -78,15 +78,22 @@ export class OrderPositionEditComponent implements OnInit {
 
 	private loadProduct(): void {
 		let orders: Order[] = this.cacheService.get('orders' + this.cacheService.orderPageNumber)
-		if (!orders)
-			this.ordersService.getById(this.id).subscribe((o) => {
-				this.order = o
-				this.initForm()
-			})
+		if (orders == undefined) this.loadFromServer()
 		else {
 			this.order = orders.filter((o) => o.id == +this.id)[0]
+			if (!this.order) {
+				this.loadFromServer
+				return
+			}
 			this.initForm()
 		}
+	}
+
+	private loadFromServer(): void {
+		this.ordersService.getById(this.id).subscribe((o) => {
+			this.order = o
+			this.initForm()
+		})
 	}
 
 	private initForm(): void {
@@ -151,6 +158,7 @@ export class OrderPositionEditComponent implements OnInit {
 
 		this.orderService.updateOrder(order).subscribe(() => {
 			this.router.navigate(['orders', +this.id])
+			this.cacheService.shouldUpdateOrders = true
 		})
 	}
 }

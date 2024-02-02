@@ -40,4 +40,10 @@ export class OrdersService {
 			})
 		)
 	}
+
+	public removeOrder(id: number): Observable<void> {
+		return this.http
+			.delete<any>(`${environment.ordersUrl}/delete/${id}`)
+			.pipe(catchError((error) => throwError(() => console.log(error))))
+	}
 }
