@@ -11,6 +11,8 @@ namespace Laminatoria.Repository
         public DbSet<AdditionalProperty> AdditionalProperties { get; set; }
         public DbSet<Properties> Properties { get; set; }
         public DbSet<Order> Orders { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<RefreshToken> RefreshTokens { get; set; }
         public LaminatoriaDbContext(DbContextOptions<LaminatoriaDbContext> opts): base(opts)
         {
           
@@ -18,6 +20,17 @@ namespace Laminatoria.Repository
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
+            modelBuilder.Entity<User>()
+                .HasData(new User
+                {
+                    Id = 1,
+                    Email = "test@mail.ru",
+                    PasswordHash = "$2a$12$FlZqnoP95CQEXhwjXclCiu.wkqRvi6y23.M42WCpZDv8taVl4qHPO"
+                });
+
+
+
             modelBuilder.Entity<Product>()
                 .Property(p => p.TypeOfMeasurement)
                 .HasConversion<byte>();

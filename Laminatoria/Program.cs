@@ -1,9 +1,19 @@
+using Laminatoria.Infrastructure;
+using Laminatoria.JwtSettings;
 using Laminatoria.Repository;
+using Laminatoria.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
+JwtSettings jwtSetting = new JwtSettings();
+
+var config = builder.Configuration;
+config.GetSection("JwtSetting").Bind(jwtSetting);
+builder.Services.AddSingleton(jwtSetting);
 // Add services to the container.
 
 builder.Services.AddControllers()
@@ -30,11 +40,25 @@ builder.Services.AddCors(options =>
 });
 
 
-Console.WriteLine(connectionString);
-
 builder.Services.AddTransient<IOrderRepository, OrderRepository>();
 builder.Services.AddTransient<IProductRepository, ProductRepository>();
 builder.Services.AddTransient<ICategoryRepository, CategoriesRepository>();
+builder.Services.AddTransient<IPasswordHashed, PasswordHashed>();
+builder.Services.AddTransient<ITokenGenerator, TokenGenerator>();
+builder.Services.AddTransient<ITokenRepository, TokenRepository>();
+builder.Services.AddTransient<IAccountService, AccountService>();
+builder.Services.AddTransient<IUserRepository, UserRepository>();
+
+
+TokenValidationParameters tokenValidationParameters = new TokenValidationParametersFactory(jwtSetting).AccessTokenValidationParamaters;
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        //change in production
+        options.RequireHttpsMetadata = false;
+        options.SaveToken = true;
+        options.TokenValidationParameters = tokenValidationParameters;
+    });
 
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -53,6 +77,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
