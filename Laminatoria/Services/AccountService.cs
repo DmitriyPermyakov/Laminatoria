@@ -50,7 +50,7 @@ namespace Laminatoria.Services
             SecurityToken validatedToken = tokenGenerator.ValidateToken(refreshToken, tokenValidationParameters);
 
             if (validatedToken == null)
-                throw new Exception("Invalid token");
+                throw new Exception("Invalid token or null");
 
             var refreshTokenFromDb = await tokenRepository.GetByTokenAsync(refreshToken);
             if(refreshTokenFromDb == null)             

@@ -39,8 +39,8 @@ namespace Laminatoria.Infrastructure
                 return new TokenValidationParameters
                 {
                     ValidateIssuerSigningKey = true,
-                    ValidateIssuer = true,
-                    ValidateAudience = true,
+                    ValidateIssuer = false,
+                    ValidateAudience = false,
                     RequireExpirationTime = false,
                     ValidateLifetime = false,
 

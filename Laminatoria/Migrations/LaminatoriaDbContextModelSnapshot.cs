@@ -156,7 +156,7 @@ namespace Laminatoria.Migrations
                             Id = 1,
                             Address = "ул. Новосибирская 23, кв 45",
                             Comments = "slgksag;saj;sf",
-                            Date = new DateTime(2024, 2, 1, 19, 53, 53, 605, DateTimeKind.Local).AddTicks(9651),
+                            Date = new DateTime(2024, 2, 11, 18, 29, 3, 366, DateTimeKind.Local).AddTicks(5863),
                             Delivery = "delivery",
                             Status = 0,
                             Summary = 1500m
@@ -279,6 +279,53 @@ namespace Laminatoria.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Laminatoria.Models.RefreshToken", b =>
+                {
+                    b.Property<short>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("smallint");
+
+                    b.Property<string>("Token")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<short>("UserId")
+                        .HasColumnType("smallint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("RefreshTokens");
+                });
+
+            modelBuilder.Entity("Laminatoria.Models.User", b =>
+                {
+                    b.Property<short>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("smallint");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("PasswordHash")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = (short)1,
+                            Email = "test@mail.ru",
+                            PasswordHash = "$2a$12$FlZqnoP95CQEXhwjXclCiu.wkqRvi6y23.M42WCpZDv8taVl4qHPO"
+                        });
+                });
+
             modelBuilder.Entity("Laminatoria.Models.AdditionalProperty", b =>
                 {
                     b.HasOne("Laminatoria.Models.Product", "Product")
@@ -336,6 +383,17 @@ namespace Laminatoria.Migrations
                         .IsRequired();
 
                     b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("Laminatoria.Models.RefreshToken", b =>
+                {
+                    b.HasOne("Laminatoria.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Laminatoria.Models.Category", b =>

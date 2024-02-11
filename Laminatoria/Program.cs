@@ -12,7 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 JwtSettings jwtSetting = new JwtSettings();
 
 var config = builder.Configuration;
-config.GetSection("JwtSetting").Bind(jwtSetting);
+config.GetSection("JwtSettings").Bind(jwtSetting);
 builder.Services.AddSingleton(jwtSetting);
 // Add services to the container.
 

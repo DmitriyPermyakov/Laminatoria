@@ -22,7 +22,7 @@ namespace Laminatoria.Services
         public async Task<string> GenerateTokenAsync(TokenType tokenType, User user)
         {
             string tokenSecret = null;
-            int expTime = 0;
+            double expTime = 0;
 
             switch(tokenType)
             {

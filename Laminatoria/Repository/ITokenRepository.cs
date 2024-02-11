@@ -6,6 +6,6 @@ namespace Laminatoria.Repository
     {
         public Task<RefreshToken> CreateAsync(RefreshToken token);
         public Task<RefreshToken> GetByTokenAsync(string token);
-        public Task RemoveAsync(RefreshToken);
+        public Task RemoveAsync(RefreshToken refreshTokens);
     }
 }

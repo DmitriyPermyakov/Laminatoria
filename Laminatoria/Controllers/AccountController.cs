@@ -43,6 +43,7 @@ namespace Laminatoria.Controllers
         {
             try
             {
+                Console.WriteLine(token);
                 if (string.IsNullOrWhiteSpace(token) || token == "\t")
                     return BadRequest("Invalid token");
                 await accountService.LogoutAsync(token);

@@ -25,11 +25,7 @@ namespace Laminatoria.Repository
 
         public async Task RemoveAsync(RefreshToken token)
         {
-            var tokenFromDb = await this.context.RefreshTokens.FindAsync(token);
-            if (tokenFromDb != null)
-            {
-                this.context.RefreshTokens.Remove(token);
-            }
+            this.context.Remove(token);            
             await this.context.SaveChangesAsync();
         }
     }
