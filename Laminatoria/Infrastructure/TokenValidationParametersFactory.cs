@@ -22,7 +22,10 @@ namespace Laminatoria.Infrastructure
                     //изменить валидации
                     ValidateIssuerSigningKey = true,
                     ValidateIssuer = true,
+                    ValidIssuer = jwtSettings.Issuer,
+
                     ValidateAudience = true,
+                    ValidAudience = jwtSettings.Audience,
 
                     RequireExpirationTime = false,
                     ValidateLifetime = false,
@@ -38,12 +41,15 @@ namespace Laminatoria.Infrastructure
             {
                 return new TokenValidationParameters
                 {
-                    ValidateIssuerSigningKey = true,
-                    ValidateIssuer = false,
-                    ValidateAudience = false,
-                    RequireExpirationTime = false,
-                    ValidateLifetime = false,
+                    ValidateIssuer = true,     
+                    ValidIssuer = jwtSettings.Issuer,
 
+                    ValidateAudience = true,                    
+                    ValidAudience = jwtSettings.Audience,
+
+                    RequireExpirationTime = true,
+                    ValidateLifetime = false,
+                    ValidateIssuerSigningKey = true,
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(jwtSettings.RefreshTokenSecret))
                 };
             }

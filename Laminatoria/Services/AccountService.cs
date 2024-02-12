@@ -44,15 +44,9 @@ namespace Laminatoria.Services
             }
         }
 
-        public async Task LogoutAsync(string refreshToken)
-        {
-            var tokenValidationParameters = new TokenValidationParametersFactory(jwtSettings).RefreshTokenValidationParameters;
-            SecurityToken validatedToken = tokenGenerator.ValidateToken(refreshToken, tokenValidationParameters);
-
-            if (validatedToken == null)
-                throw new Exception("Invalid token or null");
-
-            var refreshTokenFromDb = await tokenRepository.GetByTokenAsync(refreshToken);
+        public async Task LogoutAsync(string token)
+        {     
+            var refreshTokenFromDb = await tokenRepository.GetByTokenAsync(token);
             if(refreshTokenFromDb == null)             
                 throw new Exception("Token not found");
             
@@ -72,7 +66,7 @@ namespace Laminatoria.Services
             if (token == null)
                 throw new Exception("Token not found");
             
-            User user = await userRepository.GetByIdAsync(token.Id);
+            User user = await userRepository.GetByIdAsync(token.UserId);
             if (user == null)
                 throw new Exception("InvalidToken");
             string accessToken = await tokenGenerator.GenerateTokenAsync(TokenType.AccessToken, user);

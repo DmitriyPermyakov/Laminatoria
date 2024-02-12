@@ -1,11 +1,12 @@
 ﻿using Laminatoria.DTO;
 using Laminatoria.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Laminatoria.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api")]
     [ApiController]
     public class AccountController : ControllerBase
     {
@@ -38,15 +39,19 @@ namespace Laminatoria.Controllers
             }
         }
 
+
+        [Authorize]
         [HttpPost("logout")]
-        public async Task<IActionResult> Logout([FromBody] string token)
+        public async Task<IActionResult> Logout([FromBody] LogoutRequest request)
         {
             try
             {
-                Console.WriteLine(token);
-                if (string.IsNullOrWhiteSpace(token) || token == "\t")
+                if (!ModelState.IsValid)
+                    return BadRequest();
+
+                if (string.IsNullOrWhiteSpace(request.Token) || request.Token == "\t")
                     return BadRequest("Invalid token");
-                await accountService.LogoutAsync(token);
+                await accountService.LogoutAsync(request.Token);
                 return Unauthorized("Logged out");
             }
             catch(Exception ex)
@@ -54,16 +59,16 @@ namespace Laminatoria.Controllers
                 return BadRequest(ex.Message);
             }
         }
-
+        
         [HttpPost("refresh")]
-        public async Task<IActionResult> RefreshTokenAsync([FromBody] string token)
+        public async Task<IActionResult> RefreshTokenAsync([FromBody] RefreshTokenRequest request)
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(token) || token == "\t")
+                if (string.IsNullOrWhiteSpace(request.Token) ||request.Token == "\t")
                     return Unauthorized("Invalid token");
 
-                AuthenticationResult result = await accountService.RefreshTokenAsync(token);
+                AuthenticationResult result = await accountService.RefreshTokenAsync(request.Token);
                 return Ok(result);
             }
             catch(Exception ex)
