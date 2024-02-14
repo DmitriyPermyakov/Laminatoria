@@ -16,6 +16,9 @@
 	grid-column: 1 / 2;
 	& > img {
 		max-width: 400px;
+		max-height: 400px;
+		object-fit: cover;
+		aspect-ratio: 1 / 1;
 	}
 }
 
@@ -46,6 +49,9 @@
 	& > img {
 		transition: 0.15s;
 		max-width: 100px;
+		max-height: 100px;
+		aspect-ratio: 1 / 1;
+		object-fit: cover;
 		transform: rotate(90deg);
 	}
 
