@@ -10,6 +10,18 @@ namespace Laminatoria.Repository
         {
             this.context = context;
         }
+
+        public async Task<List<RefreshToken>> GetAllAsync()
+        {
+            var tokens =  await this.context.RefreshTokens.ToListAsync();
+            return tokens;
+        }
+
+        public async Task ClearAsync(List<RefreshToken> tokens)
+        {
+            this.context.RefreshTokens.RemoveRange(tokens);
+            await this.context.SaveChangesAsync();
+        }
         public async Task<RefreshToken> CreateAsync(RefreshToken token)
         {
             await this.context.RefreshTokens.AddAsync(token);

@@ -12,12 +12,13 @@ import { OrderPositionEditComponent } from './order-position-edit/order-position
 import { LoginPageComponent } from './login-page/login-page.component'
 import { CreateProductComponent } from './create-product/create-product.component'
 import { CreateOrderComponent } from './create-order/create-order.component'
+import { AuthGuardService } from './services/auth-guard.service'
 
 const routes: Routes = [
 	{ path: '', component: MainPageComponent },
 	{ path: 'product-cart', component: ShoppingCartComponent },
 	{ path: 'products', component: ProductsPageComponent },
-	{ path: 'products/create', component: CreateProductComponent },
+	{ path: 'products/create', component: CreateProductComponent, canActivate: [AuthGuardService] },
 	{ path: 'products/:id/edit', component: EditProductComponent },
 	{ path: 'products/:id', component: ProductCardComponent },
 	{ path: 'accept-order', component: AcceptOrderComponent },

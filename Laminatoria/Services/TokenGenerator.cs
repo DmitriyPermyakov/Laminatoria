@@ -53,17 +53,7 @@ namespace Laminatoria.Services
                 expires: DateTime.UtcNow.AddMinutes(expTime),
                 signingCredentials: signingCredentials);
             
-            var createdToken = new JwtSecurityTokenHandler().WriteToken(token);
-
-            if(tokenType == TokenType.RefreshToken)
-            {
-                RefreshToken refreshToken = new RefreshToken()
-                {
-                    Token = createdToken,
-                    UserId = user.Id,
-                };
-                await tokenRepository.CreateAsync(refreshToken);
-            }
+            var createdToken = new JwtSecurityTokenHandler().WriteToken(token);           
 
             return createdToken;
         }

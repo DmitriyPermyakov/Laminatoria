@@ -1,10 +1,11 @@
+-
 <div class="login-container">
-	<form class="login-form">
-		<input type="text" class="login" placeholder="Логин" />
-		<input type="password" class="password" placeholder="Пароль" />
+	<form class="login-form" [formGroup]="loginForm" (ngSubmit)="login()">
+		<input type="text" class="login" placeholder="Email" formControlName="email" />
+		<input type="password" class="password" placeholder="Пароль" formControlName="password" />
 		<div class="buttons">
 			<a class="recover-password">Восстановить</a>
-			<button class="enter" type="submit">Войти</button>
+			<button class="enter" [disabled]="loginForm.invalid || logining" type="submit">Войти</button>
 		</div>
 	</form>
 </div>

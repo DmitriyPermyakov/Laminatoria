@@ -42,16 +42,11 @@ namespace Laminatoria.Controllers
 
         [Authorize]
         [HttpPost("logout")]
-        public async Task<IActionResult> Logout([FromBody] LogoutRequest request)
+        public async Task<IActionResult> Logout()
         {
             try
-            {
-                if (!ModelState.IsValid)
-                    return BadRequest();
-
-                if (string.IsNullOrWhiteSpace(request.Token) || request.Token == "\t")
-                    return BadRequest("Invalid token");
-                await accountService.LogoutAsync(request.Token);
+            {               
+                await accountService.LogoutAsync();
                 return Unauthorized("Logged out");
             }
             catch(Exception ex)

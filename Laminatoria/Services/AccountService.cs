@@ -33,6 +33,17 @@ namespace Laminatoria.Services
                 accessToken = await tokenGenerator.GenerateTokenAsync(TokenType.AccessToken, user);
                 refreshToken = await tokenGenerator.GenerateTokenAsync(TokenType.RefreshToken, user);
 
+                List<RefreshToken> refreshTokens = await this.tokenRepository.GetAllAsync();
+                await this.tokenRepository.ClearAsync(refreshTokens);
+
+                RefreshToken refToken = new RefreshToken
+                {
+                    Token = refreshToken,
+                    UserId = user.Id,
+                };
+
+                await this.tokenRepository.CreateAsync(refToken);
+
                 return new AuthenticationResult
                 {
                     AccessToken = accessToken,
@@ -44,13 +55,10 @@ namespace Laminatoria.Services
             }
         }
 
-        public async Task LogoutAsync(string token)
-        {     
-            var refreshTokenFromDb = await tokenRepository.GetByTokenAsync(token);
-            if(refreshTokenFromDb == null)             
-                throw new Exception("Token not found");
-            
-            await tokenRepository.RemoveAsync(refreshTokenFromDb);
+        public async Task LogoutAsync()
+        {
+            List<RefreshToken> refreshTokens = await this.tokenRepository.GetAllAsync();
+            await this.tokenRepository.ClearAsync(refreshTokens);           
         }
 
         public async Task<AuthenticationResult> RefreshTokenAsync(string refreshToken)
