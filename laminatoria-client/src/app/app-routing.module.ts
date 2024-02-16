@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core'
+import { NgModule, inject } from '@angular/core'
 import { RouterModule, Routes } from '@angular/router'
 import { MainPageComponent } from './main-page/main-page.component'
 import { ProductsPageComponent } from './products-page/products-page.component'
@@ -12,20 +12,20 @@ import { OrderPositionEditComponent } from './order-position-edit/order-position
 import { LoginPageComponent } from './login-page/login-page.component'
 import { CreateProductComponent } from './create-product/create-product.component'
 import { CreateOrderComponent } from './create-order/create-order.component'
-import { AuthGuardService } from './services/auth-guard.service'
+import { authGuard } from './services/auth-guard.service'
 
 const routes: Routes = [
 	{ path: '', component: MainPageComponent },
 	{ path: 'product-cart', component: ShoppingCartComponent },
 	{ path: 'products', component: ProductsPageComponent },
-	{ path: 'products/create', component: CreateProductComponent, canActivate: [AuthGuardService] },
-	{ path: 'products/:id/edit', component: EditProductComponent },
+	{ path: 'products/create', component: CreateProductComponent, canActivate: [authGuard] },
+	{ path: 'products/:id/edit', component: EditProductComponent, canActivate: [authGuard] },
 	{ path: 'products/:id', component: ProductCardComponent },
-	{ path: 'accept-order', component: AcceptOrderComponent },
-	{ path: 'orders', component: OrdersComponent },
-	{ path: 'orders/create', component: CreateOrderComponent },
-	{ path: 'orders/:id', component: OrderPositionComponent },
-	{ path: 'orders/:id/edit', component: OrderPositionEditComponent },
+	{ path: 'accept-order', component: AcceptOrderComponent, canActivate: [authGuard] },
+	{ path: 'orders', component: OrdersComponent, canActivate: [authGuard] },
+	{ path: 'orders/create', component: CreateOrderComponent, canActivate: [authGuard] },
+	{ path: 'orders/:id', component: OrderPositionComponent, canActivate: [authGuard] },
+	{ path: 'orders/:id/edit', component: OrderPositionEditComponent, canActivate: [authGuard] },
 	{ path: 'login', component: LoginPageComponent },
 ]
 

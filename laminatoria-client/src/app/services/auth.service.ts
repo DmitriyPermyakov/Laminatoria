@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core'
 import { LoginRequest } from '../classes/loginRequest'
-import { Observable, catchError, throwError } from 'rxjs'
+import { Observable, catchError, of, throwError } from 'rxjs'
 import { AuthenticationResult } from '../classes/authenticationResult'
 import { HttpClient } from '@angular/common/http'
 import { environment } from 'src/environments/environment.development'
 import { RefreshRequest } from '../classes/refreshRequest'
+import { Router } from '@angular/router'
 
 @Injectable({
 	providedIn: 'root',
@@ -31,6 +32,11 @@ export class AuthService {
 	}
 
 	public get isAuthenticated(): boolean {
+		if (this.accessTokenString == '') return false
+
+		if (this.isTokenExpired(this.accessTokenString)) {
+			this.refreshToken()
+		}
 		return !this.isTokenExpired(this.accessTokenString)
 	}
 
@@ -40,14 +46,13 @@ export class AuthService {
 
 	private isTokenExpired(token: string): boolean {
 		if (token != '') {
-			console.log('token is', token)
 			let exp = JSON.parse(atob(token.split('.')[1])).exp * 1000
 			return new Date() > new Date(exp)
 		}
 		return true
 	}
 
-	constructor(private http: HttpClient) {}
+	constructor(private http: HttpClient, private router: Router) {}
 
 	public clearTokens(): void {
 		localStorage.removeItem('accessToken')
@@ -64,10 +69,17 @@ export class AuthService {
 			.pipe(catchError((error) => throwError(() => console.log(error))))
 	}
 
-	public refreshToken(): Observable<AuthenticationResult> {
+	private refreshToken(): void {
+		console.log('refreshing token')
 		let refreshRequest = new RefreshRequest(this.refreshTokenString)
-		return this.http
+		this.http
 			.post<AuthenticationResult>(`${environment.refreshUrl}`, refreshRequest)
-			.pipe(catchError((error) => throwError(() => console.log(error))))
+			.pipe(catchError((error) => throwError(() => console.error(error))))
+			.subscribe((response) => {
+				if (response) {
+					this.accessTokenString = response.accessToken
+					this.refreshTokenString = response.refreshToken
+				} else this.clearTokens()
+			})
 	}
 }

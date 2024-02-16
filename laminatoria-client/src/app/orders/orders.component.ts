@@ -3,6 +3,7 @@ import { FilterService } from '../services/filter.service'
 import { Order } from '../classes/order'
 import { OrdersService } from '../services/orders.service'
 import { CacheService } from '../services/cache.service'
+import { AuthService } from '../services/auth.service'
 
 @Component({
 	selector: 'app-orders',
@@ -19,10 +20,12 @@ export class OrdersComponent implements OnInit {
 	constructor(
 		public filterService: FilterService,
 		private orderService: OrdersService,
-		private cacheService: CacheService
+		private cacheService: CacheService,
+		private auth: AuthService
 	) {}
 
 	ngOnInit(): void {
+		console.log('auth orders', this.auth.isAuthenticated)
 		if (this.cacheService.orderPageNumber < 0 || this.cacheService.shouldUpdateOrders) {
 			this.cacheService.orderPageNumber = 1
 			this.currentPage = 1

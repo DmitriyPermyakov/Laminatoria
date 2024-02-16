@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core'
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core'
 import { FilterService } from '../services/filter.service'
 import { NavigationEnd, Router } from '@angular/router'
 import { Subscription } from 'rxjs'
@@ -11,6 +11,7 @@ import { AuthService } from '../services/auth.service'
 })
 export class HeaderComponent implements OnInit, OnDestroy {
 	public isMenuOpened: boolean = false
+	@Output() public onNavigate: EventEmitter<string> = new EventEmitter()
 
 	private routerSub: Subscription
 
@@ -20,6 +21,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		this.routerSub = this.router.events.subscribe((event) => {
 			if (event instanceof NavigationEnd) this.isMenuOpened = false
 		})
+
+		console.log('is authenticated ', this.auth.isAuthenticated)
 	}
 
 	ngOnDestroy(): void {
