@@ -32,6 +32,9 @@
 				<a [routerLink]="['product-cart']" *ngIf="!auth.isAuthenticated">Корзина</a>
 				<a [routerLink]="['orders']" *ngIf="auth.isAuthenticated">Заказы</a>
 			</li>
+			<li class="item">
+				<a (click)="logout()" *ngIf="auth.isAuthenticated">Выйти</a>
+			</li>
 		</ul>
 	</nav>
 </div>

@@ -1,6 +1,7 @@
 ﻿using Laminatoria.DTO;
 using Laminatoria.Models;
 using Laminatoria.Repository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -17,6 +18,7 @@ namespace Laminatoria.Controllers
             this.repository = repository;
         }
 
+        [Authorize]
         [HttpGet("getAll")]
         public async Task<IActionResult> GetAllOrders()
         {
@@ -31,6 +33,7 @@ namespace Laminatoria.Controllers
             }
         }
 
+        [Authorize]
         [HttpGet("getById/{id}")]
         public async Task<IActionResult> GetOrderById(int id)
         {
@@ -47,6 +50,7 @@ namespace Laminatoria.Controllers
             }
         }
 
+        [Authorize]
         [HttpPut("update")]
         public async Task<IActionResult> UpdateOrderAsync( OrderRequest order)
         {
@@ -66,6 +70,8 @@ namespace Laminatoria.Controllers
             }
         }
 
+        [Authorize]
+
         [HttpPost("create")]
         public async Task<IActionResult> CreateOrder([FromBody] OrderRequest order)
         {
@@ -83,6 +89,7 @@ namespace Laminatoria.Controllers
             }
         }
 
+        [Authorize]
         [HttpDelete("delete/{id}")]
         public IActionResult DeleteOrder(int id)
         {

@@ -51,7 +51,6 @@ export class ProductsPageComponent implements OnInit, OnDestroy {
 
 	private loadProducts(): void {
 		let queryParam = this.activatedRoute.snapshot.queryParams['category']
-		console.log('query param is', queryParam)
 		if (this.cacheService.productCategory !== queryParam) this.cacheService.shouldUpdateProducts = true
 		this.cacheService.productCategory = queryParam
 
@@ -78,7 +77,6 @@ export class ProductsPageComponent implements OnInit, OnDestroy {
 			this.pageCount = Math.ceil(this.products.length / this.elementsOnPage)
 			this.cacheService.set('products' + this.currentPage, p)
 			this.cacheService.shouldUpdateProducts = false
-			console.log(this.cacheService.get('products' + this.currentPage))
 		})
 	}
 }

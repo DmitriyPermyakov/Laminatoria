@@ -35,7 +35,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy(name: localOrigins,
         policy =>
         {
-            policy.WithOrigins("http://localhost:4200").AllowAnyHeader().AllowAnyMethod();
+            policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
         });
 });
 
@@ -56,7 +56,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     {
         //change in production
         options.RequireHttpsMetadata = true;
-        options.SaveToken = true;
+        options.SaveToken = false;
         options.TokenValidationParameters = tokenValidationParameters;
     });
 
@@ -76,14 +76,16 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+app.UseRouting();
 
+app.UseCors(localOrigins);
 
 app.UseAuthentication();
+
 app.UseAuthorization();
 
 app.MapControllers();
 
-app.UseCors(localOrigins);
 
 
 

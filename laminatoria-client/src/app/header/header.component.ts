@@ -21,12 +21,17 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		this.routerSub = this.router.events.subscribe((event) => {
 			if (event instanceof NavigationEnd) this.isMenuOpened = false
 		})
-
-		console.log('is authenticated ', this.auth.isAuthenticated)
 	}
 
 	ngOnDestroy(): void {
 		if (this.routerSub) this.routerSub.unsubscribe()
+	}
+
+	public logout(): void {
+		this.auth.logout().subscribe(() => {
+			this.auth.clearTokens()
+			this.router.navigate(['/'])
+		})
 	}
 
 	public toggle(): void {

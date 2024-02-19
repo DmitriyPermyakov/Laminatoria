@@ -1,6 +1,7 @@
 ﻿using Laminatoria.DTO;
 using Laminatoria.Models;
 using Laminatoria.Repository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -48,6 +49,7 @@ namespace Laminatoria.Controllers
             }
         }
 
+        [Authorize]
         [HttpPost("create")]
         public async Task<IActionResult> CreateProduct([FromBody] ProductRequest product)
         {
@@ -67,6 +69,7 @@ namespace Laminatoria.Controllers
             }
         }
 
+        [Authorize]
         [HttpPut("update")]
         public async Task<IActionResult> UpdateProduct([FromBody] ProductRequest product)
         {
@@ -85,6 +88,7 @@ namespace Laminatoria.Controllers
             }
         }
 
+        [Authorize]
         [HttpDelete("delete/{id}")]
         public IActionResult DeleteProduct(int id)
         {

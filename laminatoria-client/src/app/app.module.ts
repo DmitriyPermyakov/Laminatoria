@@ -37,6 +37,7 @@ import { ShoppingCartItemInfoComponent } from './shopping-cart-item-info/shoppin
 import { CreateProductComponent } from './create-product/create-product.component'
 import { CreateOrderComponent } from './create-order/create-order.component'
 import { ClickOutsideDirective } from './directives/click-outside.directive'
+import { INTERCEPTOR_PROVIDER } from './interceptors/auth.interceptor'
 
 @NgModule({
 	declarations: [
@@ -72,7 +73,7 @@ import { ClickOutsideDirective } from './directives/click-outside.directive'
 		ClickOutsideDirective,
 	],
 	imports: [BrowserModule, AppRoutingModule, FormsModule, ReactiveFormsModule, HttpClientModule],
-	providers: [{ provide: LOCALE_ID, useValue: 'ru-RU' }],
+	providers: [{ provide: LOCALE_ID, useValue: 'ru-RU' }, INTERCEPTOR_PROVIDER],
 	bootstrap: [AppComponent],
 })
 export class AppModule {}

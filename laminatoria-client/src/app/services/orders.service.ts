@@ -14,7 +14,7 @@ export class OrdersService {
 	public getAll(): Observable<Order[]> {
 		return this.http.get<Order[]>(`${environment.ordersUrl}/getAll`).pipe(
 			catchError((error) => {
-				throwError(() => console.log(error))
+				throwError(() => console.error(error))
 				return []
 			})
 		)

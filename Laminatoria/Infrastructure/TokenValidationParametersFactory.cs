@@ -27,8 +27,9 @@ namespace Laminatoria.Infrastructure
                     ValidateAudience = true,
                     ValidAudience = jwtSettings.Audience,
 
+
                     RequireExpirationTime = false,
-                    ValidateLifetime = false,
+                    ValidateLifetime = true,
 
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(jwtSettings.AccessTokenSecret))
                 };
@@ -48,7 +49,7 @@ namespace Laminatoria.Infrastructure
                     ValidAudience = jwtSettings.Audience,
 
                     RequireExpirationTime = true,
-                    ValidateLifetime = false,
+                    //ValidateLifetime = true,
                     ValidateIssuerSigningKey = true,
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(jwtSettings.RefreshTokenSecret))
                 };

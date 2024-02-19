@@ -5,7 +5,9 @@
 		<input type="password" class="password" placeholder="Пароль" formControlName="password" />
 		<div class="buttons">
 			<a class="recover-password">Восстановить</a>
-			<button class="enter" [disabled]="loginForm.invalid || logining" type="submit">Войти</button>
+			<button class="enter" [disabled]="loginForm.invalid || logining || auth.isAuthenticated" type="submit">
+				Войти
+			</button>
 		</div>
 	</form>
 </div>

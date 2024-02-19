@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core'
 import { LoginRequest } from '../classes/loginRequest'
-import { Observable, catchError, of, throwError } from 'rxjs'
+import { Observable, catchError, map, of, throwError } from 'rxjs'
 import { AuthenticationResult } from '../classes/authenticationResult'
 import { HttpClient } from '@angular/common/http'
 import { environment } from 'src/environments/environment.development'
@@ -32,25 +32,27 @@ export class AuthService {
 	}
 
 	public get isAuthenticated(): boolean {
-		if (this.accessTokenString == '') return false
-
-		if (this.isTokenExpired(this.accessTokenString)) {
-			this.refreshToken()
-		}
-		return !this.isTokenExpired(this.accessTokenString)
+		if (this.accessTokenString === '') return false
+		else return true
 	}
 
-	public get isRefreshTokenValid(): boolean {
-		return !this.isTokenExpired(this.refreshTokenString)
-	}
+	// public get isRefreshTokenValid(): boolean {
+	// 	return !this.isTokenExpired(this.refreshTokenString)
+	// }
 
-	private isTokenExpired(token: string): boolean {
-		if (token != '') {
-			let exp = JSON.parse(atob(token.split('.')[1])).exp * 1000
-			return new Date() > new Date(exp)
-		}
-		return true
-	}
+	// private isTokenExpired(token: string): boolean {
+	// 	try {
+	// 		if (token != '') {
+	// 			let exp = JSON.parse(atob(token.split('.')[1])).exp * 1000
+	// 			return new Date() > new Date(exp)
+	// 		}
+	// 	} catch (error) {
+	// 		this.clearTokens()
+	// 		return true
+	// 	}
+
+	// 	return true
+	// }
 
 	constructor(private http: HttpClient, private router: Router) {}
 
@@ -66,20 +68,14 @@ export class AuthService {
 	public logout(): Observable<void> {
 		return this.http
 			.get<void>(`${environment.logoutUrl}`)
-			.pipe(catchError((error) => throwError(() => console.log(error))))
+			.pipe(catchError((error) => throwError(() => console.error(error))))
 	}
 
-	private refreshToken(): void {
+	public refreshToken(): Observable<AuthenticationResult> {
 		console.log('refreshing token')
 		let refreshRequest = new RefreshRequest(this.refreshTokenString)
-		this.http
+		return this.http
 			.post<AuthenticationResult>(`${environment.refreshUrl}`, refreshRequest)
 			.pipe(catchError((error) => throwError(() => console.error(error))))
-			.subscribe((response) => {
-				if (response) {
-					this.accessTokenString = response.accessToken
-					this.refreshTokenString = response.refreshToken
-				} else this.clearTokens()
-			})
 	}
 }

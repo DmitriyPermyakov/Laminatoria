@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { AuthService } from '../services/auth.service'
 import { Router } from '@angular/router'
-import { catchError, of } from 'rxjs'
+import { catchError, of, shareReplay } from 'rxjs'
 import { AuthenticationResult } from '../classes/authenticationResult'
 
 @Component({
@@ -14,7 +14,7 @@ export class LoginPageComponent implements OnInit {
 	public loginForm: FormGroup
 	public logining: boolean = false
 
-	constructor(private fb: FormBuilder, private auth: AuthService, private router: Router) {}
+	constructor(private fb: FormBuilder, public auth: AuthService, private router: Router) {}
 
 	ngOnInit(): void {
 		this.loginForm = this.fb.group({
@@ -28,6 +28,7 @@ export class LoginPageComponent implements OnInit {
 		this.auth
 			.login({ ...this.loginForm.value })
 			.pipe(
+				shareReplay(),
 				catchError((error) => {
 					console.log(error)
 					this.loginForm.reset()

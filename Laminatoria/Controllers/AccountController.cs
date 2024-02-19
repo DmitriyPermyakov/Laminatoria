@@ -41,13 +41,13 @@ namespace Laminatoria.Controllers
 
 
         [Authorize]
-        [HttpPost("logout")]
+        [HttpGet("logout")]
         public async Task<IActionResult> Logout()
         {
             try
             {               
                 await accountService.LogoutAsync();
-                return Unauthorized("Logged out");
+                return Ok();
             }
             catch(Exception ex)
             {
@@ -58,6 +58,7 @@ namespace Laminatoria.Controllers
         [HttpPost("refresh")]
         public async Task<IActionResult> RefreshTokenAsync([FromBody] RefreshTokenRequest request)
         {
+            Console.WriteLine("**************** refresh token *****************");
             try
             {
                 if (string.IsNullOrWhiteSpace(request.Token) ||request.Token == "\t")
