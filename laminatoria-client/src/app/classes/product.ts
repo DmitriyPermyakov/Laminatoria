@@ -12,6 +12,7 @@ export class Product {
 	typeOfMeasurement: number
 	price: number
 	relatedProductsId: number[]
+	images: string
 
 	constructor(
 		id: number,
@@ -23,7 +24,8 @@ export class Product {
 		typeOfProduct: number, // отрезной или штучный
 		typeOfMeasurement: number, // руб.шт руб.м2 руб.м
 		price: number,
-		relatedProductsId: number[]
+		relatedProductsId: number[],
+		images: string
 	) {
 		this.id = id
 		this.name = name
@@ -33,8 +35,7 @@ export class Product {
 		this.additionalProperty = additionalProperty
 		this.typeOfProduct = typeOfProduct
 		this.typeOfMeasurement = typeOfMeasurement
-		this.price = price
-		this.relatedProductsId = relatedProductsId
+		;(this.price = price), (this.relatedProductsId = relatedProductsId), (this.images = images)
 	}
 }
 

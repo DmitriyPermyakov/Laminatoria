@@ -46,17 +46,45 @@
 
 	transform: rotate(-90deg) translateY(-120px);
 	transform-origin: right top;
-	& > img {
+
+	& > .small-images-items {
+		transform: rotate(90deg);
+		position: relative;
+	}
+
+	.small-images-items + .small-images-items {
+		margin-top: 0.5em;
+	}
+
+	.small-images-items > img {
 		transition: 0.15s;
 		max-width: 100px;
 		max-height: 100px;
 		aspect-ratio: 1 / 1;
 		object-fit: cover;
-		transform: rotate(90deg);
 	}
 
-	img + img {
-		margin-top: 0.5em;
+	.remove-image {
+		width: 30px;
+		height: 30px;
+
+		background-color: var(--button-color);
+		border: none;
+		outline: none;
+
+		position: absolute;
+		top: 1px;
+		right: 1px;
+
+		& > svg {
+			width: 100%;
+			height: 100%;
+			transform: rotate(45deg);
+		}
+
+		&:hover {
+			transform: scale(1.1);
+		}
 	}
 
 	&::-webkit-scrollbar {

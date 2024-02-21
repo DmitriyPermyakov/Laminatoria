@@ -48,6 +48,7 @@ builder.Services.AddTransient<ITokenGenerator, TokenGenerator>();
 builder.Services.AddTransient<ITokenRepository, TokenRepository>();
 builder.Services.AddTransient<IAccountService, AccountService>();
 builder.Services.AddTransient<IUserRepository, UserRepository>();
+builder.Services.AddTransient<IImageService, ImageService>();
 
 
 TokenValidationParameters tokenValidationParameters = new TokenValidationParametersFactory(jwtSetting).AccessTokenValidationParamaters;
