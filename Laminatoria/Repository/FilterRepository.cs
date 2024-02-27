@@ -39,8 +39,9 @@ namespace Laminatoria.Repository
                 List<string> values = new List<string>();
                 foreach(var v in prop.Values)
                 {
-                    string[] splittedValues = v.Trim().Split(" ");
-                    values.AddRange(splittedValues);
+                    //string[] splittedValues = v.Trim().Split(" ");
+                    //values.AddRange(splittedValues);
+                    values.Add(v);
                 }
 
                 filter.Add(prop.Name, values.ToArray());

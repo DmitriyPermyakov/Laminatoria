@@ -1,132 +1,28 @@
-<div class="filter">
-	<div class="filter-item">
-		<button class="price">Цена</button>
-		<div class="price-inputs">
-			<input type="number" class="min-price" placeholder="от: 700р." />
-			<input type="number" class="max-price" placeholder="от: 900р." />
+<form *ngIf="filters" [formGroup]="form">
+	<div class="filter">
+		<div class="filter-item">
+			<button class="price">Цена</button>
+			<form class="price-inputs" [formGroup]="Prices">
+				<input type="number" class="min-price" [placeholder]="minPrice" formControlName="minPrice" />
+				<input type="number" class="max-price" [placeholder]="maxPrice" formControlName="maxPrice" />
+			</form>
+		</div>
+		<form [formGroup]="Filters">
+			<div class="filter-item" *ngFor="let k of propsMap.keys(); let i = index">
+				<button class="property-name" appOpenCloseMenu>{{ k }}</button>
+				<div class="wrapper opened">
+					<div class="prop-container" *ngFor="let v of propsMap.get(k); let j = index">
+						<label class="property-value-label" [for]="k + j">
+							<input class="property-value" type="checkbox" [id]="k + j" />
+							<span>{{ v }}</span>
+						</label>
+					</div>
+				</div>
+			</div>
+		</form>
+		<div class="buttons">
+			<button class="apply-btn">Применить</button>
+			<button class="reset-btn">Сбросить</button>
 		</div>
 	</div>
-	<div class="filter-item">
-		<button class="property-name" appOpenCloseMenu>Толщина</button>
-		<div class="wrapper opened">
-			<div class="prop-container">
-				<label class="property-value-label" for="1">
-					<input class="property-value" type="checkbox" id="1" />
-					<span>7 - 7.9</span>
-				</label>
-			</div>
-			<div class="prop-container">
-				<label class="property-value-label" for="2">
-					<input class="property-value" type="checkbox" id="2" />
-					<span>8 - 8.9</span>
-				</label>
-			</div>
-		</div>
-	</div>
-	<div class="filter-item">
-		<button class="property-name" appOpenCloseMenu>Толщина</button>
-		<div class="wrapper opened">
-			<div class="prop-container">
-				<label class="property-value-label" for="1">
-					<input class="property-value" type="checkbox" id="1" />
-					<span>7 - 7.9</span>
-				</label>
-			</div>
-			<div class="prop-container">
-				<label class="property-value-label" for="2">
-					<input class="property-value" type="checkbox" id="2" />
-					<span>8 - 8.9</span>
-				</label>
-			</div>
-		</div>
-	</div>
-	<div class="filter-item">
-		<button class="property-name" appOpenCloseMenu>Толщина</button>
-		<div class="wrapper opened">
-			<div class="prop-container">
-				<label class="property-value-label" for="1">
-					<input class="property-value" type="checkbox" id="1" />
-					<span>7 - 7.9</span>
-				</label>
-			</div>
-			<div class="prop-container">
-				<label class="property-value-label" for="2">
-					<input class="property-value" type="checkbox" id="2" />
-					<span>8 - 8.9</span>
-				</label>
-			</div>
-		</div>
-	</div>
-	<div class="filter-item">
-		<button class="property-name" appOpenCloseMenu>Толщина</button>
-		<div class="wrapper opened">
-			<div class="prop-container">
-				<label class="property-value-label" for="1">
-					<input class="property-value" type="checkbox" id="1" />
-					<span>7 - 7.9</span>
-				</label>
-			</div>
-			<div class="prop-container">
-				<label class="property-value-label" for="2">
-					<input class="property-value" type="checkbox" id="2" />
-					<span>8 - 8.9</span>
-				</label>
-			</div>
-		</div>
-	</div>
-	<div class="filter-item">
-		<button class="property-name" appOpenCloseMenu>Толщина</button>
-		<div class="wrapper opened">
-			<div class="prop-container">
-				<label class="property-value-label" for="1">
-					<input class="property-value" type="checkbox" id="1" />
-					<span>7 - 7.9</span>
-				</label>
-			</div>
-			<div class="prop-container">
-				<label class="property-value-label" for="2">
-					<input class="property-value" type="checkbox" id="2" />
-					<span>8 - 8.9</span>
-				</label>
-			</div>
-		</div>
-	</div>
-	<div class="filter-item">
-		<button class="property-name" appOpenCloseMenu>Толщина</button>
-		<div class="wrapper opened">
-			<div class="prop-container">
-				<label class="property-value-label" for="1">
-					<input class="property-value" type="checkbox" id="1" />
-					<span>7 - 7.9</span>
-				</label>
-			</div>
-			<div class="prop-container">
-				<label class="property-value-label" for="2">
-					<input class="property-value" type="checkbox" id="2" />
-					<span>8 - 8.9</span>
-				</label>
-			</div>
-		</div>
-	</div>
-	<div class="filter-item">
-		<button class="property-name" appOpenCloseMenu>Толщина</button>
-		<div class="wrapper opened">
-			<div class="prop-container">
-				<label class="property-value-label" for="1">
-					<input class="property-value" type="checkbox" id="1" />
-					<span>7 - 7.9</span>
-				</label>
-			</div>
-			<div class="prop-container">
-				<label class="property-value-label" for="2">
-					<input class="property-value" type="checkbox" id="2" />
-					<span>8 - 8.9</span>
-				</label>
-			</div>
-		</div>
-	</div>
-	<div class="buttons">
-		<button class="apply-btn">Применить</button>
-		<button class="reset-btn">Сбросить</button>
-	</div>
-</div>
+</form>

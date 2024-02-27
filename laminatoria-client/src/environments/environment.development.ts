@@ -6,4 +6,5 @@ export const environment = {
 	loginUrl: 'https://localhost:7164/api/login',
 	logoutUrl: 'https://localhost:7164/api/logout',
 	refreshUrl: 'https://localhost:7164/api/refresh',
+	filtersUrl: 'https://localhost:7164/api/Filter/getFilters',
 }

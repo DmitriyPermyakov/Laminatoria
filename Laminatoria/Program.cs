@@ -48,11 +48,10 @@ builder.Services.AddTransient<ITokenGenerator, TokenGenerator>();
 builder.Services.AddTransient<ITokenRepository, TokenRepository>();
 builder.Services.AddTransient<IAccountService, AccountService>();
 builder.Services.AddTransient<IUserRepository, UserRepository>();
-<<<<<<< HEAD
-=======
-builder.Services.AddTransient<IImageService, ImageService>();
+
+//builder.Services.AddTransient<IImageService, ImageService>();
 builder.Services.AddTransient<IFilterRepository, FilterRepository>();
->>>>>>> e47b185 (feat: get product filters)
+
 
 
 TokenValidationParameters tokenValidationParameters = new TokenValidationParametersFactory(jwtSetting).AccessTokenValidationParamaters;
