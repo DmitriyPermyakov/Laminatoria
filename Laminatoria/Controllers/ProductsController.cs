@@ -1,4 +1,5 @@
 ﻿using Laminatoria.DTO;
+using Laminatoria.Infrastructure;
 using Laminatoria.Models;
 using Laminatoria.Repository;
 using Microsoft.AspNetCore.Authorization;
@@ -32,6 +33,22 @@ namespace Laminatoria.Controllers
             }
 
         }
+
+        //[HttpGet("getFilteredProducts")]
+        //public async Task<IActionResult> GetFilteredProducts(Filter filter)
+        //{
+        //    try
+        //    {
+        //        if (!ModelState.IsValid)
+        //            return BadRequest("Not valid filter");
+
+
+        //    }
+        //    catch(Exception ex)
+        //    {
+        //        return BadRequest(ex.Message);
+        //    }
+        //}
 
         [HttpGet("getById/{id}")]
         public async Task<IActionResult> GetProductById(int id)
