@@ -1,6 +1,6 @@
 <div class="products-container">
 	<div class="filter-container" [ngClass]="{ opened: filterService.isFilterOpen }">
-		<app-filter></app-filter>
+		<app-filter (OnFilterApply)="getFilteredProducts($event)"></app-filter>
 	</div>
 	<div class="sort-buttons">
 		<button class="sort-price" type="button">Цена<span>&#8595;</span></button>

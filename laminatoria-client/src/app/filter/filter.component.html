@@ -1,19 +1,41 @@
-<form *ngIf="filters" [formGroup]="form">
+<form *ngIf="form" [formGroup]="form" (ngSubmit)="onSubmit()">
 	<div class="filter">
 		<div class="filter-item">
 			<button class="price">Цена</button>
-			<form class="price-inputs" [formGroup]="Prices">
-				<input type="number" class="min-price" [placeholder]="minPrice" formControlName="minPrice" />
-				<input type="number" class="max-price" [placeholder]="maxPrice" formControlName="maxPrice" />
+			<form class="price-inputs" [formGroup]="pricesGroup">
+				<input
+					type="number"
+					class="min-price"
+					min="0"
+					max="100000"
+					[placeholder]="minPrice"
+					formControlName="minPrice"
+					(change)="onChangePrice($event)"
+				/>
+				<input
+					type="number"
+					class="max-price"
+					min="0"
+					max="100000"
+					[placeholder]="maxPrice"
+					formControlName="maxPrice"
+				/>
 			</form>
 		</div>
-		<form [formGroup]="Filters">
-			<div class="filter-item" *ngFor="let k of propsMap.keys(); let i = index">
+		<form [formGroup]="filtersGroup">
+			<div class="filter-item" *ngFor="let k of propsMapKeys; let i = index">
 				<button class="property-name" appOpenCloseMenu>{{ k }}</button>
 				<div class="wrapper opened">
 					<div class="prop-container" *ngFor="let v of propsMap.get(k); let j = index">
 						<label class="property-value-label" [for]="k + j">
-							<input class="property-value" type="checkbox" [id]="k + j" />
+							<input
+								class="property-value"
+								type="checkbox"
+								[id]="k + j"
+								[value]="v"
+								[checked]="checked"
+								(change)="onChange($event, k)"
+							/>
 							<span>{{ v }}</span>
 						</label>
 					</div>
@@ -21,8 +43,8 @@
 			</div>
 		</form>
 		<div class="buttons">
-			<button class="apply-btn">Применить</button>
-			<button class="reset-btn">Сбросить</button>
+			<button class="apply-btn" type="submit">Применить</button>
+			<button class="reset-btn" type="reset" (click)="resetForm()">Сбросить</button>
 		</div>
 	</div>
 </form>

@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs'
 import { ProductsService } from '../services/products.service'
 import { Product } from '../classes/product'
 import { CacheService } from '../services/cache.service'
+import { Filter } from '../classes/filter'
 
 @Component({
 	selector: 'app-products-page',
@@ -47,6 +48,10 @@ export class ProductsPageComponent implements OnInit, OnDestroy {
 
 	openFilter(): void {
 		this.isOpen = this.filterService.toggleFilter()
+	}
+
+	public getFilteredProducts(event: Filter): void {
+		console.log('from product page', event)
 	}
 
 	private loadProducts(): void {
