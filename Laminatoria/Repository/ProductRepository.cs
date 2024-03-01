@@ -1,4 +1,6 @@
-﻿using Laminatoria.DTO;
+﻿using Binbin.Linq;
+using Laminatoria.DTO;
+using Laminatoria.Infrastructure;
 using Laminatoria.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -55,6 +57,49 @@ namespace Laminatoria.Repository
                    });
             }
             
+        }
+
+        public async Task<List<ProductResponse>> GetFilteredProductsAsync(Dictionary<string, string> filters)
+        {
+            Filter filter = FilterQueryParser.ParseFilterQuery(filters);
+
+            var outer = PredicateBuilder.True<Product>();
+            outer = outer.And(p => p.Price >= filter.Prices.MinPrice);
+            outer = outer.And(p => p.Price <= filter.Prices.MaxPrice);
+
+            if(!string.IsNullOrWhiteSpace(filter.Category))
+            {
+                outer = outer.And(p => p.Category.Name == filter.Category);
+            }
+
+            foreach(var f in filter.Filters)
+            {
+                var inner = PredicateBuilder.False<Product>();
+                foreach(var v in f.Value)
+                {
+                    inner = inner.Or(p => p.Properties.Select(p => p.Value).Contains(v));
+                }
+
+                outer = outer.And(inner);
+            }
+
+            return await context.Products.Where(outer)
+                .Include(p => p.Category)
+                .Include(p => p.AdditionalProperty)
+                .Include(p => p.Properties)
+                .Select(p => new ProductResponse
+                {
+                    Id = p.Id,
+                    Name = p.Name,
+                    Vendor = p.Vendor,
+                    TypeOfMeasurement = p.TypeOfMeasurement,
+                    TypeOfProduct = p.TypeOfProduct,
+                    Category = p.Category,
+                    AdditionalProperty = p.AdditionalProperty,
+                    Properties = p.Properties,
+                    Price = p.Price,
+                }).ToListAsync();
+
         }
 
         public async Task<ProductResponse> GetProductByIdAsync(int id)

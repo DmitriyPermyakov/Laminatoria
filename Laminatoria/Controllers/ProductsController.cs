@@ -34,21 +34,23 @@ namespace Laminatoria.Controllers
 
         }
 
-        //[HttpGet("getFilteredProducts")]
-        //public async Task<IActionResult> GetFilteredProducts(Filter filter)
-        //{
-        //    try
-        //    {
-        //        if (!ModelState.IsValid)
-        //            return BadRequest("Not valid filter");
+        [HttpGet("getFilteredProducts")]
+        public async Task<IActionResult> GetFilteredProducts([FromQuery] Dictionary<string, string> filters)
+        {
+            try
+            {
+                if (filters == null || filters.Count() == 0)
+                    return BadRequest("Filters is null");
 
+                List<ProductResponse> products = await this.repository.GetFilteredProductsAsync(filters);
 
-        //    }
-        //    catch(Exception ex)
-        //    {
-        //        return BadRequest(ex.Message);
-        //    }
-        //}
+                return Ok(products);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
         [HttpGet("getById/{id}")]
         public async Task<IActionResult> GetProductById(int id)

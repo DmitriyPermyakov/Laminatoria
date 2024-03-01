@@ -64,7 +64,6 @@ export class FilterComponent implements OnInit {
 		let maxPrice = this.pricesGroup.controls['maxPrice'].value
 
 		let prices: Prices = new Prices(minPrice, maxPrice)
-		console.log(this.filtersGroup.controls)
 
 		let filters: Map<string, string[]> = new Map()
 		this.propsMapKeys.forEach((key) => {

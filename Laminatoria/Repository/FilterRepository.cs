@@ -14,8 +14,8 @@ namespace Laminatoria.Repository
         {
             var products = this.context.Products.Include(p => p.Properties);
 
-            double minPrice = (double)products.Min(p => p.Price);
-            double maxPrice = (double)products.Max(p => p.Price);
+            decimal minPrice = (decimal)products.Min(p => p.Price);
+            decimal maxPrice = (decimal)products.Max(p => p.Price);
 
             Prices prices = new Prices
             {
@@ -38,9 +38,7 @@ namespace Laminatoria.Repository
             {
                 List<string> values = new List<string>();
                 foreach(var v in prop.Values)
-                {
-                    //string[] splittedValues = v.Trim().Split(" ");
-                    //values.AddRange(splittedValues);
+                {                    
                     values.Add(v);
                 }
 
@@ -49,6 +47,7 @@ namespace Laminatoria.Repository
 
             return new Filter
             {
+                Category = "",
                 Prices = prices,
                 Filters = filter
             };

@@ -15,11 +15,13 @@ import { Filter } from '../classes/filter'
 export class ProductsPageComponent implements OnInit, OnDestroy {
 	public isOpen: boolean = false
 	public products: Product[]
-	private category: string = ''
 
 	public currentPage: number
 	public pageCount: number
 	public elementsOnPage: number = 20
+
+	private category: string = ''
+	private isFiltered: boolean = false
 
 	private routerSub: Subscription
 
@@ -46,12 +48,22 @@ export class ProductsPageComponent implements OnInit, OnDestroy {
 		if (this.routerSub) this.routerSub.unsubscribe()
 	}
 
-	openFilter(): void {
+	public openFilter(): void {
 		this.isOpen = this.filterService.toggleFilter()
 	}
 
+	public paginate(event: number): void {
+		if (this.isFiltered) {
+			// load filtered, set page number
+		} else {
+			//loadproducts, set page number
+		}
+	}
+
 	public getFilteredProducts(event: Filter): void {
-		console.log('from product page', event)
+		this.productService.getFiltered(event).subscribe((p) => {
+			console.log(p)
+		})
 	}
 
 	private loadProducts(): void {
@@ -71,7 +83,6 @@ export class ProductsPageComponent implements OnInit, OnDestroy {
 			} else {
 				this.products = productsFromCache
 				this.pageCount = Math.ceil(this.products.length / this.elementsOnPage)
-				console.log(this.cacheService.get('products' + this.currentPage))
 			}
 		}
 	}

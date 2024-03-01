@@ -3,6 +3,7 @@ import { Observable, catchError, of, throwError } from 'rxjs'
 import { Product } from '../classes/product'
 import { HttpClient, HttpParams } from '@angular/common/http'
 import { environment } from 'src/environments/environment.development'
+import { Filter } from '../classes/filter'
 
 @Injectable({
 	providedIn: 'root',
@@ -15,6 +16,27 @@ export class ProductsService {
 	public getAll(category: string | null): Observable<Product[]> {
 		const params = new HttpParams().set('category', category)
 		return this.http.get<Product[]>(`${environment.productsUrl}/getAll`, { params }).pipe(
+			catchError((error) => {
+				throwError(() => console.error(error))
+				return []
+			})
+		)
+	}
+
+	public getFiltered(filter: Filter): Observable<Product[]> {
+		console.log(filter)
+		let params = new HttpParams()
+			.append('MinPrice', filter.prices.minPrice.toString())
+			.append('MaxPrice', filter.prices.maxPrice.toString())
+
+		// params.append('MinPrice', filter.prices.minPrice)
+		// params.append('MaxPrice', filter.prices.maxPrice)
+		filter.filters.forEach((value, key) => {
+			params = params.append(key, value.join())
+		})
+
+		console.log(params)
+		return this.http.get<Product[]>(`${environment.productsUrl}/getFilteredProducts`, { params: params }).pipe(
 			catchError((error) => {
 				throwError(() => console.error(error))
 				return []
@@ -53,9 +75,5 @@ export class ProductsService {
 		return this.http
 			.delete<any>(`${environment.productsUrl}/delete/${id}`)
 			.pipe(catchError((error) => throwError(() => console.log(error))))
-	}
-
-	private handleError(error) {
-		return throwError(() => error)
 	}
 }
