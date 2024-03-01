@@ -23,16 +23,12 @@ export class ProductsService {
 		)
 	}
 
-	public getFiltered(filter: Filter): Observable<Product[]> {
+	public getFiltered(filter: Map<string, string>): Observable<Product[]> {
 		console.log(filter)
 		let params = new HttpParams()
-			.append('MinPrice', filter.prices.minPrice.toString())
-			.append('MaxPrice', filter.prices.maxPrice.toString())
 
-		// params.append('MinPrice', filter.prices.minPrice)
-		// params.append('MaxPrice', filter.prices.maxPrice)
-		filter.filters.forEach((value, key) => {
-			params = params.append(key, value.join())
+		filter.forEach((value, key) => {
+			params = params.append(key, value)
 		})
 
 		console.log(params)

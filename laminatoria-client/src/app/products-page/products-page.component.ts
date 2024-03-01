@@ -60,7 +60,7 @@ export class ProductsPageComponent implements OnInit, OnDestroy {
 		}
 	}
 
-	public getFilteredProducts(event: Filter): void {
+	public getFilteredProducts(event: Map<string, string>): void {
 		this.productService.getFiltered(event).subscribe((p) => {
 			console.log(p)
 		})

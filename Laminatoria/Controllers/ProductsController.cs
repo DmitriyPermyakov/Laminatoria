@@ -42,7 +42,13 @@ namespace Laminatoria.Controllers
                 if (filters == null || filters.Count() == 0)
                     return BadRequest("Filters is null");
 
+
+
                 List<ProductResponse> products = await this.repository.GetFilteredProductsAsync(filters);
+                foreach(var p in products)
+                {
+                    Console.WriteLine(p.Name);
+                }
 
                 return Ok(products);
             }

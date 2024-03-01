@@ -2,6 +2,7 @@ import { AfterViewInit, Component, ElementRef, EventEmitter, OnInit, Output, Vie
 import { FilterService } from '../services/filter.service'
 import { Filter, Prices } from '../classes/filter'
 import { FormArray, FormGroup, NonNullableFormBuilder } from '@angular/forms'
+import { ActivatedRoute } from '@angular/router'
 
 @Component({
 	selector: 'app-filter',
@@ -9,7 +10,7 @@ import { FormArray, FormGroup, NonNullableFormBuilder } from '@angular/forms'
 	styleUrls: ['./filter.component.scss'],
 })
 export class FilterComponent implements OnInit {
-	@Output() public OnFilterApply: EventEmitter<Filter> = new EventEmitter()
+	@Output() public OnFilterApply: EventEmitter<Map<string, string>> = new EventEmitter()
 
 	public filters: Filter
 	public form: FormGroup
@@ -28,7 +29,11 @@ export class FilterComponent implements OnInit {
 		return this.form.controls['filters'] as FormGroup
 	}
 
-	constructor(private filtersService: FilterService, private nfb: NonNullableFormBuilder) {}
+	constructor(
+		private filtersService: FilterService,
+		private nfb: NonNullableFormBuilder,
+		private route: ActivatedRoute
+	) {}
 
 	ngOnInit(): void {
 		this.filtersService.getFilters().subscribe((f) => {
@@ -60,17 +65,24 @@ export class FilterComponent implements OnInit {
 	}
 
 	public onSubmit(): void {
-		let minPrice = this.pricesGroup.controls['minPrice'].value
-		let maxPrice = this.pricesGroup.controls['maxPrice'].value
+		let filter: Map<string, string> = new Map()
+		let category = this.route.snapshot.queryParams['category']
 
-		let prices: Prices = new Prices(minPrice, maxPrice)
+		filter.set('category', category)
 
-		let filters: Map<string, string[]> = new Map()
-		this.propsMapKeys.forEach((key) => {
-			filters.set(key, (this.filtersGroup.controls[key] as FormArray).value)
+		if (this.pricesGroup.controls['minPrice'].value)
+			filter.set('minPrice', this.pricesGroup.controls['minPrice'].value)
+		else filter.set('minPrice', this.filters.prices.minPrice.toString())
+
+		if (this.pricesGroup.controls['maxPrice'].value)
+			filter.set('maxPrice', this.pricesGroup.controls['maxPrice'].value)
+		else filter.set('maxPrice', this.filters.prices.maxPrice.toString())
+
+		Object.keys(this.filtersGroup.controls).forEach((k) => {
+			if (this.filtersGroup.controls[k].value.length > 0) {
+				filter.set(k, this.filtersGroup.controls[k].value.join())
+			}
 		})
-
-		let filter: Filter = new Filter(prices, filters)
 
 		this.OnFilterApply.emit(filter)
 	}
