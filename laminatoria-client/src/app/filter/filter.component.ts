@@ -1,4 +1,13 @@
-import { AfterViewInit, Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core'
+import {
+	AfterViewInit,
+	ChangeDetectorRef,
+	Component,
+	ElementRef,
+	EventEmitter,
+	OnInit,
+	Output,
+	ViewChild,
+} from '@angular/core'
 import { FilterService } from '../services/filter.service'
 import { Filter, Prices } from '../classes/filter'
 import { FormArray, FormGroup, NonNullableFormBuilder } from '@angular/forms'
@@ -11,10 +20,11 @@ import { ActivatedRoute } from '@angular/router'
 })
 export class FilterComponent implements OnInit {
 	@Output() public OnFilterApply: EventEmitter<Map<string, string>> = new EventEmitter()
+	@Output() public OnFilterReset: EventEmitter<void> = new EventEmitter()
 
-	public filters: Filter
+	public filtersFromServer: Filter
 	public form: FormGroup
-	public checked: boolean
+	public isChecked: boolean
 
 	public minPrice: string
 	public maxPrice: string
@@ -29,21 +39,24 @@ export class FilterComponent implements OnInit {
 		return this.form.controls['filters'] as FormGroup
 	}
 
+	public checkedCheckboxes: HTMLElement[] = []
+
 	constructor(
 		private filtersService: FilterService,
 		private nfb: NonNullableFormBuilder,
-		private route: ActivatedRoute
+		private route: ActivatedRoute,
+		private changeDetector: ChangeDetectorRef
 	) {}
 
 	ngOnInit(): void {
 		this.filtersService.getFilters().subscribe((f) => {
-			this.filters = f
-			if (this.filters) {
-				this.propsMap = new Map(Object.entries(this.filters.filters))
+			this.filtersFromServer = f
+			if (this.filtersFromServer) {
+				this.propsMap = new Map(Object.entries(this.filtersFromServer.filters))
 				this.propsMapKeys = Array.from(this.propsMap.keys())
 				this.initForm()
-				this.minPrice = 'от: ' + this.filters.prices.minPrice
-				this.maxPrice = 'до: ' + this.filters.prices.maxPrice
+				this.minPrice = 'от: ' + this.filtersFromServer.prices.minPrice
+				this.maxPrice = 'до: ' + this.filtersFromServer.prices.maxPrice
 			}
 		})
 	}
@@ -57,43 +70,45 @@ export class FilterComponent implements OnInit {
 		let array = this.filtersGroup.controls[key] as FormArray
 
 		if (event.target.checked) {
-			array.push(this.nfb.control(value))
+			if (!Array.from(array.value).includes(value)) {
+				array.push(this.nfb.control(value))
+				this.checkedCheckboxes.push(event.target as HTMLElement)
+			}
 		} else {
+			let checkBoxIndex = this.checkedCheckboxes.findIndex((c) => c.id == (event.target as HTMLElement).id)
+			if (checkBoxIndex > -1) this.checkedCheckboxes.splice(checkBoxIndex, 1)
 			let index = array.controls.findIndex((c) => c.value == value)
 			if (index > -1) array.removeAt(index)
 		}
 	}
 
 	public onSubmit(): void {
-		let filter: Map<string, string> = new Map()
 		let category = this.route.snapshot.queryParams['category']
 
-		filter.set('category', category)
-
-		if (this.pricesGroup.controls['minPrice'].value)
-			filter.set('minPrice', this.pricesGroup.controls['minPrice'].value)
-		else filter.set('minPrice', this.filters.prices.minPrice.toString())
-
-		if (this.pricesGroup.controls['maxPrice'].value)
-			filter.set('maxPrice', this.pricesGroup.controls['maxPrice'].value)
-		else filter.set('maxPrice', this.filters.prices.maxPrice.toString())
-
-		Object.keys(this.filtersGroup.controls).forEach((k) => {
-			if (this.filtersGroup.controls[k].value.length > 0) {
-				filter.set(k, this.filtersGroup.controls[k].value.join())
-			}
-		})
+		let filter: Map<string, string> = this.filtersService.setFilter(
+			category,
+			this.pricesGroup,
+			this.filtersGroup,
+			this.filtersFromServer
+		)
+		console.log(this.form.value)
 
 		this.OnFilterApply.emit(filter)
 	}
 
 	public resetForm(): void {
-		this.checked = false
-
 		this.form.reset()
 		this.propsMapKeys.forEach((key) => {
 			;(this.filtersGroup.controls[key] as FormArray).clear()
 		})
+
+		this.checkedCheckboxes.forEach((c) => ((c as HTMLInputElement).checked = false))
+
+		this.isChecked = false
+		this.changeDetector.detectChanges()
+		let category = this.route.snapshot.queryParams['category']
+		this.filtersService.setFilter(category, this.pricesGroup, this.filtersGroup, this.filtersFromServer)
+		this.OnFilterReset.emit()
 	}
 
 	private initForm(): void {
@@ -110,11 +125,29 @@ export class FilterComponent implements OnInit {
 		})
 
 		let propFilter: Object = new Object()
+
 		this.propsMap.forEach((value, key) => {
 			propFilter[key] = this.nfb.array([])
 		})
 
 		groups['filters'] = this.nfb.group(propFilter)
+
+		if (this.filtersService.filter.size > 0) {
+			this.filtersService.filter.forEach((value, key) => {
+				switch (key) {
+					case 'category':
+						break
+					case 'minPrice':
+					case 'maxPrice':
+						;(groups['prices'] as FormGroup).controls[key].setValue(value)
+						break
+					default:
+						;((groups['filters'] as FormGroup).controls[key] as FormArray).push(this.nfb.control(value))
+
+						break
+				}
+			})
+		}
 
 		return groups
 	}

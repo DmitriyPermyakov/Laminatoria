@@ -33,7 +33,7 @@
 								type="checkbox"
 								[id]="k + j"
 								[value]="v"
-								[checked]="checked"
+								[checked]="filtersGroup.controls[k].value.includes(v)"
 								(change)="onChange($event, k)"
 							/>
 							<span>{{ v }}</span>

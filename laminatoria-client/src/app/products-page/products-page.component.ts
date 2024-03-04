@@ -54,15 +54,27 @@ export class ProductsPageComponent implements OnInit, OnDestroy {
 
 	public paginate(event: number): void {
 		if (this.isFiltered) {
-			// load filtered, set page number
+			this.getFilteredProducts(this.filterService.filter)
 		} else {
-			//loadproducts, set page number
+			this.loadProducts()
 		}
 	}
 
-	public getFilteredProducts(event: Map<string, string>): void {
-		this.productService.getFiltered(event).subscribe((p) => {
-			console.log(p)
+	public onResetFilter(): void {
+		this.isFiltered = false
+		this.cacheService.shouldUpdateProducts = true
+
+		this.loadProducts()
+	}
+
+	public onApplyFilter(filter: Map<string, string>): void {
+		this.getFilteredProducts(filter)
+	}
+
+	private getFilteredProducts(filter: Map<string, string>): void {
+		this.productService.getFiltered(filter).subscribe((p) => {
+			this.isFiltered = true
+			this.setProducts(p)
 		})
 	}
 
@@ -82,6 +94,7 @@ export class ProductsPageComponent implements OnInit, OnDestroy {
 				this.loadFromServerAndCacheProducts(this.cacheService.productCategory)
 			} else {
 				this.products = productsFromCache
+				// #TODO: products lenght получить с сервера
 				this.pageCount = Math.ceil(this.products.length / this.elementsOnPage)
 			}
 		}
@@ -89,10 +102,16 @@ export class ProductsPageComponent implements OnInit, OnDestroy {
 
 	private loadFromServerAndCacheProducts(category: string): void {
 		this.productService.getAll(category).subscribe((p) => {
-			this.products = p
-			this.pageCount = Math.ceil(this.products.length / this.elementsOnPage)
-			this.cacheService.set('products' + this.currentPage, p)
-			this.cacheService.shouldUpdateProducts = false
+			this.isFiltered = false
+			this.setProducts(p)
 		})
+	}
+
+	private setProducts(products: Product[]): void {
+		this.products = products
+		this.pageCount = Math.ceil(this.products.length / this.elementsOnPage)
+		this.cacheService.set('products' + this.currentPage, products)
+
+		this.cacheService.shouldUpdateProducts = false
 	}
 }

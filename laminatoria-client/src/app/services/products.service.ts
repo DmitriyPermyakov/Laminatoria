@@ -24,7 +24,6 @@ export class ProductsService {
 	}
 
 	public getFiltered(filter: Map<string, string>): Observable<Product[]> {
-		console.log(filter)
 		let params = new HttpParams()
 
 		filter.forEach((value, key) => {
