@@ -7,4 +7,6 @@ export const environment = {
 	logoutUrl: 'https://localhost:7164/api/logout',
 	refreshUrl: 'https://localhost:7164/api/refresh',
 	filtersUrl: 'https://localhost:7164/api/Filter/getFilters',
+	imageUlrUpload: 'https://localhost:7164/api/uploadImage',
+	imageUrlRemove: 'https://localhost:7164/api/removeImage',
 }
