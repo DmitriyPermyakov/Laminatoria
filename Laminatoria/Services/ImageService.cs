@@ -1,4 +1,5 @@
-﻿namespace Laminatoria.Services
+﻿
+namespace Laminatoria.Services
 {
     public class ImageService : IImageService
     {
@@ -32,14 +33,30 @@
 
             string fileName = Path.GetRandomFileName() + file.FileName;
 
-            Console.WriteLine("*********************", fileName);
-            string fullPath = Path.Combine(uploadDir, fileName);
+            string fullPathBigImage = Path.Combine(uploadDir, string.Concat("_big_image_", fileName));
 
-            using(var stream = new FileStream(fullPath, FileMode.Create))
+
+            using(var ms = new MemoryStream())
             {
+                await file.CopyToAsync(ms);
+                var img = ImageResizer.ResizeImage(ms.ToArray(), 400, 400);
+
+                using(var fileStream = new FileStream(Path.Combine(uploadDir, fileName), FileMode.Create))
+                {
+                    await fileStream.WriteAsync(img);
+                    await fileStream.FlushAsync();
+                }    
+            }
+
+            using(var stream = new FileStream(fullPathBigImage, FileMode.Create))
+            {
+                
                 await file.CopyToAsync(stream);
                 await stream.FlushAsync();
             }
+
+           
+            
 
             string location = $"images/{fileName}";
             return location;

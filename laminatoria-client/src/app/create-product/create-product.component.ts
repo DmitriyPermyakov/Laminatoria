@@ -27,12 +27,8 @@ export class CreateProductComponent implements OnInit {
 		return this.form.controls['additionalProperty'] as FormGroup
 	}
 
-	public get firstImage(): string {
-		if (this.imagesArray.length > 0) return '_big_image_' + this.imagesArray[0]
-		else return this.emptyImage
-	}
-
 	public emptyImage: string = 'assets/empty-image.png'
+	public mainImage: string = ''
 
 	public uploading: boolean = false
 	public images: string = ''
@@ -53,7 +49,7 @@ export class CreateProductComponent implements OnInit {
 		})
 		this.initForm()
 
-		console.log(this.imagesArray)
+		this.mainImage = this.setMainImage(0)
 	}
 
 	public uploadImage(files) {
@@ -67,6 +63,7 @@ export class CreateProductComponent implements OnInit {
 					this.images = this.images.concat(' ', event.body.url).trim()
 					this.form.controls['images'].setValue(this.images)
 					this.imagesArray = this.images.trim().split(' ')
+					this.mainImage = this.setMainImage(this.imagesArray.length - 1)
 				}
 			})
 			.add(() => {
@@ -117,5 +114,16 @@ export class CreateProductComponent implements OnInit {
 			price: [{ value: '', disabled: false }, Validators.required],
 			images: [{ value: '', disabled: false }],
 		})
+	}
+
+	private setMainImage(index: number): string {
+		if (this.imagesArray.length > 0) {
+			let slashIndex = this.imagesArray[index].lastIndexOf('/')
+			let url = this.imagesArray.slice(index, index + 1).join()
+			console.log(url)
+			url = url.slice(0, slashIndex) + '/_big_image_' + url.slice(slashIndex + 1, url.length)
+			console.log(url)
+			return url
+		} else return this.emptyImage
 	}
 }
