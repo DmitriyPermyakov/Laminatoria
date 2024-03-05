@@ -1,76 +1,13 @@
 <div class="related-products-container">
 	<p class="related-products-label">Сопутствующие товары:</p>
-	<div class="related-products">
-		<div class="related-product">
+	<div class="related-products" *ngIf="related">
+		<div class="related-product" *ngFor="let r of related">
 			<div class="related-product-image">
-				<img src="../../assets/302-_14-kg.jpg" alt="" />
+				<img [src]="r.images.trim().split(' ')[0]" alt="" />
 			</div>
 			<div class="rel-prod-desc">
-				<p class="rel-prod-name">IDEAL 301</p>
-				<p class="rel-prod-prop">14кг</p>
-			</div>
-		</div>
-		<div class="related-product">
-			<div class="related-product-image">
-				<img src="../../assets/GS_0003.jpg" alt="" />
-			</div>
-			<div class="rel-prod-desc">
-				<p class="rel-prod-name">Aberhrhof подложна рулонная</p>
-				<p class="rel-prod-prop">2мм</p>
-			</div>
-		</div>
-		<div class="related-product">
-			<div class="related-product-image">
-				<img src="../../assets/GS_0003.jpg" alt="" />
-			</div>
-			<div class="rel-prod-desc">
-				<p class="rel-prod-name">Aberhrhof подложна рулонная</p>
-				<p class="rel-prod-prop">2мм</p>
-			</div>
-		</div>
-		<div class="related-product">
-			<div class="related-product-image">
-				<img src="../../assets/GS_0003.jpg" alt="" />
-			</div>
-			<div class="rel-prod-desc">
-				<p class="rel-prod-name">Aberhrhof подложна рулонная</p>
-				<p class="rel-prod-prop">2мм</p>
-			</div>
-		</div>
-		<div class="related-product">
-			<div class="related-product-image">
-				<img src="../../assets/GS_0003.jpg" alt="" />
-			</div>
-			<div class="rel-prod-desc">
-				<p class="rel-prod-name">Aberhrhof подложна рулонная</p>
-				<p class="rel-prod-prop">2мм</p>
-			</div>
-		</div>
-		<div class="related-product">
-			<div class="related-product-image">
-				<img src="../../assets/GS_0003.jpg" alt="" />
-			</div>
-			<div class="rel-prod-desc">
-				<p class="rel-prod-name">Aberhrhof подложна рулонная</p>
-				<p class="rel-prod-prop">2мм</p>
-			</div>
-		</div>
-		<div class="related-product">
-			<div class="related-product-image">
-				<img src="../../assets/302-_14-kg.jpg" alt="" />
-			</div>
-			<div class="rel-prod-desc">
-				<p class="rel-prod-name">IDEAL 301</p>
-				<p class="rel-prod-prop">14кг</p>
-			</div>
-		</div>
-		<div class="related-product">
-			<div class="related-product-image">
-				<img src="../../assets/GS_0003.jpg" alt="" />
-			</div>
-			<div class="rel-prod-desc">
-				<p class="rel-prod-name">Aberhrhof подложна рулонная</p>
-				<p class="rel-prod-prop">2мм</p>
+				<p class="rel-prod-name">{{ r.name }}</p>
+				<p class="rel-prod-prop">{{ r.properties[0] }}</p>
 			</div>
 		</div>
 	</div>

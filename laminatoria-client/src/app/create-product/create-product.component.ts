@@ -64,7 +64,7 @@ export class CreateProductComponent implements OnInit {
 			.pipe(catchError((error) => throwError(() => console.error(error))))
 			.subscribe((event) => {
 				if (event.type === HttpEventType.Response) {
-					this.images = this.images.concat(' ', event.body.url)
+					this.images = this.images.concat(' ', event.body.url).trim()
 					this.form.controls['images'].setValue(this.images)
 					this.imagesArray = this.images.trim().split(' ')
 				}
@@ -115,7 +115,6 @@ export class CreateProductComponent implements OnInit {
 			typeOfProduct: [{ value: '', disabled: false }, Validators.required],
 			typeOfMeasurement: [{ value: '', disabled: false }, Validators.required],
 			price: [{ value: '', disabled: false }, Validators.required],
-			relatedProducts: [{ value: '' }],
 			images: [{ value: '', disabled: false }],
 		})
 	}
