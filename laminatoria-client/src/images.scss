@@ -130,7 +130,7 @@
 
 		height: 21em;
 		max-height: 21em;
-		max-width: 21em;
+		max-width: 22em;
 	}
 
 	.small-images {
@@ -149,18 +149,27 @@
 		overflow-y: unset;
 		scroll-snap-type: x mandatory;
 
-		& > img {
+		& > .small-images-items {
 			transform: unset;
 			max-width: 20.5em;
+			width: 20.5em;
+			max-height: 20.5em;
+			height: 20.5em;
 			scroll-snap-align: center;
 			scroll-snap-stop: always;
 			padding: 0;
 			margin: 0;
 		}
 
-		img + img {
+		.small-images-items + .small-images-items {
 			margin-top: 0;
 			margin-left: 0.5em;
+		}
+
+		.small-images-items > img {
+			max-width: unset;
+			max-height: unset;
+			height: 100%;
 		}
 
 		.add-image {

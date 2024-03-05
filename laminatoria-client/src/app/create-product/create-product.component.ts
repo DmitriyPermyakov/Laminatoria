@@ -28,7 +28,7 @@ export class CreateProductComponent implements OnInit {
 	}
 
 	public get firstImage(): string {
-		if (this.imagesArray.length > 0) return this.imagesArray[0]
+		if (this.imagesArray.length > 0) return '_big_image_' + this.imagesArray[0]
 		else return this.emptyImage
 	}
 
