@@ -12,11 +12,14 @@ namespace Laminatoria.Services
         public Task RemoveImage(string imageName)
         {
             string webRootPath = env.WebRootPath;
-            string uploadDir = Path.Combine(webRootPath, "images", imageName);
-            if (File.Exists(uploadDir))
+            string smallImage = Path.Combine(webRootPath, "images", imageName);
+            string bigImage = Path.Combine(webRootPath, "images", string.Concat("_big_image_", imageName));
+            if (File.Exists(smallImage) && File.Exists(bigImage))
             {
-                File.Delete(uploadDir);
-            return Task.CompletedTask;
+                File.Delete(smallImage);
+                File.Delete(bigImage);
+
+                return Task.CompletedTask;
             } else
             {
                 throw new Exception("file not exists");

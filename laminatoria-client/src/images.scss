@@ -21,7 +21,7 @@
 	& > img {
 		max-width: 400px;
 		max-height: 400px;
-		object-fit: cover;
+		object-fit: contain;
 		aspect-ratio: 1 / 1;
 	}
 }
@@ -32,7 +32,6 @@
 
 	max-width: 400px;
 	height: 120px;
-	max-height: 120px;
 
 	position: relative;
 }
@@ -48,10 +47,12 @@
 	overflow-x: hidden;
 	overflow-y: scroll;
 
-	transform: rotate(-90deg) translateY(-120px);
+	transform: rotate(-90deg) translateY(-100px);
 	transform-origin: right top;
 
 	& > .small-images-items {
+		width: 100px;
+		height: 100px;
 		transform: rotate(90deg);
 		position: relative;
 	}
@@ -62,10 +63,10 @@
 
 	.small-images-items > img {
 		transition: 0.15s;
-		max-width: 100px;
-		max-height: 100px;
+		width: 100%;
+		height: 100%;
 		aspect-ratio: 1 / 1;
-		object-fit: cover;
+		object-fit: contain;
 	}
 
 	.remove-image {

@@ -80,6 +80,10 @@ export class CreateProductComponent implements OnInit {
 		})
 	}
 
+	public chooseImage(index: number): void {
+		this.mainImage = this.setMainImage(index)
+	}
+
 	public removeImage(index: number): void {
 		let imageSplittedUrl = this.imagesArray[index].split('/')
 		let imageName = imageSplittedUrl[imageSplittedUrl.length - 1]
@@ -90,6 +94,7 @@ export class CreateProductComponent implements OnInit {
 			.subscribe(() => {
 				this.imagesArray.splice(index, 1)
 				this.images = this.imagesArray.join(' ')
+				this.mainImage = this.setMainImage(this.imagesArray.length - 1)
 			})
 	}
 
@@ -120,9 +125,7 @@ export class CreateProductComponent implements OnInit {
 		if (this.imagesArray.length > 0) {
 			let slashIndex = this.imagesArray[index].lastIndexOf('/')
 			let url = this.imagesArray.slice(index, index + 1).join()
-			console.log(url)
 			url = url.slice(0, slashIndex) + '/_big_image_' + url.slice(slashIndex + 1, url.length)
-			console.log(url)
 			return url
 		} else return this.emptyImage
 	}

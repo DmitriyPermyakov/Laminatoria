@@ -16,7 +16,7 @@
 						</button>
 					</div>
 					<div class="small-images-items" *ngFor="let i of imagesArray; index as imageIndex">
-						<img [src]="i" alt="" />
+						<img class="image-item" width="100" height="100" [src]="i" alt="" (click)="chooseImage(imageIndex)" />
 						<button class="remove-image" (click)="removeImage(imageIndex)">
 							<svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
 								<line y1="17" x2="34" y2="17" stroke="white" stroke-width="2" />
