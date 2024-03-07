@@ -5,9 +5,9 @@ namespace Laminatoria.Repository
 {
     public interface IProductRepository
     {
-        IQueryable<ProductResponse> GetAllProducts(string category);
-        Task<List<ProductResponse>> GetFilteredProductsAsync(Dictionary<string, string> filters);
-        Task<ProductResponse> GetProductByIdAsync(int id);
+        IQueryable<MappedProduct> GetAllProducts(string category);
+        Task<ProductResponse> GetFilteredProductsAsync(Dictionary<string, string> filters);
+        Task<MappedProduct> GetProductByIdAsync(int id);
         Task<int> CreateProductAsync(ProductRequest product);
         Task<int> UpdateProductAsync(ProductRequest product);
         void DeleteProduct(int id);

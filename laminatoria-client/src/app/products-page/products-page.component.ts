@@ -16,12 +16,13 @@ export class ProductsPageComponent implements OnInit, OnDestroy {
 	public isOpen: boolean = false
 	public products: Product[]
 
-	public currentPage: number
-	public pageCount: number
+	public currentPage: number = 0
+	public pageCount: number = 0
 	public elementsOnPage: number = 20
+	private amountOfProducts: number = 0
 
 	private category: string = ''
-	private isFiltered: boolean = false
+	private isFilteres: boolean = false
 
 	private routerSub: Subscription
 
@@ -52,59 +53,50 @@ export class ProductsPageComponent implements OnInit, OnDestroy {
 		this.isOpen = this.filterService.toggleFilter()
 	}
 
-	public paginate(event: number): void {
-		if (this.isFiltered) {
-			this.getFilteredProducts(this.filterService.filter)
-		} else {
-			this.loadProducts()
-		}
+	public paginate(pageNumber: number): void {
+		this.cacheService.productPageNumber = this.currentPage = pageNumber
+		this.getProducts(this.filterService.filter, pageNumber, this.elementsOnPage)
 	}
 
 	public onResetFilter(): void {
-		this.isFiltered = false
 		this.cacheService.shouldUpdateProducts = true
-
+		this.cacheService.productPageNumber = this.currentPage = 1
 		this.loadProducts()
 	}
 
 	public onApplyFilter(filter: Map<string, string>): void {
-		this.getFilteredProducts(filter)
+		this.getProducts(filter, this.cacheService.productPageNumber, this.elementsOnPage)
 	}
 
-	private getFilteredProducts(filter: Map<string, string>): void {
-		this.productService.getFiltered(filter).subscribe((p) => {
-			this.isFiltered = true
+	private getProducts(filter: Map<string, string>, currentPage: number, elementsOnPage: number): void {
+		this.productService.getFiltered(filter, currentPage, elementsOnPage).subscribe((p) => {
 			this.setProducts(p)
 		})
 	}
 
 	private loadProducts(): void {
 		let queryParam = this.activatedRoute.snapshot.queryParams['category']
+
 		if (this.cacheService.productCategory !== queryParam) this.cacheService.shouldUpdateProducts = true
+
 		this.cacheService.productCategory = queryParam
+		let filter: Map<string, string> = new Map()
+		filter.set('category', queryParam)
 
 		if (this.cacheService.productPageNumber < 0 || this.cacheService.shouldUpdateProducts) {
-			this.cacheService.productPageNumber = 1
-			this.currentPage = 1
-			this.loadFromServerAndCacheProducts(this.cacheService.productCategory)
+			this.cacheService.productPageNumber = this.currentPage = 1
+			this.getProducts(filter, this.currentPage, this.elementsOnPage)
 		} else {
 			this.currentPage = this.cacheService.productPageNumber
 			let productsFromCache = this.cacheService.get('products' + this.currentPage)
 			if (!productsFromCache) {
-				this.loadFromServerAndCacheProducts(this.cacheService.productCategory)
+				this.getProducts(filter, this.currentPage, this.elementsOnPage)
 			} else {
 				this.products = productsFromCache
 				// #TODO: products lenght получить с сервера
 				this.pageCount = Math.ceil(this.products.length / this.elementsOnPage)
 			}
 		}
-	}
-
-	private loadFromServerAndCacheProducts(category: string): void {
-		this.productService.getAll(category).subscribe((p) => {
-			this.isFiltered = false
-			this.setProducts(p)
-		})
 	}
 
 	private setProducts(products: Product[]): void {

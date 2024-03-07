@@ -14,7 +14,7 @@ namespace Laminatoria.Repository
         {
             this.context = context;
         }
-        public IQueryable<ProductResponse> GetAllProducts(string category)
+        public IQueryable<MappedProduct> GetAllProducts(string category)
         {
             IQueryable<Product> products = context.Products;
 
@@ -24,7 +24,7 @@ namespace Laminatoria.Repository
                     .Include(p => p.Category)
                     .Include(p => p.AdditionalProperty)
                     .Include(p => p.Properties)
-                    .Select(p => new ProductResponse
+                    .Select(p => new MappedProduct
                     {
                         Id = p.Id,
                         Name = p.Name,
@@ -43,7 +43,7 @@ namespace Laminatoria.Repository
                    .Include(p => p.Category)
                    .Include(p => p.AdditionalProperty)
                    .Include(p => p.Properties)
-                   .Select(p => new ProductResponse
+                   .Select(p => new MappedProduct
                    {
                        Id = p.Id,
                        Name = p.Name,
@@ -59,7 +59,7 @@ namespace Laminatoria.Repository
             
         }
 
-        public async Task<List<ProductResponse>> GetFilteredProductsAsync(Dictionary<string, string> filters)
+        public async Task<ProductResponse> GetFilteredProductsAsync(Dictionary<string, string> filters)
         {
             Filter filter = FilterQueryParser.ParseFilterQuery(filters);
 
@@ -83,11 +83,13 @@ namespace Laminatoria.Repository
                 outer = outer.And(inner);
             }
 
-            return await context.Products.Where(outer)
+            var query = context.Products.Where(outer)
                 .Include(p => p.Category)
                 .Include(p => p.AdditionalProperty)
                 .Include(p => p.Properties)
-                .Select(p => new ProductResponse
+                .Skip((filter.PaginationInfo.CurrentPage - 1) * filter.PaginationInfo.ElementsOnPage)
+                .Take(filter.PaginationInfo.ElementsOnPage)
+                .Select(p => new MappedProduct
                 {
                     Id = p.Id,
                     Name = p.Name,
@@ -98,15 +100,23 @@ namespace Laminatoria.Repository
                     AdditionalProperty = p.AdditionalProperty,
                     Properties = p.Properties,
                     Price = p.Price,
-                }).ToListAsync();
+                });
 
+            var total = await query.CountAsync();
+            var products = await query.ToListAsync();
+
+            return new ProductResponse
+            {
+                Products = products,
+                TotalCount = total
+            };
         }
 
-        public async Task<ProductResponse> GetProductByIdAsync(int id)
+        public async Task<MappedProduct> GetProductByIdAsync(int id)
         {
             return await context.Products
                 .Include(p => p.Properties)
-                .Select(p => new ProductResponse
+                .Select(p => new MappedProduct
                 {
                     Id = p.Id,
                     Name = p.Name,

@@ -13,24 +13,26 @@ export class ProductsService {
 
 	constructor(private http: HttpClient) {}
 
-	public getAll(category: string | null): Observable<Product[]> {
-		const params = new HttpParams().set('category', category)
-		return this.http.get<Product[]>(`${environment.productsUrl}/getAll`, { params }).pipe(
-			catchError((error) => {
-				throwError(() => console.error(error))
-				return []
-			})
-		)
-	}
+	// public getAll(category: string | null): Observable<Product[]> {
+	// 	const params = new HttpParams().set('category', category)
+	// 	return this.http.get<Product[]>(`${environment.productsUrl}/getAll`, { params }).pipe(
+	// 		catchError((error) => {
+	// 			throwError(() => console.error(error))
+	// 			return []
+	// 		})
+	// 	)
+	// }
 
-	public getFiltered(filter: Map<string, string>): Observable<Product[]> {
+	public getFiltered(filter: Map<string, string>, currentPage: number, elementsOnPage: number): Observable<Product[]> {
 		let params = new HttpParams()
 
 		filter.forEach((value, key) => {
 			params = params.append(key, value)
 		})
 
-		console.log(params)
+		params = params.append('currentPage', currentPage)
+		params = params.append('elementsOnPage', elementsOnPage)
+
 		return this.http.get<Product[]>(`${environment.productsUrl}/getFilteredProducts`, { params: params }).pipe(
 			catchError((error) => {
 				throwError(() => console.error(error))

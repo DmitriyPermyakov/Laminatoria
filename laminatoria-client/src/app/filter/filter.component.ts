@@ -83,16 +83,7 @@ export class FilterComponent implements OnInit {
 	}
 
 	public onSubmit(): void {
-		let category = this.route.snapshot.queryParams['category']
-
-		let filter: Map<string, string> = this.filtersService.setFilter(
-			category,
-			this.pricesGroup,
-			this.filtersGroup,
-			this.filtersFromServer
-		)
-		console.log(this.form.value)
-
+		let filter: Map<string, string> = this.setFilter()
 		this.OnFilterApply.emit(filter)
 	}
 
@@ -106,14 +97,19 @@ export class FilterComponent implements OnInit {
 
 		this.isChecked = false
 		this.changeDetector.detectChanges()
-		let category = this.route.snapshot.queryParams['category']
-		this.filtersService.setFilter(category, this.pricesGroup, this.filtersGroup, this.filtersFromServer)
+		this.setFilter()
 		this.OnFilterReset.emit()
+	}
+
+	private setFilter(): Map<string, string> {
+		let category = this.route.snapshot.queryParams['category']
+		return this.filtersService.setFilter(category, this.pricesGroup, this.filtersGroup, this.filtersFromServer)
 	}
 
 	private initForm(): void {
 		let groupValues = this.initProps()
 		this.form = this.nfb.group(groupValues)
+		this.setFilter()
 	}
 
 	private initProps(): Object {

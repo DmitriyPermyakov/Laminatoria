@@ -24,7 +24,7 @@ namespace Laminatoria.Controllers
             try
             {
                 
-                List<ProductResponse> products = await this.repository.GetAllProducts(category).ToListAsync();
+                List<MappedProduct> products = await this.repository.GetAllProducts(category).ToListAsync();
                 return Ok(products);
             }
             catch (Exception e)
@@ -42,13 +42,7 @@ namespace Laminatoria.Controllers
                 if (filters == null || filters.Count() == 0)
                     return BadRequest("Filters is null");
 
-
-
-                List<ProductResponse> products = await this.repository.GetFilteredProductsAsync(filters);
-                foreach(var p in products)
-                {
-                    Console.WriteLine(p.Name);
-                }
+                ProductResponse products = await this.repository.GetFilteredProductsAsync(filters);                
 
                 return Ok(products);
             }
@@ -63,7 +57,7 @@ namespace Laminatoria.Controllers
         {
             try
             {
-                ProductResponse p = await this.repository.GetProductByIdAsync(id);
+                MappedProduct p = await this.repository.GetProductByIdAsync(id);
                 if (p == null)
                     return NotFound($"Product with id {id} not found");
                 return Ok(p);
