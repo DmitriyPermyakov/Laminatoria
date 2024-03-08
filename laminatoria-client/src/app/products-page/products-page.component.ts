@@ -16,13 +16,10 @@ export class ProductsPageComponent implements OnInit, OnDestroy {
 	public isOpen: boolean = false
 	public products: Product[]
 
-	public currentPage: number = 0
+	public currentPage: number = 1
 	public pageCount: number = 0
 	public elementsOnPage: number = 20
 	private amountOfProducts: number = 0
-
-	private category: string = ''
-	private isFilteres: boolean = false
 
 	private routerSub: Subscription
 
@@ -70,14 +67,18 @@ export class ProductsPageComponent implements OnInit, OnDestroy {
 
 	private getProducts(filter: Map<string, string>, currentPage: number, elementsOnPage: number): void {
 		this.productService.getFiltered(filter, currentPage, elementsOnPage).subscribe((p) => {
-			this.setProducts(p)
+			this.setProducts(p.products)
+			this.amountOfProducts = p.totalCount
 		})
 	}
 
 	private loadProducts(): void {
 		let queryParam = this.activatedRoute.snapshot.queryParams['category']
 
-		if (this.cacheService.productCategory !== queryParam) this.cacheService.shouldUpdateProducts = true
+		if (this.cacheService.productCategory !== queryParam) {
+			this.cacheService.shouldUpdateProducts = true
+			this.cacheService.productCategory = queryParam
+		}
 
 		this.cacheService.productCategory = queryParam
 		let filter: Map<string, string> = new Map()
@@ -93,15 +94,14 @@ export class ProductsPageComponent implements OnInit, OnDestroy {
 				this.getProducts(filter, this.currentPage, this.elementsOnPage)
 			} else {
 				this.products = productsFromCache
-				// #TODO: products lenght получить с сервера
-				this.pageCount = Math.ceil(this.products.length / this.elementsOnPage)
+				this.pageCount = Math.ceil(this.amountOfProducts / this.elementsOnPage)
 			}
 		}
 	}
 
 	private setProducts(products: Product[]): void {
 		this.products = products
-		this.pageCount = Math.ceil(this.products.length / this.elementsOnPage)
+		this.pageCount = Math.ceil(this.amountOfProducts / this.elementsOnPage)
 		this.cacheService.set('products' + this.currentPage, products)
 
 		this.cacheService.shouldUpdateProducts = false

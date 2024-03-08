@@ -14,7 +14,8 @@ export class CacheService {
 	}
 
 	public set productCategory(value: string) {
-		localStorage.setItem('category', value)
+		if (value) localStorage.setItem('category', value)
+		else localStorage.setItem('category', 'laminate')
 	}
 
 	private cache = new Map<string, any[]>()

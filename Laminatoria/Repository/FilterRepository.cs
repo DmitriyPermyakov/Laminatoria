@@ -10,9 +10,21 @@ namespace Laminatoria.Repository
         {
             this.context = context;
         }
-        public Filter GetFilter()
+        public Filter GetFilter(string category)
         {
-            var products = this.context.Products.Include(p => p.Properties);
+            Console.WriteLine($"category is {category}" );
+            var products = this.context.Products.Where(p => p.Category.Name == category)?.Include(p => p.Properties);
+
+            if(products.Count() < 1 )
+            {
+                return new Filter
+                {
+                    Category = category,
+                    Prices = null,
+                    Filters = null,
+                    PaginationInfo = null
+                };
+            }
 
             decimal minPrice = (decimal)products.Min(p => p.Price);
             decimal maxPrice = (decimal)products.Max(p => p.Price);
@@ -47,9 +59,11 @@ namespace Laminatoria.Repository
 
             return new Filter
             {
-                Category = "",
+                Category = category,
                 Prices = prices,
-                Filters = filter
+                Filters = filter,
+                PaginationInfo = null
+                
             };
         }
     }

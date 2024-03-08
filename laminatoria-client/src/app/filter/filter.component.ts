@@ -1,17 +1,10 @@
-import {
-	AfterViewInit,
-	ChangeDetectorRef,
-	Component,
-	ElementRef,
-	EventEmitter,
-	OnInit,
-	Output,
-	ViewChild,
-} from '@angular/core'
+import { Component, EventEmitter, OnInit, Output } from '@angular/core'
 import { FilterService } from '../services/filter.service'
 import { Filter, Prices } from '../classes/filter'
 import { FormArray, FormGroup, NonNullableFormBuilder } from '@angular/forms'
-import { ActivatedRoute } from '@angular/router'
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router'
+import { CacheService } from '../services/cache.service'
+import { Subscription } from 'rxjs'
 
 @Component({
 	selector: 'app-filter',
@@ -40,25 +33,26 @@ export class FilterComponent implements OnInit {
 	}
 
 	public checkedCheckboxes: HTMLElement[] = []
+	private routerSub: Subscription
 
 	constructor(
 		private filtersService: FilterService,
 		private nfb: NonNullableFormBuilder,
 		private route: ActivatedRoute,
-		private changeDetector: ChangeDetectorRef
+		private router: Router,
+		private cache: CacheService // private changeDetector: ChangeDetectorRef
 	) {}
 
 	ngOnInit(): void {
-		this.filtersService.getFilters().subscribe((f) => {
-			this.filtersFromServer = f
-			if (this.filtersFromServer) {
-				this.propsMap = new Map(Object.entries(this.filtersFromServer.filters))
-				this.propsMapKeys = Array.from(this.propsMap.keys())
-				this.initForm()
-				this.minPrice = 'от: ' + this.filtersFromServer.prices.minPrice
-				this.maxPrice = 'до: ' + this.filtersFromServer.prices.maxPrice
-			}
+		this.routerSub = this.router.events.subscribe((e) => {
+			if (e instanceof NavigationEnd)
+				if (this.cache.productCategory !== this.filtersService.filterCategory) {
+					this.updateFilters()
+					return
+				}
 		})
+
+		this.updateFilters()
 	}
 
 	public onChangePrice(event: any): void {
@@ -96,13 +90,29 @@ export class FilterComponent implements OnInit {
 		this.checkedCheckboxes.forEach((c) => ((c as HTMLInputElement).checked = false))
 
 		this.isChecked = false
-		this.changeDetector.detectChanges()
+		// this.changeDetector.detectChanges()
 		this.setFilter()
 		this.OnFilterReset.emit()
 	}
 
+	private updateFilters(): void {
+		this.filtersService.filterCategory = this.cache.productCategory
+		this.filtersService.getFiltersFromServer(this.cache.productCategory).subscribe((f) => {
+			if (f.filters) {
+				this.filtersFromServer = f
+				this.propsMap = new Map(Object.entries(this.filtersFromServer.filters))
+				this.propsMapKeys = Array.from(this.propsMap.keys())
+				this.initForm()
+				this.minPrice = 'от: ' + this.filtersFromServer.prices.minPrice
+				this.maxPrice = 'до: ' + this.filtersFromServer.prices.maxPrice
+			} else {
+				this.form = null
+			}
+		})
+	}
+
 	private setFilter(): Map<string, string> {
-		let category = this.route.snapshot.queryParams['category']
+		let category = this.cache.productCategory
 		return this.filtersService.setFilter(category, this.pricesGroup, this.filtersGroup, this.filtersFromServer)
 	}
 

@@ -4,6 +4,7 @@ import { Product } from '../classes/product'
 import { HttpClient, HttpParams } from '@angular/common/http'
 import { environment } from 'src/environments/environment.development'
 import { Filter } from '../classes/filter'
+import { ProductResponse } from '../classes/productResponse'
 
 @Injectable({
 	providedIn: 'root',
@@ -13,17 +14,21 @@ export class ProductsService {
 
 	constructor(private http: HttpClient) {}
 
-	// public getAll(category: string | null): Observable<Product[]> {
-	// 	const params = new HttpParams().set('category', category)
-	// 	return this.http.get<Product[]>(`${environment.productsUrl}/getAll`, { params }).pipe(
-	// 		catchError((error) => {
-	// 			throwError(() => console.error(error))
-	// 			return []
-	// 		})
-	// 	)
-	// }
+	public getAll(category: string | null): Observable<Product[]> {
+		const params = new HttpParams().set('category', category)
+		return this.http.get<Product[]>(`${environment.productsUrl}/getAll`, { params }).pipe(
+			catchError((error) => {
+				throwError(() => console.error(error))
+				return []
+			})
+		)
+	}
 
-	public getFiltered(filter: Map<string, string>, currentPage: number, elementsOnPage: number): Observable<Product[]> {
+	public getFiltered(
+		filter: Map<string, string>,
+		currentPage: number,
+		elementsOnPage: number
+	): Observable<ProductResponse> {
 		let params = new HttpParams()
 
 		filter.forEach((value, key) => {
@@ -33,10 +38,10 @@ export class ProductsService {
 		params = params.append('currentPage', currentPage)
 		params = params.append('elementsOnPage', elementsOnPage)
 
-		return this.http.get<Product[]>(`${environment.productsUrl}/getFilteredProducts`, { params: params }).pipe(
+		return this.http.get<ProductResponse>(`${environment.productsUrl}/getFilteredProducts`, { params: params }).pipe(
 			catchError((error) => {
 				throwError(() => console.error(error))
-				return []
+				return of(null)
 			})
 		)
 	}

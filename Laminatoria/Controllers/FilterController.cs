@@ -16,11 +16,21 @@ namespace Laminatoria.Controllers
         }
 
         [HttpGet("getFilters")]
-        public IActionResult GetFiltersAsync()
+        public IActionResult GetFiltersAsync(string category)
         {
             try
             {
-                Filter filters = this.repository.GetFilter();
+                Filter filters;
+                
+                if(string.IsNullOrEmpty(category))
+                {
+                   filters = this.repository.GetFilter("laminate");
+                }
+                else
+                {
+                    filters = this.repository.GetFilter(category);
+                }
+
                 if (filters == null)
                 {
                     return BadRequest("Can't get filters");

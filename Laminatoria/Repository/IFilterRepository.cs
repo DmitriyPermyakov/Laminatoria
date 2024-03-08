@@ -4,6 +4,6 @@ namespace Laminatoria.Repository
 {
     public interface IFilterRepository
     {
-        public Filter GetFilter();
+        public Filter GetFilter(string category);
     }
 }

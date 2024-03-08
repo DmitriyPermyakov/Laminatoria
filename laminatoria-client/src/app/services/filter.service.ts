@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http'
+import { HttpClient, HttpParams } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { Observable, catchError, of, throwError } from 'rxjs'
 import { environment } from 'src/environments/environment.development'
@@ -11,6 +11,7 @@ import { FormGroup } from '@angular/forms'
 export class FilterService {
 	public isFilterOpen: boolean = false
 	public filter: Map<string, string> = new Map()
+	public filterCategory: string = ''
 
 	constructor(private http: HttpClient) {}
 
@@ -18,8 +19,10 @@ export class FilterService {
 		return (this.isFilterOpen = !this.isFilterOpen)
 	}
 
-	public getFilters(): Observable<Filter> {
-		return this.http.get<Filter>(`${environment.filtersUrl}`).pipe(
+	public getFiltersFromServer(category: string): Observable<Filter> {
+		let params: HttpParams = new HttpParams()
+		params = params.append('category', category)
+		return this.http.get<Filter>(`${environment.filtersUrl}`, { params: params }).pipe(
 			catchError((error) => {
 				throwError(() => console.error(error))
 				return of(null)
