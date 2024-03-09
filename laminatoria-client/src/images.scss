@@ -119,6 +119,9 @@
 
 		grid-template-columns: 1fr;
 		grid-template-rows: 1fr;
+
+		align-items: center;
+		justify-items: center;
 	}
 
 	.main-image {
@@ -131,12 +134,13 @@
 
 		height: 21em;
 		max-height: 21em;
-		max-width: 22em;
+		max-width: 21em;
 	}
 
 	.small-images {
 		display: flex;
 		flex-direction: row;
+		align-items: center;
 
 		max-width: 100%;
 
@@ -152,10 +156,8 @@
 
 		& > .small-images-items {
 			transform: unset;
-			max-width: 20.5em;
-			width: 20.5em;
-			max-height: 20.5em;
-			height: 20.5em;
+			width: 300px;
+			height: 300px;
 			scroll-snap-align: center;
 			scroll-snap-stop: always;
 			padding: 0;
@@ -170,7 +172,8 @@
 		.small-images-items > img {
 			max-width: unset;
 			max-height: unset;
-			height: 100%;
+			height: 300px;
+			width: 300px;
 		}
 
 		.add-image {
