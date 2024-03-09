@@ -2,7 +2,8 @@
 	<form class="product" [formGroup]="form">
 		<div class="images">
 			<div class="main-image">
-				<img [src]="mainImage" alt="" />
+				<div class="spinner" *ngIf="isUploadingImage"></div>
+				<img [src]="mainImage" alt="" *ngIf="!isUploadingImage" />
 			</div>
 			<div class="small-images-container">
 				<div class="small-images">
@@ -24,6 +25,7 @@
 							</svg>
 						</button>
 					</div>
+					<div class="spinner" *ngIf="isUploadingImage"></div>
 				</div>
 			</div>
 		</div>
@@ -71,9 +73,10 @@
 		</div>
 		<div class="btn-container auth">
 			<div class="edit-btns-container">
-				<button type="button" (click)="onSubmit()">Сохранить</button>
-				<button type="button" (click)="resetForm()">Отмена</button>
+				<button type="button" (click)="onSubmit()" [disabled]="isSavingProduct">Сохранить</button>
+				<button type="button" (click)="resetForm()" [disabled]="isSavingProduct">Отмена</button>
 			</div>
 		</div>
 	</form>
+	<div class="spinner absolute" *ngIf="isSavingProduct"></div>
 </div>

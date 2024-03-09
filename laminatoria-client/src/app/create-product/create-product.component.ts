@@ -30,7 +30,9 @@ export class CreateProductComponent implements OnInit {
 	public emptyImage: string = 'assets/empty-image.png'
 	public mainImage: string = ''
 
-	public uploading: boolean = false
+	public isUploadingImage: boolean = false
+	public isSavingProduct: boolean = false
+
 	public images: string = ''
 	public imagesArray: string[] = []
 
@@ -53,7 +55,7 @@ export class CreateProductComponent implements OnInit {
 	}
 
 	public uploadImage(files) {
-		this.uploading = true
+		this.isUploadingImage = true
 
 		this.imageService
 			.uploadImage(files)
@@ -67,7 +69,7 @@ export class CreateProductComponent implements OnInit {
 				}
 			})
 			.add(() => {
-				this.uploading = false
+				this.isUploadingImage = false
 			})
 	}
 
