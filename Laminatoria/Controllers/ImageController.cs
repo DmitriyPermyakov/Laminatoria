@@ -25,7 +25,7 @@ namespace Laminatoria.Controllers
             try
             {            
                 //var file = Request.Form.Files[0];
-                string location = await imageService.UploadImage(file);
+                string location = await imageService.UploadImageAsync(file);
                 string path = "https://localhost:7164/" + location;
                 return Ok(new { url = path });
             }
@@ -35,18 +35,32 @@ namespace Laminatoria.Controllers
             }
         }
 
-
-        [HttpDelete("removeImage/{imageName}")]
-        public async Task<IActionResult> RemoveImage(string imageName)
-        {
-            if (String.IsNullOrEmpty(imageName))
-                return BadRequest("Wrong name");
-
-            Console.WriteLine(imageName);
+        [HttpDelete("removeAllImages")]
+        public async Task<IActionResult> RemoveAllImagesAsync([FromQuery] string[] images)
+        {           
 
             try
             {
-                await imageService.RemoveImage(imageName);
+                await imageService.RemoveAllImagesAsync(images);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+        }
+
+
+        [HttpDelete("removeImage/{imageName}")]
+        public async Task<IActionResult> RemoveImageAsync(string imageName)
+        {
+            if (string.IsNullOrEmpty(imageName))
+                return BadRequest("Wrong name");
+
+            try
+            {
+                await imageService.RemoveImageAsync(imageName);
                 return Ok();
             }
             catch (Exception ex)

@@ -82,7 +82,7 @@ namespace Laminatoria.Migrations
                     TypeOfMeasurement = table.Column<byte>(type: "tinyint unsigned", nullable: false),
                     TypeOfProduct = table.Column<byte>(type: "tinyint unsigned", nullable: false),
                     CategoryId = table.Column<short>(type: "smallint", nullable: true),
-                    Price = table.Column<decimal>(type: "decimal(5,2)", nullable: false),
+                    Price = table.Column<decimal>(type: "decimal(9,2)", nullable: false),
                     Images = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4")
                 },
@@ -194,7 +194,8 @@ namespace Laminatoria.Migrations
                         name: "FK_OrderItem_Products_ProductId",
                         column: x => x.ProductId,
                         principalTable: "Products",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.SetNull);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -230,12 +231,12 @@ namespace Laminatoria.Migrations
             migrationBuilder.InsertData(
                 table: "Orders",
                 columns: new[] { "Id", "Address", "Comments", "Date", "Delivery", "Status", "Summary" },
-                values: new object[] { 1, "ул. Новосибирская 23, кв 45", "slgksag;saj;sf", new DateTime(2024, 3, 11, 12, 23, 0, 579, DateTimeKind.Local).AddTicks(6445), "delivery", 0, 1500m });
+                values: new object[] { 1, "ул. Новосибирская 23, кв 45", "slgksag;saj;sf", new DateTime(2024, 3, 11, 19, 13, 30, 274, DateTimeKind.Local).AddTicks(1024), "delivery", 0, 1500m });
 
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "Email", "PasswordHash" },
-                values: new object[] { (short)1, "test@mail.ru", "$2a$12$FlZqnoP95CQEXhwjXclCiu.wkqRvi6y23.M42WCpZDv8taVl4qHPO" });
+                values: new object[] { (short)1, "test@mail.ru", "$2a$12$MXljV674yDVMbnT7EHwzZe7PIvs/N2aLld.dA9/B1wTNLj.Pu9Pyu" });
 
             migrationBuilder.InsertData(
                 table: "Contact",

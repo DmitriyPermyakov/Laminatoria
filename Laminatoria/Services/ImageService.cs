@@ -4,39 +4,64 @@ namespace Laminatoria.Services
     public class ImageService : IImageService
     {
         private readonly IWebHostEnvironment env;
+        private readonly string imageSegment = "images";
+        private readonly string bigImageSegment = "_big_image_";
 
         public ImageService(IWebHostEnvironment env)
         {
             this.env = env;
         }
-        public Task RemoveImage(string imageName)
+        public Task RemoveImageAsync(string imageName)
         {
             string webRootPath = env.WebRootPath;
-            string smallImage = Path.Combine(webRootPath, "images", imageName);
-            string bigImage = Path.Combine(webRootPath, "images", string.Concat("_big_image_", imageName));
+            string smallImage = Path.Combine(webRootPath, this.imageSegment, imageName);
+            string bigImage = Path.Combine(webRootPath, this.imageSegment, string.Concat(this.bigImageSegment, imageName));
             if (File.Exists(smallImage) && File.Exists(bigImage))
             {
                 File.Delete(smallImage);
                 File.Delete(bigImage);
 
-                return Task.CompletedTask;
-            } else
-            {
-                throw new Exception("file not exists");
-            }            
+            }           
+            return Task.CompletedTask;
         }
 
-        public async Task<string> UploadImage(IFormFile file)
+        public Task RemoveAllImagesAsync(string[] images)
+        {
+            string webRootPath = env.WebRootPath;            
+
+            foreach (string image in images)
+            {
+                string[] segments = image.Split("/");
+                string imageName = segments.Last();
+                string bigImagePath = Path.Combine(webRootPath, this.imageSegment, string.Concat(this.bigImageSegment, imageName));
+                string smallImagePath = Path.Combine(webRootPath, this.imageSegment, imageName);
+
+                if(File.Exists(smallImagePath))
+                {
+                    File.Delete(smallImagePath);
+                }
+
+                if(File.Exists(bigImagePath))
+                {
+                    File.Delete(bigImagePath);
+                }
+
+            }
+            
+            return Task.CompletedTask;
+        }
+
+        public async Task<string> UploadImageAsync(IFormFile file)
         {
             string webRootPath = env.WebRootPath;
-            string uploadDir = Path.Combine(webRootPath, "images");
+            string uploadDir = Path.Combine(webRootPath, this.imageSegment);
 
             if(!Directory.Exists(uploadDir)) 
                 Directory.CreateDirectory(uploadDir);
 
             string fileName = Path.GetRandomFileName() + file.FileName;
 
-            string fullPathBigImage = Path.Combine(uploadDir, string.Concat("_big_image_", fileName));
+            string fullPathBigImage = Path.Combine(uploadDir, string.Concat(this.bigImageSegment, fileName));
 
 
             using(var ms = new MemoryStream())
@@ -61,7 +86,7 @@ namespace Laminatoria.Services
            
             
 
-            string location = $"images/{fileName}";
+            string location = $"{ this.imageSegment}/{fileName}";
             return location;
 
         }

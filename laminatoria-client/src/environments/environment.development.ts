@@ -9,4 +9,5 @@ export const environment = {
 	filtersUrl: 'https://localhost:7164/api/Filter/getFilters',
 	imageUlrUpload: 'https://localhost:7164/api/uploadImage',
 	imageUrlRemove: 'https://localhost:7164/api/removeImage',
+	imageUrlRemoveAll: 'https://localhost:7164/api/removeAllImages',
 }

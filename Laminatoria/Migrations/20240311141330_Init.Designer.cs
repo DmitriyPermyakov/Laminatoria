@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Laminatoria.Migrations
 {
     [DbContext(typeof(LaminatoriaDbContext))]
-    [Migration("20240311072300_Init")]
+    [Migration("20240311141330_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -158,7 +158,7 @@ namespace Laminatoria.Migrations
                             Id = 1,
                             Address = "ул. Новосибирская 23, кв 45",
                             Comments = "slgksag;saj;sf",
-                            Date = new DateTime(2024, 3, 11, 12, 23, 0, 579, DateTimeKind.Local).AddTicks(6445),
+                            Date = new DateTime(2024, 3, 11, 19, 13, 30, 274, DateTimeKind.Local).AddTicks(1024),
                             Delivery = "delivery",
                             Status = 0,
                             Summary = 1500m
@@ -221,7 +221,7 @@ namespace Laminatoria.Migrations
                         .HasColumnType("longtext");
 
                     b.Property<decimal>("Price")
-                        .HasColumnType("decimal(5,2)");
+                        .HasColumnType("decimal(9,2)");
 
                     b.Property<byte>("TypeOfMeasurement")
                         .HasColumnType("tinyint unsigned");
@@ -329,7 +329,7 @@ namespace Laminatoria.Migrations
                         {
                             Id = (short)1,
                             Email = "test@mail.ru",
-                            PasswordHash = "$2a$12$FlZqnoP95CQEXhwjXclCiu.wkqRvi6y23.M42WCpZDv8taVl4qHPO"
+                            PasswordHash = "$2a$12$MXljV674yDVMbnT7EHwzZe7PIvs/N2aLld.dA9/B1wTNLj.Pu9Pyu"
                         });
                 });
 
@@ -365,7 +365,8 @@ namespace Laminatoria.Migrations
 
                     b.HasOne("Laminatoria.Models.Product", "Product")
                         .WithMany()
-                        .HasForeignKey("ProductId");
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("Order");
 

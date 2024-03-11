@@ -2,7 +2,8 @@
 {
     public interface IImageService
     {
-        Task<string> UploadImage(IFormFile file);
-        Task RemoveImage(string path);
+        Task<string> UploadImageAsync(IFormFile file);
+        Task RemoveImageAsync(string path);
+        Task RemoveAllImagesAsync(string[] images);
     }
 }

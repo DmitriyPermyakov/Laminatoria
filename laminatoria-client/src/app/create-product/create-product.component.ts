@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, OnInit, ViewChild } from '@angular/core'
 import { ProductsService } from '../services/products.service'
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { CategoriesService } from '../services/categories.service'
 import { Category } from '../classes/category'
 import { Router } from '@angular/router'
 import { CacheService } from '../services/cache.service'
+import { ImagesComponent } from '../images/images.component'
 
 @Component({
 	selector: 'app-create-product',
@@ -12,6 +13,8 @@ import { CacheService } from '../services/cache.service'
 	styleUrls: ['../edit-product/edit-product.component.scss'],
 })
 export class CreateProductComponent implements OnInit {
+	@ViewChild(ImagesComponent) imageComp: ImagesComponent
+
 	public form: FormGroup
 	public categories: Category[]
 
@@ -45,7 +48,6 @@ export class CreateProductComponent implements OnInit {
 	}
 
 	public onSubmit(): void {
-		console.log(this.form.value)
 		this.productService.createProduct(this.form.value).subscribe((id) => {
 			if (id > 0) {
 				this.router.navigate(['/products', id])

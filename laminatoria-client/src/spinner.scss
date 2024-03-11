@@ -9,6 +9,7 @@
 
 	background-color: #0000000f;
 	backdrop-filter: blur(2px);
+	z-index: 1;
 
 	&::after {
 		content: '';

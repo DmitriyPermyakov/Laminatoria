@@ -62,6 +62,9 @@ export class ImagesComponent implements OnInit {
 			})
 	}
 
+	public removeAllImages(): void {
+		this.imageService.removeAllImages(this.imagesArray).subscribe()
+	}
 	private setMainImage(index: number): string {
 		if (this.imagesArray.length > 0) {
 			let slashIndex = this.imagesArray[index].lastIndexOf('/')

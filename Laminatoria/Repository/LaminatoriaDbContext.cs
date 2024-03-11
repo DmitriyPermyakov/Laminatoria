@@ -65,6 +65,11 @@ namespace Laminatoria.Repository
             modelBuilder.Entity<OrderItem>()
                 .HasData(item);
 
+            modelBuilder.Entity<OrderItem>()
+                .HasOne(p => p.Product)
+                .WithMany()
+                .OnDelete(DeleteBehavior.SetNull);
+
 
             modelBuilder.Entity<Order>()
                 .HasData(

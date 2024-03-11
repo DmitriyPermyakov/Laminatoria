@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http'
+import { HttpClient, HttpParams } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs'
 import { environment } from 'src/environments/environment.development'
@@ -21,5 +21,13 @@ export class UploadImageService {
 
 	public removeImage(imageName: string): Observable<any> {
 		return this.http.delete<any>(`${environment.imageUrlRemove}/${imageName}`)
+	}
+
+	public removeAllImages(images: string[]): Observable<any> {
+		let params = new HttpParams()
+		images.forEach((i) => {
+			params = params.append('images', i)
+		})
+		return this.http.delete<any>(`${environment.imageUrlRemoveAll}`, { params })
 	}
 }

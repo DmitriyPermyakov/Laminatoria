@@ -6,6 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router'
 import { ShoppingCartService } from '../services/shopping-cart.service'
 import { CacheService } from '../services/cache.service'
 import { UploadImageService } from '../services/upload-image.service'
+import { catchError, mergeAll, of, throwError } from 'rxjs'
 
 @Component({
 	selector: 'app-product-card',
@@ -16,6 +17,8 @@ export class ProductCardComponent implements OnInit, AfterViewInit {
 	public product: Product
 	public typeOfMeasurement: string = ''
 	public additionalPropValue: string
+
+	public isRemoving: boolean = false
 
 	public imagesArray: string[] = []
 	public emptyImage: string = 'assets/empty-image.png'
@@ -52,13 +55,30 @@ export class ProductCardComponent implements OnInit, AfterViewInit {
 	}
 
 	public removeProduct(id: number): void {
-		this.productService.removeProduct(id).subscribe(() => {
-			this.router.navigate(['/products'], { queryParams: { category: 'laminate' } })
-		})
+		this.isRemoving = true
+
+		if (this.imagesArray.length > 0) {
+			of(this.productService.removeProduct(id), this.imageService.removeAllImages(this.imagesArray))
+				.pipe(mergeAll())
+				.subscribe(() => {
+					this.setState()
+					this.router.navigate(['/products'], { queryParams: { category: 'laminate' } })
+				})
+		} else {
+			this.productService.removeProduct(id).subscribe(() => {
+				this.setState()
+				this.router.navigate(['/products'], { queryParams: { category: 'laminate' } })
+			})
+		}
 	}
 
 	public chooseImage(index: number): void {
 		this.mainImage = this.setMainImage(index)
+	}
+
+	private setState(): void {
+		this.isRemoving = false
+		this.cache.shouldUpdateProducts = true
 	}
 
 	private loadProduct(): void {
@@ -86,12 +106,10 @@ export class ProductCardComponent implements OnInit, AfterViewInit {
 	}
 
 	private setMainImage(index: number): string {
-		if (this.imagesArray.length > 0) {
-			let slashIndex = this.imagesArray[index].lastIndexOf('/')
-			let url = this.imagesArray.slice(index, index + 1).join()
-			url = url.slice(0, slashIndex) + '/_big_image_' + url.slice(slashIndex + 1, url.length)
-			return url
-		} else return this.emptyImage
+		let slashIndex = this.imagesArray[index].lastIndexOf('/')
+		let url = this.imagesArray.slice(index, index + 1).join()
+		url = url.slice(0, slashIndex) + '/_big_image_' + url.slice(slashIndex + 1, url.length)
+		return url
 	}
 
 	private setImageAndTypeOfMeasurement(): void {
@@ -99,6 +117,8 @@ export class ProductCardComponent implements OnInit, AfterViewInit {
 		if (this.product.images.trim()) {
 			this.imagesArray = this.product.images.trim().split(' ')
 			this.mainImage = this.setMainImage(0)
+		} else {
+			this.mainImage = this.emptyImage
 		}
 	}
 }

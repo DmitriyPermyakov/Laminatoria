@@ -15,7 +15,7 @@ namespace Laminatoria.Models
         public Category? Category { get; set; }        
         public AdditionalProperty AdditionalProperty { get; set; }
 
-        [Column(TypeName = "decimal(5,2)")]
+        [Column(TypeName = "decimal(9,2)")]
         public decimal Price { get; set; }
         public string Images { get; set; }
         public List<Properties> Properties { get; set; } = new List<Properties>();

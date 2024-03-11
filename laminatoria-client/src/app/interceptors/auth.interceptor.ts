@@ -51,7 +51,7 @@ export class AuthInterceptor implements HttpInterceptor {
 					return throwError(() => console.error(error))
 				})
 			)
-		else return next.handle(this.addTokenToHeader(req, refreshToken))
+		else return next.handle(this.addTokenToHeader(req, this.auth.accessTokenString))
 	}
 }
 
