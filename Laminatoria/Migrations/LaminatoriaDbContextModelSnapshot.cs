@@ -156,7 +156,7 @@ namespace Laminatoria.Migrations
                             Id = 1,
                             Address = "ул. Новосибирская 23, кв 45",
                             Comments = "slgksag;saj;sf",
-                            Date = new DateTime(2024, 2, 11, 18, 29, 3, 366, DateTimeKind.Local).AddTicks(5863),
+                            Date = new DateTime(2024, 3, 11, 12, 23, 0, 579, DateTimeKind.Local).AddTicks(6445),
                             Delivery = "delivery",
                             Status = 0,
                             Summary = 1500m
@@ -210,6 +210,10 @@ namespace Laminatoria.Migrations
                     b.Property<short?>("CategoryId")
                         .HasColumnType("smallint");
 
+                    b.Property<string>("Images")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("longtext");
@@ -238,6 +242,7 @@ namespace Laminatoria.Migrations
                         {
                             Id = 1,
                             CategoryId = (short)1,
+                            Images = "",
                             Name = "Дуб Ривьера",
                             Price = 900m,
                             TypeOfMeasurement = (byte)0,

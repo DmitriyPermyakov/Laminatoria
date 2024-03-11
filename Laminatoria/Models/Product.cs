@@ -17,8 +17,8 @@ namespace Laminatoria.Models
 
         [Column(TypeName = "decimal(5,2)")]
         public decimal Price { get; set; }
+        public string Images { get; set; }
         public List<Properties> Properties { get; set; } = new List<Properties>();
-        //public List<Product> RelatedProducts { get; set; } = new List<Product>();
     }
 
     public enum TypeOfMeasurement

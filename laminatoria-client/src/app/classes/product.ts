@@ -11,7 +11,6 @@ export class Product {
 	typeOfProduct: number
 	typeOfMeasurement: number
 	price: number
-	relatedProductsId: number[]
 	images: string
 
 	constructor(

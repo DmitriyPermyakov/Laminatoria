@@ -30,6 +30,12 @@ export class EditProductComponent implements OnInit, AfterViewInit {
 		return this.form.controls['category'] as FormControl
 	}
 
+	public get imagesControl(): FormControl {
+		return this.form.controls['images'] as FormControl
+	}
+
+	public isUploadingImage: boolean = true
+
 	constructor(
 		private categorisService: CategoriesService,
 		private cacheService: CacheService,
@@ -81,7 +87,7 @@ export class EditProductComponent implements OnInit, AfterViewInit {
 			typeOfProduct: [{ value: this.product.typeOfProduct, disabled: false }, Validators.required],
 			typeOfMeasurement: [{ value: this.product.typeOfMeasurement, disabled: false }, Validators.required],
 			price: [{ value: this.product.price, disabled: false }, Validators.required],
-			relatedProducts: [{ value: '' }],
+			images: [{ value: this.product.images, disabled: false }],
 		})
 
 		this.product.properties.forEach((p) => {

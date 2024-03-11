@@ -32,6 +32,7 @@ namespace Laminatoria.Repository
                         TypeOfMeasurement = p.TypeOfMeasurement,
                         TypeOfProduct = p.TypeOfProduct,
                         Category = p.Category,
+                        Images = p.Images,
                         AdditionalProperty = p.AdditionalProperty,
                         Properties = p.Properties,
                         Price = p.Price,
@@ -51,6 +52,7 @@ namespace Laminatoria.Repository
                        TypeOfMeasurement = p.TypeOfMeasurement,
                        TypeOfProduct = p.TypeOfProduct,
                        Category = p.Category,
+                       Images = p.Images,
                        AdditionalProperty = p.AdditionalProperty,
                        Properties = p.Properties,
                        Price = p.Price,
@@ -97,6 +99,7 @@ namespace Laminatoria.Repository
                     TypeOfMeasurement = p.TypeOfMeasurement,
                     TypeOfProduct = p.TypeOfProduct,
                     Category = p.Category,
+                    Images = p.Images,
                     AdditionalProperty = p.AdditionalProperty,
                     Properties = p.Properties,
                     Price = p.Price,
@@ -124,6 +127,7 @@ namespace Laminatoria.Repository
                     TypeOfMeasurement = p.TypeOfMeasurement,
                     TypeOfProduct = p.TypeOfProduct,
                     Category = p.Category,
+                    Images = p.Images,
                     AdditionalProperty = p.AdditionalProperty,
                     Properties = p.Properties,
                     Price = p.Price,
@@ -143,6 +147,7 @@ namespace Laminatoria.Repository
                 TypeOfMeasurement = newProduct.TypeOfMeasurement,
                 TypeOfProduct = newProduct.TypeOfProduct,
                 CategoryId = newProduct.Category.Id,
+                Images = newProduct.Images,
                 Price = newProduct.Price,
             };
             await context.Products.AddAsync(product);
@@ -183,6 +188,7 @@ namespace Laminatoria.Repository
                 originalProduct.TypeOfMeasurement = product.TypeOfMeasurement;
                 originalProduct.TypeOfProduct = product.TypeOfProduct;
                 originalProduct.Price = product.Price;
+                originalProduct.Images = product.Images;
                 originalProduct.AdditionalProperty = product.AdditionalProperty;
                 originalProduct.Properties = product.Properties;
                 originalProduct.CategoryId = product.Category.Id;

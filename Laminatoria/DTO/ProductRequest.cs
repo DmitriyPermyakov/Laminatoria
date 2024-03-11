@@ -17,11 +17,11 @@ namespace Laminatoria.DTO
         [Required]
         public TypeOfProduct TypeOfProduct { get; set; }
         [Required]
-        public Category Category{ get; set; }       
+        public Category Category{ get; set; }  
+        public string Images { get; set; }
         public AdditionalProperty AdditionalProperty { get; set; }
         [Required]
         public decimal Price { get; set; }
         public List<Properties> Properties { get; set; } = new List<Properties>();
-        //public List<Product> RelatedProducts { get; set; } = new List<Product>();
     }
 }

@@ -13,5 +13,6 @@ namespace Laminatoria.DTO
         public AdditionalProperty AdditionalProperty { get; set; }
         public List<Properties> Properties { get; set; }
         public decimal Price { get; set; }
+        public string Images { get; set; }
     }
 }

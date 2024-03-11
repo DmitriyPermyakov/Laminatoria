@@ -26,7 +26,7 @@ namespace Laminatoria.Repository
                 {
                     Id = 1,
                     Email = "test@mail.ru",
-                    PasswordHash = "$2a$12$FlZqnoP95CQEXhwjXclCiu.wkqRvi6y23.M42WCpZDv8taVl4qHPO"
+                    PasswordHash = "$2a$12$MXljV674yDVMbnT7EHwzZe7PIvs/N2aLld.dA9/B1wTNLj.Pu9Pyu"
                 });
 
 
@@ -89,6 +89,7 @@ namespace Laminatoria.Repository
                          Vendor = "12 2354 zz",
                          TypeOfMeasurement = TypeOfMeasurement.RoublesForSquareMeter,
                          TypeOfProduct = TypeOfProduct.cutting,
+                         Images = "",
                          CategoryId = 1,
                          Price = 900,
                      }

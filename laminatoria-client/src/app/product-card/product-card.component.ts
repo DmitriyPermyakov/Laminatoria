@@ -5,6 +5,7 @@ import { Product, typeOfMeasurementMap } from '../classes/product'
 import { ActivatedRoute, Router } from '@angular/router'
 import { ShoppingCartService } from '../services/shopping-cart.service'
 import { CacheService } from '../services/cache.service'
+import { UploadImageService } from '../services/upload-image.service'
 
 @Component({
 	selector: 'app-product-card',
@@ -16,6 +17,10 @@ export class ProductCardComponent implements OnInit, AfterViewInit {
 	public typeOfMeasurement: string = ''
 	public additionalPropValue: string
 
+	public imagesArray: string[] = []
+	public emptyImage: string = 'assets/empty-image.png'
+	public mainImage: string = ''
+
 	public id: string
 
 	constructor(
@@ -24,7 +29,8 @@ export class ProductCardComponent implements OnInit, AfterViewInit {
 		private activatedRoute: ActivatedRoute,
 		private shoppingCart: ShoppingCartService,
 		private cache: CacheService,
-		private router: Router
+		private router: Router,
+		private imageService: UploadImageService
 	) {}
 
 	ngOnInit(): void {
@@ -51,15 +57,21 @@ export class ProductCardComponent implements OnInit, AfterViewInit {
 		})
 	}
 
+	public chooseImage(index: number): void {
+		this.mainImage = this.setMainImage(index)
+	}
+
 	private loadProduct(): void {
 		if (this.id !== '') {
 			let productsFromCache = this.cache.get('products' + this.cache.productPageNumber)
 
 			if (productsFromCache != undefined) {
 				this.product = productsFromCache.find((p) => p.id == this.id)
-				this.typeOfMeasurement = typeOfMeasurementMap.get(this.product?.typeOfMeasurement) ?? ''
 
 				if (!this.product) this.loadFromServer(+this.id)
+				else {
+					this.setImageAndTypeOfMeasurement()
+				}
 			} else {
 				this.loadFromServer(+this.id)
 			}
@@ -69,7 +81,24 @@ export class ProductCardComponent implements OnInit, AfterViewInit {
 	private loadFromServer(id: number): void {
 		this.productService.getById(id).subscribe((p) => {
 			this.product = p
-			this.typeOfMeasurement = typeOfMeasurementMap.get(this.product?.typeOfMeasurement) ?? ''
+			this.setImageAndTypeOfMeasurement()
 		})
+	}
+
+	private setMainImage(index: number): string {
+		if (this.imagesArray.length > 0) {
+			let slashIndex = this.imagesArray[index].lastIndexOf('/')
+			let url = this.imagesArray.slice(index, index + 1).join()
+			url = url.slice(0, slashIndex) + '/_big_image_' + url.slice(slashIndex + 1, url.length)
+			return url
+		} else return this.emptyImage
+	}
+
+	private setImageAndTypeOfMeasurement(): void {
+		this.typeOfMeasurement = typeOfMeasurementMap.get(this.product?.typeOfMeasurement) ?? ''
+		if (this.product.images.trim()) {
+			this.imagesArray = this.product.images.trim().split(' ')
+			this.mainImage = this.setMainImage(0)
+		}
 	}
 }

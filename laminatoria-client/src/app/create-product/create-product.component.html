@@ -1,33 +1,7 @@
 <div class="product-container">
 	<form class="product" [formGroup]="form">
-		<div class="images">
-			<div class="main-image">
-				<div class="spinner" *ngIf="isUploadingImage"></div>
-				<img [src]="mainImage" alt="" *ngIf="!isUploadingImage" />
-			</div>
-			<div class="small-images-container">
-				<div class="small-images">
-					<div class="add-image">
-						<input #file type="file" accept="image/*" hidden (change)="uploadImage(file.files)" />
-						<button (click)="file.click()">
-							<svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
-								<line y1="17" x2="34" y2="17" stroke="white" stroke-width="2" />
-								<line x1="17" x2="17" y2="34" stroke="white" stroke-width="2" />
-							</svg>
-						</button>
-					</div>
-					<div class="small-images-items" *ngFor="let i of imagesArray; index as imageIndex">
-						<img class="image-item" width="100" height="100" [src]="i" alt="" (click)="chooseImage(imageIndex)" />
-						<button class="remove-image" (click)="removeImage(imageIndex)">
-							<svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
-								<line y1="17" x2="34" y2="17" stroke="white" stroke-width="2" />
-								<line x1="17" x2="17" y2="34" stroke="white" stroke-width="2" />
-							</svg>
-						</button>
-					</div>
-					<div class="spinner" *ngIf="isUploadingImage"></div>
-				</div>
-			</div>
+		<div class="images-container">
+			<app-images [imagesControl]="imagesControl"></app-images>
 		</div>
 		<div class="main-description">
 			<input class="name" placeholder="Название" formControlName="name" />

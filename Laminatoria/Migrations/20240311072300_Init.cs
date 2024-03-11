@@ -82,7 +82,9 @@ namespace Laminatoria.Migrations
                     TypeOfMeasurement = table.Column<byte>(type: "tinyint unsigned", nullable: false),
                     TypeOfProduct = table.Column<byte>(type: "tinyint unsigned", nullable: false),
                     CategoryId = table.Column<short>(type: "smallint", nullable: true),
-                    Price = table.Column<decimal>(type: "decimal(5,2)", nullable: false)
+                    Price = table.Column<decimal>(type: "decimal(5,2)", nullable: false),
+                    Images = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>
                 {
@@ -228,7 +230,7 @@ namespace Laminatoria.Migrations
             migrationBuilder.InsertData(
                 table: "Orders",
                 columns: new[] { "Id", "Address", "Comments", "Date", "Delivery", "Status", "Summary" },
-                values: new object[] { 1, "ул. Новосибирская 23, кв 45", "slgksag;saj;sf", new DateTime(2024, 2, 11, 18, 29, 3, 366, DateTimeKind.Local).AddTicks(5863), "delivery", 0, 1500m });
+                values: new object[] { 1, "ул. Новосибирская 23, кв 45", "slgksag;saj;sf", new DateTime(2024, 3, 11, 12, 23, 0, 579, DateTimeKind.Local).AddTicks(6445), "delivery", 0, 1500m });
 
             migrationBuilder.InsertData(
                 table: "Users",
@@ -242,8 +244,8 @@ namespace Laminatoria.Migrations
 
             migrationBuilder.InsertData(
                 table: "Products",
-                columns: new[] { "Id", "CategoryId", "Name", "Price", "TypeOfMeasurement", "TypeOfProduct", "Vendor" },
-                values: new object[] { 1, (short)1, "Дуб Ривьера", 900m, (byte)0, (byte)0, "12 2354 zz" });
+                columns: new[] { "Id", "CategoryId", "Images", "Name", "Price", "TypeOfMeasurement", "TypeOfProduct", "Vendor" },
+                values: new object[] { 1, (short)1, "", "Дуб Ривьера", 900m, (byte)0, (byte)0, "12 2354 zz" });
 
             migrationBuilder.InsertData(
                 table: "AdditionalProperties",

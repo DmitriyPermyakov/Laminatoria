@@ -1,22 +1,23 @@
 <div class="product-container">
 	<div class="product">
-		<div class="images">
-			<div class="main-image">
-				<img src="../../assets/laminat_tarket_pervaja_sibirskaja_5.png" alt="" />
-			</div>
-			<div class="small-images-container">
-				<div class="small-images">
-					<div class="small-images-items">
-						<img src="../../assets/laminat_tarket_pervaja_sibirskaja_5.png" alt="" />
-					</div>
-					<div class="small-images-items">
-						<img src="../../assets/laminat_tarket_pervaja_sibirskaja_5.png" alt="" />
-					</div>
-					<div class="small-images-items">
-						<img src="../../assets/laminat_tarket_pervaja_sibirskaja_5.png" alt="" />
-					</div>
-					<div class="small-images-items">
-						<img src="../../assets/laminat_tarket_pervaja_sibirskaja_5.png" alt="" />
+		<div class="images-container">
+			<div class="images">
+				<div class="main-image">
+					<img [src]="mainImage" alt="main-image" />
+				</div>
+				<div class="small-images-container">
+					<div class="small-images">
+						<ng-container *ngIf="imagesArray.length > 0">
+							<div class="small-images-items" *ngFor="let img of imagesArray">
+								<img [src]="img" alt="small-images" />
+							</div>
+						</ng-container>
+						<img
+							class="small-images-items"
+							[src]="emptyImage"
+							*ngIf="imagesArray.length < 1"
+							alt="small-images"
+						/>
 					</div>
 				</div>
 			</div>
