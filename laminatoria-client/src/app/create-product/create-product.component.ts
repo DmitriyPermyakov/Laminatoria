@@ -6,6 +6,7 @@ import { Category } from '../classes/category'
 import { Router } from '@angular/router'
 import { CacheService } from '../services/cache.service'
 import { ImagesComponent } from '../images/images.component'
+import { AdditionalPropsComponent } from '../additional-props/additional-props.component'
 
 @Component({
 	selector: 'app-create-product',
@@ -14,6 +15,7 @@ import { ImagesComponent } from '../images/images.component'
 })
 export class CreateProductComponent implements OnInit {
 	@ViewChild(ImagesComponent) imageComp: ImagesComponent
+	@ViewChild(AdditionalPropsComponent) addPropComp: AdditionalPropsComponent
 
 	public form: FormGroup
 	public categories: Category[]
@@ -58,6 +60,7 @@ export class CreateProductComponent implements OnInit {
 
 	public resetForm(): void {
 		this.form.reset()
+		this.addPropComp.resetArray()
 	}
 
 	private initForm(): void {

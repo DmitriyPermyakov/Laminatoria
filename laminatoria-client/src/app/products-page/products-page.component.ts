@@ -6,6 +6,7 @@ import { ProductsService } from '../services/products.service'
 import { Product } from '../classes/product'
 import { CacheService } from '../services/cache.service'
 import { Filter } from '../classes/filter'
+import { AuthService } from '../services/auth.service'
 
 @Component({
 	selector: 'app-products-page',
@@ -25,6 +26,7 @@ export class ProductsPageComponent implements OnInit, OnDestroy {
 
 	constructor(
 		public filterService: FilterService,
+		public auth: AuthService,
 		private activatedRoute: ActivatedRoute,
 		private productService: ProductsService,
 		private cacheService: CacheService,
@@ -84,7 +86,7 @@ export class ProductsPageComponent implements OnInit, OnDestroy {
 		let filter: Map<string, string> = new Map()
 		filter.set('category', queryParam)
 
-		if (this.cacheService.productPageNumber < 0 || this.cacheService.shouldUpdateProducts) {
+		if (this.cacheService.shouldUpdateProducts || this.cacheService.productPageNumber < 0) {
 			this.cacheService.productPageNumber = this.currentPage = 1
 			this.getProducts(filter, this.currentPage, this.elementsOnPage)
 		} else {

@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core'
-import { FormControl, FormGroup } from '@angular/forms'
-import { typeOfProduct } from '../classes/product'
+import { FormGroup } from '@angular/forms'
 
 @Component({
 	selector: 'app-additional-props',
@@ -9,10 +8,11 @@ import { typeOfProduct } from '../classes/product'
 })
 export class AdditionalPropsComponent implements OnInit {
 	@Input() public additionalProps: FormGroup
-	private resetValues = { name: '', values: '' }
+	public propsArray: string[] = []
 
 	ngOnInit(): void {
-		// this.InitResetValues()
+		if (this.additionalProps.value.values.trim())
+			this.propsArray = this.additionalProps.value.values.trim().split(' ')
 	}
 
 	public changePropName(event): void {
@@ -22,28 +22,19 @@ export class AdditionalPropsComponent implements OnInit {
 	}
 
 	public addAdditionalProp(event): void {
-		let propsArray: string[] = this.additionalProps.value.values.trim().split(' ')
-		if (event.value !== '' && !propsArray.includes(event.value)) {
-			this.additionalProps.value.values = this.additionalProps.value.values + ' ' + event.value
+		if (event.value !== '' && !this.propsArray.includes(event.value)) {
+			this.propsArray.push(event.value)
+			this.additionalProps.value.values = this.propsArray.join(' ')
 		}
 		event.value = ''
 	}
 
 	public removeAdditionalProp(i: number): void {
-		let propsArray: string[] = this.additionalProps.value.values.trim().split(' ')
-		propsArray.splice(i, 1)
-		this.additionalProps.value.values = propsArray.join(' ')
+		this.propsArray.splice(i, 1)
+		this.additionalProps.value.values = this.propsArray.join(' ')
 	}
 
-	// public resetControls(): void {
-	// 	this.additionalProps.value.name = this.resetValues.name
-	// 	this.additionalProps.value.values = this.resetValues.values
-	// }
-
-	// private InitResetValues(): void {
-	// 	if (this.additionalProps.value !== '') {
-	// 		this.resetValues.name = this.additionalProps.value.name
-	// 		this.resetValues.values = this.additionalProps.value.values
-	// 	}
-	// }
+	public resetArray(): void {
+		this.propsArray = []
+	}
 }

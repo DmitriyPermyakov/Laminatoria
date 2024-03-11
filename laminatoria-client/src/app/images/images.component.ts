@@ -22,6 +22,8 @@ export class ImagesComponent implements OnInit {
 	constructor(private imageService: UploadImageService) {}
 
 	ngOnInit(): void {
+		this.images = this.imagesControl.value.trim()
+		this.imagesArray = this.images.split(' ')
 		this.mainImage = this.setMainImage(0)
 	}
 

@@ -33,26 +33,11 @@ export class AuthService {
 
 	public get isAuthenticated(): boolean {
 		if (this.accessTokenString === '') return false
-		else return true
+		else {
+			let exp = JSON.parse(atob(this.accessTokenString.split('.')[1])).exp * 1000
+			return new Date() > new Date(exp)
+		}
 	}
-
-	// public get isRefreshTokenValid(): boolean {
-	// 	return !this.isTokenExpired(this.refreshTokenString)
-	// }
-
-	// private isTokenExpired(token: string): boolean {
-	// 	try {
-	// 		if (token != '') {
-	// 			let exp = JSON.parse(atob(token.split('.')[1])).exp * 1000
-	// 			return new Date() > new Date(exp)
-	// 		}
-	// 	} catch (error) {
-	// 		this.clearTokens()
-	// 		return true
-	// 	}
-
-	// 	return true
-	// }
 
 	constructor(private http: HttpClient, private router: Router) {}
 
