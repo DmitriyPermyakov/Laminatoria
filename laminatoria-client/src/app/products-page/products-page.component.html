@@ -1,4 +1,5 @@
 <div class="products-container">
+	<div class="spinner absolute product-spinner-position" *ngIf="isProductLoading"></div>
 	<div class="filter-container" [ngClass]="{ opened: filterService.isFilterOpen }">
 		<app-filter (OnFilterApply)="onApplyFilter($event)" (OnFilterReset)="onResetFilter()"></app-filter>
 	</div>
@@ -12,9 +13,9 @@
 	</div>
 	<div class="pagination">
 		<app-pagination
-			[pageCount]="pageCount"
 			[currentPage]="currentPage"
 			[elementsOnPage]="elementsOnPage"
+			(onPageChanged)="paginate($event)"
 		></app-pagination>
 	</div>
 	<button class="add-btn" *ngIf="auth.isAuthenticated" [routerLink]="['/products/create']">

@@ -19,6 +19,8 @@ export class FilterComponent implements OnInit {
 	public form: FormGroup
 	public isChecked: boolean
 
+	public isFilterLoading: boolean = true
+
 	public minPrice: string
 	public maxPrice: string
 	public propsMap: Map<string, string[]> = new Map()
@@ -96,7 +98,9 @@ export class FilterComponent implements OnInit {
 	}
 
 	private updateFilters(): void {
+		this.isFilterLoading = true
 		this.filtersService.filterCategory = this.cache.productCategory
+
 		this.filtersService.getFiltersFromServer(this.cache.productCategory).subscribe((f) => {
 			if (f.filters) {
 				this.filtersFromServer = f
@@ -105,6 +109,7 @@ export class FilterComponent implements OnInit {
 				this.initForm()
 				this.minPrice = 'от: ' + this.filtersFromServer.prices.minPrice
 				this.maxPrice = 'до: ' + this.filtersFromServer.prices.maxPrice
+				this.isFilterLoading = false
 			} else {
 				this.form = null
 			}

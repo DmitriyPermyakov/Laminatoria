@@ -5,8 +5,8 @@ import { Subscription } from 'rxjs'
 import { ProductsService } from '../services/products.service'
 import { Product } from '../classes/product'
 import { CacheService } from '../services/cache.service'
-import { Filter } from '../classes/filter'
 import { AuthService } from '../services/auth.service'
+import { PaginationService } from '../services/pagination.service'
 
 @Component({
 	selector: 'app-products-page',
@@ -17,10 +17,10 @@ export class ProductsPageComponent implements OnInit, OnDestroy {
 	public isOpen: boolean = false
 	public products: Product[]
 
+	public isProductLoading: boolean = true
+
 	public currentPage: number = 1
-	public pageCount: number = 0
-	public elementsOnPage: number = 20
-	private amountOfProducts: number = 0
+	public elementsOnPage: number = 1
 
 	private routerSub: Subscription
 
@@ -30,7 +30,8 @@ export class ProductsPageComponent implements OnInit, OnDestroy {
 		private activatedRoute: ActivatedRoute,
 		private productService: ProductsService,
 		private cacheService: CacheService,
-		private router: Router
+		private router: Router,
+		private paginationAmountService: PaginationService
 	) {}
 
 	ngOnInit(): void {
@@ -54,23 +55,31 @@ export class ProductsPageComponent implements OnInit, OnDestroy {
 
 	public paginate(pageNumber: number): void {
 		this.cacheService.productPageNumber = this.currentPage = pageNumber
-		this.getProducts(this.filterService.filter, pageNumber, this.elementsOnPage)
+		this.isProductLoading = true
+		this.productService.getFiltered(this.filterService.filter, pageNumber, this.elementsOnPage).subscribe((p) => {
+			this.setProducts(p.products)
+			this.isProductLoading = false
+		})
 	}
 
 	public onResetFilter(): void {
 		this.cacheService.shouldUpdateProducts = true
-		this.cacheService.productPageNumber = this.currentPage = 1
 		this.loadProducts()
 	}
 
 	public onApplyFilter(filter: Map<string, string>): void {
-		this.getProducts(filter, this.cacheService.productPageNumber, this.elementsOnPage)
+		this.getProducts(filter, 1, this.elementsOnPage)
 	}
 
 	private getProducts(filter: Map<string, string>, currentPage: number, elementsOnPage: number): void {
+		this.isProductLoading = true
 		this.productService.getFiltered(filter, currentPage, elementsOnPage).subscribe((p) => {
+			this.cacheService.amountOfProducts = p.totalCount
 			this.setProducts(p.products)
-			this.amountOfProducts = p.totalCount
+			this.isProductLoading = false
+			this.cacheService.productPageNumber = 1
+			this.currentPage = 1
+			this.paginationAmountService.emitValue(p.totalCount)
 		})
 	}
 
@@ -87,7 +96,6 @@ export class ProductsPageComponent implements OnInit, OnDestroy {
 		filter.set('category', queryParam)
 
 		if (this.cacheService.shouldUpdateProducts || this.cacheService.productPageNumber < 0) {
-			this.cacheService.productPageNumber = this.currentPage = 1
 			this.getProducts(filter, this.currentPage, this.elementsOnPage)
 		} else {
 			this.currentPage = this.cacheService.productPageNumber
@@ -95,17 +103,17 @@ export class ProductsPageComponent implements OnInit, OnDestroy {
 			if (!productsFromCache) {
 				this.getProducts(filter, this.currentPage, this.elementsOnPage)
 			} else {
+				this.isProductLoading = false
 				this.products = productsFromCache
-				this.pageCount = Math.ceil(this.amountOfProducts / this.elementsOnPage)
+				this.paginationAmountService.emitValue(this.cacheService.amountOfProducts)
 			}
 		}
 	}
 
 	private setProducts(products: Product[]): void {
 		this.products = products
-		this.pageCount = Math.ceil(this.amountOfProducts / this.elementsOnPage)
-		this.cacheService.set('products' + this.currentPage, products)
 
+		this.cacheService.set('products' + this.currentPage, products)
 		this.cacheService.shouldUpdateProducts = false
 	}
 }

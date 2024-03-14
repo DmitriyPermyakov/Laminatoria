@@ -1,3 +1,5 @@
+<div class="spinner" *ngIf="isFilterLoading"></div>
+
 <form *ngIf="form" [formGroup]="form" (ngSubmit)="onSubmit()">
 	<div class="filter">
 		<div class="filter-item">

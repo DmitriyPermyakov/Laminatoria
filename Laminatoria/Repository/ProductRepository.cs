@@ -89,24 +89,24 @@ namespace Laminatoria.Repository
                 .Include(p => p.Category)
                 .Include(p => p.AdditionalProperty)
                 .Include(p => p.Properties)
-                .Skip((filter.PaginationInfo.CurrentPage - 1) * filter.PaginationInfo.ElementsOnPage)
-                .Take(filter.PaginationInfo.ElementsOnPage)
                 .Select(p => new MappedProduct
                 {
-                    Id = p.Id,
-                    Name = p.Name,
-                    Vendor = p.Vendor,
-                    TypeOfMeasurement = p.TypeOfMeasurement,
-                    TypeOfProduct = p.TypeOfProduct,
-                    Category = p.Category,
-                    Images = p.Images,
-                    AdditionalProperty = p.AdditionalProperty,
-                    Properties = p.Properties,
-                    Price = p.Price,
+                     Id = p.Id,
+                     Name = p.Name,
+                     Vendor = p.Vendor,
+                     TypeOfMeasurement = p.TypeOfMeasurement,
+                     TypeOfProduct = p.TypeOfProduct,
+                     Category = p.Category,
+                     Images = p.Images,
+                     AdditionalProperty = p.AdditionalProperty,
+                     Properties = p.Properties,
+                     Price = p.Price,
                 });
 
             var total = await query.CountAsync();
-            var products = await query.ToListAsync();
+
+            var products = await query.Skip((filter.PaginationInfo.CurrentPage - 1) * filter.PaginationInfo.ElementsOnPage)
+                .Take(filter.PaginationInfo.ElementsOnPage).ToListAsync();
 
             return new ProductResponse
             {

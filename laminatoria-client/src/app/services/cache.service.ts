@@ -8,6 +8,8 @@ export class CacheService {
 	public productPageNumber: number = -1
 	public shouldUpdateOrders: boolean = false
 	public shouldUpdateProducts: boolean = false
+	public amountOfProducts: number = 0
+	public aountOfOrders: number = 0
 
 	public get productCategory(): string {
 		return localStorage.getItem('category')

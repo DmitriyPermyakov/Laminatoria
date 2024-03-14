@@ -10,11 +10,7 @@
 	<div class="orders">
 		<ng-container *ngIf="orders">
 			<app-order-item *ngFor="let order of orders" [order]="order"></app-order-item>
-			<app-pagination
-				[pageCount]="pageCount"
-				[currentPage]="currentPage"
-				[elementsOnPage]="elementsOnPage"
-			></app-pagination>
+			<app-pagination [currentPage]="currentPage" [elementsOnPage]="elementsOnPage"></app-pagination>
 		</ng-container>
 	</div>
 	<button class="add-btn" [routerLink]="['/orders/create']">

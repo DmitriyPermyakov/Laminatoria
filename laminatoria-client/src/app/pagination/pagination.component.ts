@@ -5,11 +5,16 @@ import {
 	EventEmitter,
 	HostListener,
 	Input,
+	OnDestroy,
+	OnInit,
 	Output,
 	Renderer2,
 	ViewChild,
 	ViewEncapsulation,
 } from '@angular/core'
+import { Subscription } from 'rxjs'
+import { PaginationService } from '../services/pagination.service'
+import { CacheService } from '../services/cache.service'
 
 @Component({
 	selector: 'app-pagination',
@@ -17,19 +22,21 @@ import {
 	styleUrls: ['./pagination.component.scss'],
 	encapsulation: ViewEncapsulation.None,
 })
-export class PaginationComponent implements AfterViewInit {
+export class PaginationComponent implements OnDestroy, AfterViewInit {
 	@ViewChild('container') container: ElementRef
-	@Input() pageCount: number = 1
 	@Input() currentPage: number = 1
 	@Input() elementsOnPage: number = 20
 
 	@Output() onPageChanged: EventEmitter<number> = new EventEmitter()
 
+	private pageCount: number = 1
 	private spanClass: string = 'pagination-dots'
 	private buttonClass: string = 'pagination-btn'
 	private firstSpan: HTMLElement = null
 	private secondSpan: HTMLElement = null
 	private buttonsArray: HTMLElement[] = []
+
+	private amountSub: Subscription
 
 	@HostListener('click', ['$event.target'])
 	onClick(element: HTMLElement) {
@@ -45,13 +52,41 @@ export class PaginationComponent implements AfterViewInit {
 		}
 	}
 
-	constructor(private renderer: Renderer2) {}
+	constructor(
+		private renderer: Renderer2,
+		private paginationAmountService: PaginationService,
+		private cache: CacheService
+	) {}
 
 	ngAfterViewInit(): void {
+		this.amountSub = this.paginationAmountService.data$.subscribe((amount) => {
+			this.currentPage = this.cache.productPageNumber
+
+			this.clearArray()
+			this.initComponent(amount)
+			return
+		})
+	}
+
+	ngOnDestroy(): void {
+		if (this.amountSub) {
+			this.amountSub.unsubscribe()
+		}
+	}
+
+	private initComponent(amount: number): void {
+		this.pageCount = Math.ceil(amount / this.elementsOnPage)
 		this.drawButtons()
 		this.initButtonsClasses()
 		this.setSpanClasses()
 		this.setVisibleButtons()
+	}
+
+	private clearArray(): void {
+		Array.from(this.container.nativeElement.children).forEach((c) => {
+			this.renderer.removeChild(this.container.nativeElement, c)
+		})
+		this.buttonsArray = []
 	}
 
 	private drawButtons(): void {

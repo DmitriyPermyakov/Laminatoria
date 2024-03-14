@@ -9,8 +9,8 @@
 				<div class="small-images-container">
 					<div class="small-images">
 						<ng-container *ngIf="imagesArray.length > 0">
-							<div class="small-images-items" *ngFor="let img of imagesArray">
-								<img [src]="img" alt="small-images" />
+							<div class="small-images-items" *ngFor="let img of imagesArray; let i = index">
+								<img [src]="img" alt="small-images" (click)="chooseImage(i)" />
 							</div>
 						</ng-container>
 						<img

@@ -4,6 +4,7 @@ import { Order } from '../classes/order'
 import { OrdersService } from '../services/orders.service'
 import { CacheService } from '../services/cache.service'
 import { AuthService } from '../services/auth.service'
+import { BehaviorSubject } from 'rxjs'
 
 @Component({
 	selector: 'app-orders',
@@ -14,7 +15,6 @@ export class OrdersComponent implements OnInit {
 	public isOpen: boolean = false
 	public orders: Order[]
 	public currentPage: number
-	public pageCount: number
 	public elementsOnPage: number = 20
 
 	constructor(
@@ -25,7 +25,6 @@ export class OrdersComponent implements OnInit {
 	) {}
 
 	ngOnInit(): void {
-		console.log('auth orders', this.auth.isAuthenticated)
 		if (this.cacheService.orderPageNumber < 0 || this.cacheService.shouldUpdateOrders) {
 			this.cacheService.orderPageNumber = 1
 			this.currentPage = 1
@@ -37,7 +36,6 @@ export class OrdersComponent implements OnInit {
 				this.loadAndCacheOrders()
 			} else {
 				this.orders = ordersFromCache
-				this.pageCount = Math.ceil(this.orders.length / this.elementsOnPage)
 			}
 		}
 	}
@@ -49,7 +47,6 @@ export class OrdersComponent implements OnInit {
 	private loadAndCacheOrders(): void {
 		this.orderService.getAll().subscribe((orders) => {
 			this.orders = orders
-			this.pageCount = Math.ceil(this.orders.length / this.elementsOnPage)
 			this.cacheService.set('orders' + this.currentPage, this.orders)
 			this.cacheService.shouldUpdateOrders = false
 		})
