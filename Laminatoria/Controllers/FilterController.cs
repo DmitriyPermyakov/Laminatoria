@@ -15,7 +15,7 @@ namespace Laminatoria.Controllers
             this.repository = repository;
         }
 
-        [HttpGet("getFilters")]
+        [HttpGet("getProductFilters")]
         public IActionResult GetFiltersAsync(string category)
         {
             try
@@ -24,11 +24,11 @@ namespace Laminatoria.Controllers
                 
                 if(string.IsNullOrEmpty(category))
                 {
-                   filters = this.repository.GetFilter("laminate");
+                    return BadRequest("Can't get filters");
                 }
                 else
                 {
-                    filters = this.repository.GetFilter(category);
+                    filters = this.repository.GetProductFilter(category);
                 }
 
                 if (filters == null)
@@ -39,6 +39,24 @@ namespace Laminatoria.Controllers
                 return Ok(filters);
             }
             catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpGet("getOrderFilters")]
+        public IActionResult GetOrdersFilters()
+        {
+            try
+            {
+                Filter filters = this.repository.GetOrderFilter();
+                if(filters == null)
+                {
+                    return BadRequest("Can't get filters");
+                }
+                return Ok(filters);
+
+            }
+            catch(Exception ex)
             {
                 return BadRequest(ex.Message);
             }
