@@ -1,6 +1,7 @@
 <div class="orders-container">
+	<div class="spinner absolute orders-spinner-position" *ngIf="isOrdersLoading"></div>
 	<div class="filter-container" [ngClass]="{ opened: filterService.isFilterOpen }">
-		<app-filter></app-filter>
+		<app-filter (OnFilterApply)="onApplyFilter($event)" (OnFilterReset)="onResetFilter()"></app-filter>
 	</div>
 	<div class="sort-buttons">
 		<button class="sort-price" type="button">Цена<span>&#8595;</span></button>
@@ -10,7 +11,11 @@
 	<div class="orders">
 		<ng-container *ngIf="orders">
 			<app-order-item *ngFor="let order of orders" [order]="order"></app-order-item>
-			<app-pagination [currentPage]="currentPage" [elementsOnPage]="elementsOnPage"></app-pagination>
+			<app-pagination
+				[currentPage]="currentPage"
+				[elementsOnPage]="elementsOnPage"
+				(onPageChanged)="paginate($event)"
+			></app-pagination>
 		</ng-container>
 	</div>
 	<button class="add-btn" [routerLink]="['/orders/create']">
