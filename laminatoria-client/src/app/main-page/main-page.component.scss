@@ -1,9 +1,39 @@
-p {
+.main-page {
 	display: block;
 	margin: 0 auto;
-	background-color: bisque;
+
 	width: 100vw;
 	max-width: 1200px;
-	height: calc(100vh - 5rem);
-	height: calc(100svh - 5rem);
+	height: calc(100vh - 10rem);
+	height: calc(100svh - 10rem);
+
+	background-position: bottom center;
+	background-size: cover;
+	background-repeat: no-repeat;
+
+	animation: anim 15s ease-in-out infinite;
+
+	overflow: hidden;
+
+	position: relative;
+}
+
+@keyframes anim {
+	0%,
+	100% {
+		background-image: url('../../assets/first.jpg');
+	}
+	33% {
+		background-image: url('../../assets/second.png');
+	}
+	66% {
+		background-image: url('../../assets/third.png');
+	}
+}
+
+@media (max-width: 600px) and (orientation: portrait) {
+	.main-page {
+		height: calc(100vh - 5rem);
+		height: calc(100svh - 5rem);
+	}
 }

@@ -1,5 +1,7 @@
 @import url('./variables.scss');
 
+@import url('https://fonts.googleapis.com/css2?family=Alumni+Sans:ital,wght@0,100..900;1,100..900&family=Istok+Web:ital,wght@0,400;0,700;1,400;1,700&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+
 *,
 h1,
 h2,
@@ -17,6 +19,8 @@ html {
 	overflow: hidden;
 	font-size: 16px;
 	background-color: rgb(255, 255, 255);
+	font-family: 'Istok Web', sans-serif;
+	// font-optical-sizing: auto;
 }
 
 body {
