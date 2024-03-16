@@ -1,13 +1,55 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>LaminatoriaClient</title>
-  <base href="/">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
-</head>
-<body>
-  <app-root></app-root>
-</body>
+	<head>
+		<meta charset="utf-8" />
+		<title>LaminatoriaClient</title>
+		<base href="/" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="icon" type="image/x-icon" href="favicon.ico" />
+		<style>
+			.spinner {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+
+				width: 100%;
+				height: 100%;
+				aspect-ratio: 1 / 1;
+
+				z-index: 1;
+			}
+
+			.spinner::after {
+				content: '';
+				display: block;
+
+				width: 40px;
+				height: 40px;
+
+				border-radius: 50%;
+				border: 4px solid var(--secondary-text);
+				border-color: var(--secondary-text) var(--secondary-text) var(--secondary-text) transparent;
+				animation: spinner 1s linear infinite;
+			}
+			.absolute {
+				position: absolute;
+				top: 0;
+				left: 0;
+			}
+
+			@keyframes spinner {
+				0% {
+					transform: rotate(0deg);
+				}
+				100% {
+					transform: rotate(360deg);
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<app-root>
+			<div class="spinner"></div>
+		</app-root>
+	</body>
 </html>
