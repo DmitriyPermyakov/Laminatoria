@@ -86,12 +86,12 @@ export class ProductsPageComponent implements OnInit, OnDestroy {
 	private loadProducts(): void {
 		let queryParam = this.activatedRoute.snapshot.queryParams['category']
 
-		if (this.cacheService.productCategory !== queryParam) {
+		if (this.cacheService.category !== queryParam) {
 			this.cacheService.shouldUpdateProducts = true
-			this.cacheService.productCategory = queryParam
+			this.cacheService.category = queryParam
 		}
 
-		this.cacheService.productCategory = queryParam
+		this.cacheService.category = queryParam
 		let filter: Map<string, string> = new Map()
 		filter.set('category', queryParam)
 

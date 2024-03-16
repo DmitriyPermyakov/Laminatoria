@@ -33,6 +33,23 @@ namespace Laminatoria.Controllers
             }
         }
 
+        [HttpGet("getFilteredOrders")]
+        public async Task<IActionResult> GetFilteredOrders([FromQuery] Dictionary<string, string> filters)
+        {
+            try
+            {
+                if (filters == null || filters.Count() == 0)
+                    return BadRequest("Filters is null");
+
+                OrdersResponse orders = await this.repository.GetFilteredOrders(filters);
+                return Ok(orders);
+            }
+            catch(Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
         [Authorize]
         [HttpGet("getById/{id}")]
         public async Task<IActionResult> GetOrderById(int id)

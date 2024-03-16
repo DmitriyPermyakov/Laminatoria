@@ -48,7 +48,7 @@ export class FilterComponent implements OnInit {
 	ngOnInit(): void {
 		this.routerSub = this.router.events.subscribe((e) => {
 			if (e instanceof NavigationEnd)
-				if (this.cache.productCategory !== this.filtersService.filterCategory) {
+				if (this.cache.category !== this.filtersService.filterCategory) {
 					this.updateFilters()
 					return
 				}
@@ -99,25 +99,34 @@ export class FilterComponent implements OnInit {
 
 	private updateFilters(): void {
 		this.isFilterLoading = true
-		this.filtersService.filterCategory = this.cache.productCategory
+		this.filtersService.filterCategory = this.cache.category
 
-		this.filtersService.getFiltersFromServer(this.cache.productCategory).subscribe((f) => {
-			if (f.filters) {
-				this.filtersFromServer = f
-				this.propsMap = new Map(Object.entries(this.filtersFromServer.filters))
-				this.propsMapKeys = Array.from(this.propsMap.keys())
-				this.initForm()
-				this.minPrice = 'от: ' + this.filtersFromServer.prices.minPrice
-				this.maxPrice = 'до: ' + this.filtersFromServer.prices.maxPrice
-				this.isFilterLoading = false
-			} else {
-				this.form = null
-			}
-		})
+		if (this.cache.category == 'orders') {
+			this.filtersService.getOrdersFiltersFromServer().subscribe((f) => {
+				this.makeSettings(f)
+			})
+		} else {
+			this.filtersService.getProductsFiltersFromServer(this.cache.category).subscribe((f) => {
+				this.makeSettings(f)
+			})
+		}
 	}
 
+	private makeSettings(filter: Filter): void {
+		if (filter.filters) {
+			this.filtersFromServer = filter
+			this.propsMap = new Map(Object.entries(this.filtersFromServer.filters))
+			this.propsMapKeys = Array.from(this.propsMap.keys())
+			this.initForm()
+			this.minPrice = 'от: ' + this.filtersFromServer.prices.minPrice
+			this.maxPrice = 'до: ' + this.filtersFromServer.prices.maxPrice
+			this.isFilterLoading = false
+		} else {
+			this.form = null
+		}
+	}
 	private setFilter(): Map<string, string> {
-		let category = this.cache.productCategory
+		let category = this.cache.category
 		return this.filtersService.setFilter(category, this.pricesGroup, this.filtersGroup, this.filtersFromServer)
 	}
 

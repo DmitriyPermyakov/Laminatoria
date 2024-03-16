@@ -11,11 +11,11 @@ export class CacheService {
 	public amountOfProducts: number = 0
 	public amountOfOrders: number = 0
 
-	public get productCategory(): string {
+	public get category(): string {
 		return localStorage.getItem('category')
 	}
 
-	public set productCategory(value: string) {
+	public set category(value: string) {
 		if (value) localStorage.setItem('category', value)
 		else localStorage.setItem('category', 'laminate')
 	}

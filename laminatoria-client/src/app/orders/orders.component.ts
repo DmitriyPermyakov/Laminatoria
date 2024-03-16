@@ -28,15 +28,44 @@ export class OrdersComponent implements OnInit {
 	) {}
 
 	ngOnInit(): void {
+		this.loadOrders()
+	}
+
+	openFilter(): void {
+		this.isOpen = this.filterService.toggleFilter()
+	}
+
+	public paginate(currentPage: number): void {
+		this.cacheService.orderPageNumber = this.currentPage = currentPage
+		this.isOrdersLoading = true
+		this.orderService.getFiltered(this.filterService.filter, currentPage, this.elementsOnPage).subscribe((o) => {
+			this.setOrders(o.orders)
+			this.isOrdersLoading = false
+		})
+	}
+
+	public onApplyFilter(filter: Map<string, string>): void {
+		this.getOrders(filter, 1, this.elementsOnPage)
+	}
+
+	public onResetFilter(): void {
+		this.cacheService.shouldUpdateOrders = true
+		this.loadOrders()
+	}
+
+	public loadOrders(): void {
+		this.cacheService.category = 'orders'
+		let filter: Map<string, string> = new Map()
+
 		if (this.cacheService.orderPageNumber < 0 || this.cacheService.shouldUpdateOrders) {
 			this.cacheService.orderPageNumber = 1
 			this.currentPage = 1
-			this.loadAndCacheOrders()
+			this.getOrders(filter, this.currentPage, this.elementsOnPage)
 		} else {
 			this.currentPage = this.cacheService.orderPageNumber
 			let ordersFromCache = this.cacheService.get('orders' + this.currentPage)
 			if (!ordersFromCache) {
-				this.loadAndCacheOrders()
+				this.getOrders(filter, this.currentPage, this.elementsOnPage)
 			} else {
 				this.orders = ordersFromCache
 				this.isOrdersLoading = false
@@ -45,27 +74,22 @@ export class OrdersComponent implements OnInit {
 		}
 	}
 
-	openFilter(): void {
-		this.isOpen = this.filterService.toggleFilter()
-	}
-
-	public paginate(currentPage: number): void {}
-
-	public onApplyFilter(filter: Map<string, string>): void {}
-
-	public onResetFilter(): void {}
-
-	private loadAndCacheOrders(): void {
+	private getOrders(filter: Map<string, string>, currentPage: number, elementsOnPage: number): void {
 		this.isOrdersLoading = true
-		this.orderService.getAll().subscribe((orders) => {
-			this.cacheService.amountOfOrders = 1
+		this.orderService.getFiltered(filter, currentPage, elementsOnPage).subscribe((orders) => {
+			this.cacheService.amountOfOrders = orders.totalCount
 			this.cacheService.orderPageNumber = 1
 			this.currentPage = 1
-			this.orders = orders
-			this.cacheService.set('orders' + this.currentPage, this.orders)
-			this.cacheService.shouldUpdateOrders = false
+			this.orders = orders.orders
+			this.setOrders(orders.orders)
 			this.isOrdersLoading = false
-			this.paginationAmountService.emitValue(1)
+			this.paginationAmountService.emitValue(orders.totalCount)
 		})
+	}
+
+	private setOrders(orders: Order[]): void {
+		this.orders = orders
+		this.cacheService.set('orders' + this.currentPage, this.orders)
+		this.cacheService.shouldUpdateOrders = false
 	}
 }

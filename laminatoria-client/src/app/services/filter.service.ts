@@ -19,10 +19,19 @@ export class FilterService {
 		return (this.isFilterOpen = !this.isFilterOpen)
 	}
 
-	public getFiltersFromServer(category: string): Observable<Filter> {
+	public getProductsFiltersFromServer(category: string): Observable<Filter> {
 		let params: HttpParams = new HttpParams()
 		params = params.append('category', category)
-		return this.http.get<Filter>(`${environment.filtersUrl}`, { params: params }).pipe(
+		return this.http.get<Filter>(`${environment.productFiltersUrl}`, { params: params }).pipe(
+			catchError((error) => {
+				throwError(() => console.error(error))
+				return of(null)
+			})
+		)
+	}
+
+	public getOrdersFiltersFromServer(): Observable<Filter> {
+		return this.http.get<Filter>(`${environment.orderFiltersUrl}`).pipe(
 			catchError((error) => {
 				throwError(() => console.error(error))
 				return of(null)

@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core'
 import { Observable, catchError, of, throwError } from 'rxjs'
 import { Order } from '../classes/order'
-import { HttpClient } from '@angular/common/http'
+import { HttpClient, HttpParams } from '@angular/common/http'
 import { environment } from 'src/environments/environment.development'
 import { OrderRequest } from '../classes/orderRequest'
+import { OrderResponse } from '../classes/orderResponse'
 
 @Injectable({
 	providedIn: 'root',
@@ -16,6 +17,30 @@ export class OrdersService {
 			catchError((error) => {
 				throwError(() => console.error(error))
 				return []
+			})
+		)
+	}
+
+	public getFiltered(
+		filter: Map<string, string>,
+		currentPage: number,
+		elementsOnPage: number
+	): Observable<OrderResponse> {
+		let params = new HttpParams()
+
+		filter.forEach((value, key) => {
+			params = params.append(key, value)
+		})
+
+		params = params.append('currentPage', currentPage)
+		params = params.append('elementsOnPage', elementsOnPage)
+
+		console.log(params)
+
+		return this.http.get<OrderResponse>(`${environment.ordersUrl}/getFilteredOrders`, { params: params }).pipe(
+			catchError((error) => {
+				throwError(() => console.error(error))
+				return of(null)
 			})
 		)
 	}

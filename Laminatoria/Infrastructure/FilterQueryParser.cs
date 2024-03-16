@@ -2,6 +2,16 @@
 {
     public static class FilterQueryParser
     {
+        public static Dictionary<string, int> StatusesToInt = new Dictionary<string, int>();
+
+        static FilterQueryParser()
+        {
+            StatusesToInt.Add("В обработке", 0);
+            StatusesToInt.Add("В доставке", 1);
+            StatusesToInt.Add("Оплачен", 2);
+            StatusesToInt.Add("Завершен", 3);
+            StatusesToInt.Add("Отменён", 4);
+        }
         public static Filter ParseFilterQuery(Dictionary<string, string> filtersQuery)
         {
             Prices prices = new Prices();
@@ -41,27 +51,7 @@
                         filter.Filters.Add(f.Key, f.Value.Trim().Split(","));
                         break;
                 }
-
-                //if (f.Key == "minPrice")
-                //{
-                //   _ = decimal.TryParse(f.Value, out decimal result) ? prices.MinPrice = result : prices.MinPrice = 0;
-                //    continue;
-                   
-                //}
-
-                //if(f.Key == "maxPrice")
-                //{
-                //   _ = decimal.TryParse(f.Value, out decimal result) ? prices.MaxPrice = result : prices.MaxPrice = decimal.MaxValue;
-                //    continue;
-                //}
-
-                //if(f.Key == "category")
-                //{
-                //    filter.Category = f.Value;
-                //    continue;
-                //}
-
-                //filter.Filters.Add(f.Key, f.Value.Trim().Split(","));                    
+               
             }
 
 

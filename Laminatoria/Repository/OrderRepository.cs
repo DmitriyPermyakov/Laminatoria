@@ -1,6 +1,8 @@
 ﻿
 
+using Binbin.Linq;
 using Laminatoria.DTO;
+using Laminatoria.Infrastructure;
 using Laminatoria.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,9 +11,10 @@ namespace Laminatoria.Repository
     public class OrderRepository : IOrderRepository
     {
         private LaminatoriaDbContext context;
+        
         public OrderRepository(LaminatoriaDbContext context)
         {
-            this.context = context;
+            this.context = context;           
         }
         public async Task<int> CreateOrderAsync(OrderRequest order)
         {
@@ -80,6 +83,45 @@ namespace Laminatoria.Repository
                 .Include(o => o.OrderItems)
                 .ThenInclude(i => i.Product)
                 .ThenInclude(p => p.AdditionalProperty);
+        }
+
+        public async Task<OrdersResponse> GetFilteredOrders(Dictionary<string, string> filters)
+        {
+            Filter filter = FilterQueryParser.ParseFilterQuery(filters);
+
+            var outer = PredicateBuilder.True<Order>();
+            outer = outer.And(o => o.Summary >= filter.Prices.MinPrice);
+            outer = outer.And(o => o.Summary <= filter.Prices.MaxPrice);
+
+
+            foreach(var f in filter.Filters)
+            {
+                var inner = PredicateBuilder.False<Order>();
+                foreach(var v in f.Value)
+                {
+                    inner = inner.Or(o => (int)o.Status == (int)FilterQueryParser.StatusesToInt[v]);
+                }
+
+                outer = outer.And(inner);
+            }
+
+            var query = context.Orders.Where(outer)
+                .Include(o => o.Contacts)
+                .Include(o => o.OrderItems)
+                .ThenInclude(i => i.Product)
+                .ThenInclude(p => p.AdditionalProperty)
+                .Select(o => o);
+
+            var total = await query.CountAsync();
+
+            var orders = await query.Skip((filter.PaginationInfo.CurrentPage - 1) * filter.PaginationInfo.ElementsOnPage)
+                .Take(filter.PaginationInfo.ElementsOnPage).ToListAsync();
+
+            return new OrdersResponse
+            {
+                Orders = orders,
+                TotalCount = total
+            };
         }
 
         public async Task<Order> GetOrderByIdAsync(int id)
