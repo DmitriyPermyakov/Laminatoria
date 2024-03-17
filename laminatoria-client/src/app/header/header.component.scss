@@ -21,8 +21,8 @@
 }
 
 .logo {
-	font-size: 2rem;
-	font-weight: 400;
+	font-size: 1.5rem;
+	// font-weight: 200;
 }
 
 .navbar-btn {
@@ -37,7 +37,7 @@
 	list-style-type: none;
 
 	& > a {
-		font-size: 1.1rem;
+		font-size: 1rem;
 		color: var(--main-text);
 		text-decoration: none;
 	}
