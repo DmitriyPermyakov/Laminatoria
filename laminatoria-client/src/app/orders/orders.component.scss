@@ -27,6 +27,11 @@
 	grid-row: 1 / 2;
 	grid-column: 2 / 3;
 
+	display: grid;
+	grid-template-columns: auto 1fr 2fr;
+	grid-template-rows: 1fr;
+	justify-items: start;
+
 	& button {
 		background-color: transparent;
 		border: none;

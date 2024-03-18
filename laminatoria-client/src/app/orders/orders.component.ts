@@ -6,6 +6,7 @@ import { CacheService } from '../services/cache.service'
 import { AuthService } from '../services/auth.service'
 import { BehaviorSubject } from 'rxjs'
 import { PaginationService } from '../services/pagination.service'
+import { Sort } from '../classes/sorting'
 
 @Component({
 	selector: 'app-orders',
@@ -18,6 +19,10 @@ export class OrdersComponent implements OnInit {
 	public orders: Order[]
 	public currentPage: number = 1
 	public elementsOnPage: number = 20
+
+	public sortPrice: Sort = Sort.asc
+	public sortName: Sort = Sort.asc
+	public sortType = Sort
 
 	constructor(
 		public filterService: FilterService,
@@ -71,6 +76,34 @@ export class OrdersComponent implements OnInit {
 				this.isOrdersLoading = false
 				this.paginationAmountService.emitValue(1)
 			}
+		}
+	}
+
+	public sortByPrice(): void {
+		if (this.sortPrice == Sort.asc) {
+			this.sortPrice = Sort.desc
+			this.orders.sort((a, b) => a.summary - b.summary)
+		} else {
+			this.sortPrice = Sort.asc
+			this.orders.sort((a, b) => b.summary - a.summary)
+		}
+	}
+
+	public sortByName(): void {
+		if (this.sortName == Sort.asc) {
+			this.sortName = Sort.desc
+			this.orders.sort((a, b) => {
+				if (a.contacts.name.toLowerCase() > b.contacts.name.toLowerCase()) return -1
+				if (a.contacts.name.toLowerCase() < b.contacts.name.toLowerCase()) return 1
+				return 0
+			})
+		} else {
+			this.sortName = Sort.asc
+			this.orders.sort((a, b) => {
+				if (a.contacts.name.toLowerCase() < b.contacts.name.toLowerCase()) return -1
+				if (a.contacts.name.toLowerCase() > b.contacts.name.toLowerCase()) return 1
+				return 0
+			})
 		}
 	}
 
