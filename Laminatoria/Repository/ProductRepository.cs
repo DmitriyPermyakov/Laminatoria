@@ -106,7 +106,7 @@ namespace Laminatoria.Repository
             var total = await query.CountAsync();
 
             var products = await query.Skip((filter.PaginationInfo.CurrentPage - 1) * filter.PaginationInfo.ElementsOnPage)
-                .Take(filter.PaginationInfo.ElementsOnPage).ToListAsync();
+                .Take(filter.PaginationInfo.ElementsOnPage).OrderBy(p => p.Name).ToListAsync();
 
             return new ProductResponse
             {

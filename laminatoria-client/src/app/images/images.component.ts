@@ -23,8 +23,12 @@ export class ImagesComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.images = this.imagesControl.value.trim()
-		this.imagesArray = this.images.split(' ')
-		this.mainImage = this.setMainImage(0)
+		if (this.images.length > 0) {
+			this.imagesArray = this.images.split(' ')
+			this.mainImage = this.setMainImage(0)
+		} else {
+			this.mainImage = this.emptyImage
+		}
 	}
 
 	public uploadImage(files) {

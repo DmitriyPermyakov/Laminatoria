@@ -7,6 +7,7 @@ import { Product } from '../classes/product'
 import { CacheService } from '../services/cache.service'
 import { AuthService } from '../services/auth.service'
 import { PaginationService } from '../services/pagination.service'
+import { Sort } from '../classes/sorting'
 
 @Component({
 	selector: 'app-products-page',
@@ -20,7 +21,11 @@ export class ProductsPageComponent implements OnInit, OnDestroy {
 	public isProductLoading: boolean = true
 
 	public currentPage: number = 1
-	public elementsOnPage: number = 1
+	public elementsOnPage: number = 20
+
+	public sortPrice: Sort = Sort.asc
+	public sortName: Sort = Sort.asc
+	public sortType = Sort
 
 	private routerSub: Subscription
 
@@ -69,6 +74,34 @@ export class ProductsPageComponent implements OnInit, OnDestroy {
 
 	public onApplyFilter(filter: Map<string, string>): void {
 		this.getProducts(filter, 1, this.elementsOnPage)
+	}
+
+	public sortByPrice(): void {
+		if (this.sortPrice == Sort.asc) {
+			this.sortPrice = Sort.desc
+			this.products.sort((a, b) => a.price - b.price)
+		} else {
+			this.sortPrice = Sort.asc
+			this.products.sort((a, b) => b.price - a.price)
+		}
+	}
+
+	public sortByName(): void {
+		if (this.sortName == Sort.asc) {
+			this.sortName = Sort.desc
+			this.products.sort((a, b) => {
+				if (a.name.toLowerCase() > b.name.toLowerCase()) return -1
+				if (a.name.toLowerCase() < b.name.toLowerCase()) return 1
+				return 0
+			})
+		} else {
+			this.sortName = Sort.asc
+			this.products.sort((a, b) => {
+				if (a.name.toLowerCase() < b.name.toLowerCase()) return -1
+				if (a.name.toLowerCase() > b.name.toLowerCase()) return 1
+				return 0
+			})
+		}
 	}
 
 	private getProducts(filter: Map<string, string>, currentPage: number, elementsOnPage: number): void {

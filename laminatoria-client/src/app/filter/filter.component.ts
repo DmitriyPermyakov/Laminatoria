@@ -80,6 +80,7 @@ export class FilterComponent implements OnInit {
 
 	public onSubmit(): void {
 		let filter: Map<string, string> = this.setFilter()
+		this.filtersService.isFilterOpen = false
 		this.OnFilterApply.emit(filter)
 	}
 

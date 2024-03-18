@@ -4,8 +4,14 @@
 		<app-filter (OnFilterApply)="onApplyFilter($event)" (OnFilterReset)="onResetFilter()"></app-filter>
 	</div>
 	<div class="sort-buttons">
-		<button class="sort-price" type="button">Цена<span>&#8595;</span></button>
-		<button class="sort-name" type="button">Название<span>&#8593;</span></button>
+		<button class="sort-price" type="button" (click)="sortByPrice()">
+			Цена<span *ngIf="sortPrice == sortType.asc">&#8595;</span>
+			<span *ngIf="sortPrice == sortType.desc">&#8593;</span>
+		</button>
+		<button class="sort-name" type="button" (click)="sortByName()">
+			Название<span *ngIf="sortName == sortType.desc">&#8593;</span>
+			<span *ngIf="sortName == sortType.asc">&#8595;</span>
+		</button>
 		<button class="filter-btn" (click)="openFilter()">Фильтр</button>
 	</div>
 	<div class="products">
