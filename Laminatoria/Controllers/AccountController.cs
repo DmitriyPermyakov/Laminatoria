@@ -29,7 +29,7 @@ namespace Laminatoria.Controllers
 
                 AuthenticationResult response = await accountService.LoginAsync(request);
                 if (response == null)
-                    return Unauthorized();
+                    return BadRequest("Unable to login");
                 else
                     return Ok(response);
             }
@@ -62,7 +62,7 @@ namespace Laminatoria.Controllers
             try
             {
                 if (string.IsNullOrWhiteSpace(request.Token) ||request.Token == "\t")
-                    return Unauthorized("Invalid token");
+                    return BadRequest("Invalid token");
 
                 AuthenticationResult result = await accountService.RefreshTokenAsync(request.Token);
                 return Ok(result);

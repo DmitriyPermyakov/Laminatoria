@@ -31,19 +31,16 @@ export class AuthService {
 		localStorage.setItem('accessToken', value)
 	}
 
-	public get isAuthenticated(): boolean {
-		if (this.accessTokenString === '') return false
-		else {
-			let exp = JSON.parse(atob(this.accessTokenString.split('.')[1])).exp * 1000
-			return new Date() > new Date(exp)
-		}
-	}
+	public isAuthenticated: boolean = false
 
-	constructor(private http: HttpClient, private router: Router) {}
+	constructor(private http: HttpClient, private router: Router) {
+		this.isAuthenticated = this.isTokenExpired()
+	}
 
 	public clearTokens(): void {
 		localStorage.removeItem('accessToken')
 		localStorage.removeItem('refreshToken')
+		this.isAuthenticated = false
 	}
 
 	public login(loginRequest: LoginRequest): Observable<AuthenticationResult> {
@@ -62,5 +59,13 @@ export class AuthService {
 		return this.http
 			.post<AuthenticationResult>(`${environment.refreshUrl}`, refreshRequest)
 			.pipe(catchError((error) => throwError(() => console.error(error))))
+	}
+
+	private isTokenExpired(): boolean {
+		if (this.accessTokenString === '') return false
+		else {
+			let exp = JSON.parse(atob(this.accessTokenString.split('.')[1])).exp * 1000
+			return new Date() > new Date(exp)
+		}
 	}
 }

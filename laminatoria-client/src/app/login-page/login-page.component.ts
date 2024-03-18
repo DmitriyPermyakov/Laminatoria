@@ -42,9 +42,9 @@ export class LoginPageComponent implements OnInit {
 			.subscribe((response) => {
 				console.log(response)
 				if (response) {
-					console.log('second response', response)
-					localStorage.setItem('accessToken', response.accessToken)
-					localStorage.setItem('refreshToken', response.refreshToken)
+					this.auth.accessTokenString = response.accessToken
+					this.auth.refreshTokenString = response.refreshToken
+					this.auth.isAuthenticated = true
 					this.router.navigate(['orders'])
 				}
 			})

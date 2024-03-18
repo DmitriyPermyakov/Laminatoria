@@ -40,6 +40,7 @@ export class AuthInterceptor implements HttpInterceptor {
 				}),
 				catchError((error) => {
 					this.auth.clearTokens()
+					this.auth.isAuthenticated = false
 					return throwError(() => console.error(error))
 				})
 			)
