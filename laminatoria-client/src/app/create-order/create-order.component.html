@@ -8,7 +8,7 @@
 
 	<div class="add-product-container" #productContainer appClickOutside>
 		<div class="products">
-			<button class="close-menu-btn icon" (click)="closeMenu()">
+			<button class="close-menu-btn icon anim-btn" (click)="closeMenu()">
 				<svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
 					<line y1="17" x2="34" y2="17" stroke="white" stroke-width="2" />
 					<line x1="17" x2="17" y2="34" stroke="white" stroke-width="2" />
@@ -23,7 +23,7 @@
 		</div>
 	</div>
 
-	<button class="add-item icon" (click)="showMenu()">
+	<button class="add-item icon anim-btn" (click)="showMenu()">
 		<svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
 			<line y1="17" x2="34" y2="17" stroke="white" stroke-width="2" />
 			<line x1="17" x2="17" y2="34" stroke="white" stroke-width="2" />
@@ -58,7 +58,7 @@
 		</label>
 	</div>
 	<div class="remove-edit-btns">
-		<button class="save-btn btn" type="button" (click)="createOrder()">Сохранить</button>
-		<button class="cancel-btn btn" type="button" [routerLink]="['/orders']">Отмена</button>
+		<button class="save-btn btn anim-btn" type="button" (click)="createOrder()">Сохранить</button>
+		<button class="cancel-btn btn anim-btn" type="button" [routerLink]="['/orders']">Отмена</button>
 	</div>
 </div>

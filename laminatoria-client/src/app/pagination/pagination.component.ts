@@ -133,6 +133,7 @@ export class PaginationComponent implements OnDestroy, AfterViewInit {
 		let button = this.renderer.createElement('button')
 		button.textContent = i.toString()
 		this.renderer.addClass(button, this.buttonClass)
+		this.renderer.addClass(button, 'anim-btn')
 		this.renderer.appendChild(this.container.nativeElement, button)
 		return button
 	}

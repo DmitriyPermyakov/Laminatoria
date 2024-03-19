@@ -24,7 +24,7 @@
 			(onPageChanged)="paginate($event)"
 		></app-pagination>
 	</div>
-	<button class="add-btn" *ngIf="auth.isAuthenticated" [routerLink]="['/products/create']">
+	<button class="add-btn anim-btn" *ngIf="auth.isAuthenticated" [routerLink]="['/products/create']">
 		<span>Добавить</span>
 		<svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
 			<line y1="17" x2="34" y2="17" stroke="white" stroke-width="2" />

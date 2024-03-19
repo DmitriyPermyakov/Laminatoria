@@ -38,8 +38,10 @@
 			</div>
 		</div>
 		<div class="remove-edit-btns">
-			<button class="remove-btn btn" type="button" (click)="removeOrder()">Удалить</button>
-			<button class="edit-btn btn" type="button" [routerLink]="['/orders', order.id, 'edit']">Редактировать</button>
+			<button class="remove-btn btn anim-btn" type="button" (click)="removeOrder()">Удалить</button>
+			<button class="edit-btn btn anim-btn" type="button" [routerLink]="['/orders', order.id, 'edit']">
+				Редактировать
+			</button>
 		</div>
 	</ng-container>
 </div>

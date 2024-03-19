@@ -62,11 +62,15 @@
 			</div>
 			<p class="price">{{ product.price + typeOfMeasurement }}</p>
 			<div class="btn-container">
-				<button class="to-cart" type="button" *ngIf="!auth.isAuthenticated" (click)="addToCart()">В корзину</button>
+				<button class="to-cart anim-btn" type="button" *ngIf="!auth.isAuthenticated" (click)="addToCart()">
+					В корзину
+				</button>
 				<ng-container *ngIf="auth.isAuthenticated">
 					<div class="edit-btns-container">
-						<button class="remove-btn" type="button" (click)="removeProduct(+id)">Удалить</button>
-						<button class="edit-btn" type="button" [routerLink]="['/products', id, 'edit']">Редактировать</button>
+						<button class="remove-btn anim-btn" type="button" (click)="removeProduct(+id)">Удалить</button>
+						<button class="edit-btn anim-btn" type="button" [routerLink]="['/products', id, 'edit']">
+							Редактировать
+						</button>
 					</div>
 				</ng-container>
 			</div>

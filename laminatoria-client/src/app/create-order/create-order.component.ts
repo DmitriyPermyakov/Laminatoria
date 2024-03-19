@@ -1,7 +1,6 @@
 import { Component, ElementRef, ViewChild } from '@angular/core'
 import { FormArray, FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms'
 
-import { Order } from '../classes/order'
 import { Product } from '../classes/product'
 import { ProductsService } from '../services/products.service'
 import { Contacts } from '../classes/contacts'

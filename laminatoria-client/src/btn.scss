@@ -18,6 +18,14 @@
 	}
 }
 
+.anim-btn {
+	transition: all 0.1s ease-in-out;
+}
+
+.anim-btn:active {
+	transform: scale(0.95);
+}
+
 .remove-edit-btns {
 	display: flex;
 	flex-direction: row;

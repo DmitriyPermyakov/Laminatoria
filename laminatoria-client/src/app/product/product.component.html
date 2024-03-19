@@ -16,8 +16,8 @@
 		<div class="prop">
 			<p class="price">{{ product.price + typeOfMeasurement }}</p>
 		</div>
-		<button class="to-cart" *ngIf="!auth.isAuthenticated" (click)="addToCart()">В корзину</button>
-		<button class="to-cart" *ngIf="auth.isAuthenticated" [routerLink]="['/products', product.id, 'edit']">
+		<button class="to-cart anim-btn" *ngIf="!auth.isAuthenticated" (click)="addToCart()">В корзину</button>
+		<button class="to-cart anim-btn" *ngIf="auth.isAuthenticated" [routerLink]="['/products', product.id, 'edit']">
 			Редактировать
 		</button>
 	</div>
