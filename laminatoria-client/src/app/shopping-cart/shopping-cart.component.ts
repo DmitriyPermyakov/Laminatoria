@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { ShoppingCartService } from '../services/shopping-cart.service'
-import { FormGroup } from '@angular/forms'
+import { FormArray, FormGroup } from '@angular/forms'
 
 @Component({
 	selector: 'app-shopping-cart',
@@ -10,6 +10,16 @@ import { FormGroup } from '@angular/forms'
 export class ShoppingCartComponent implements OnInit {
 	public productItems: FormGroup[]
 	public form: FormGroup
+
+	public get items(): FormGroup[] {
+		return (this.form.controls['items'] as FormArray).controls as FormGroup[]
+	}
+
+	public get summary(): number {
+		return this.items.reduce((sum, curr) => {
+			return sum + curr?.value?.product?.price * curr.value.amount
+		}, 0)
+	}
 
 	constructor(private shoppingCart: ShoppingCartService) {}
 

@@ -25,7 +25,7 @@ export class AcceptOrderComponent implements OnInit {
 		let summary: number = orderItems.reduce((sum, curr) => {
 			return sum + curr.amount * curr.product.price
 		}, 0)
-		console.log(orderItems)
+
 		let order = new Order(
 			0,
 			contacts,
@@ -37,6 +37,7 @@ export class AcceptOrderComponent implements OnInit {
 			this.form.value.delivery,
 			summary
 		)
+		console.log(order)
 		localStorage.setItem('order', JSON.stringify(order))
 	}
 }

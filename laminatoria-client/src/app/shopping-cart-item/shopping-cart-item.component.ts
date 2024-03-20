@@ -27,8 +27,6 @@ export class ShoppingCartItemComponent {
 
 	constructor(public auth: AuthService) {}
 
-	// public changeAmount(value: number): void {}
-
 	public changeAdditionalProp(event: Event): void {
 		this.form.controls['additionalPropValue']?.setValue((event.target as HTMLInputElement).value)
 	}

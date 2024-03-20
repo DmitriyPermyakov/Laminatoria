@@ -79,6 +79,7 @@ export class ShoppingCartService implements OnDestroy {
 			delivery: [{ value: 'delivery', disabled: false }],
 			comment: [{ value: '', disabled: false }],
 			items: this.fb.array([]),
+			summary: [{ value: '', disabled: false }],
 		})
 	}
 }

@@ -9,6 +9,10 @@
 				></app-shopping-cart-item>
 			</ng-container>
 		</ng-container>
+		<div class="price-container">
+			<span class="price-label">Итог:</span>
+			<span class="price">{{ summary | currency : '' : '' : '' : 'ru-Ru' }}р.</span>
+		</div>
 		<p *ngIf="productItems.length < 1">Корзина пуста</p>
 		<div class="radio-buttons-container" *ngIf="productItems.length > 0">
 			<label for="pickup" class="pickup-label">
@@ -43,6 +47,6 @@
 		</div>
 	</form>
 	<div class="related-products">
-		<app-related-products></app-related-products>
+		<!-- <app-related-products></app-related-products> -->
 	</div>
 </div>

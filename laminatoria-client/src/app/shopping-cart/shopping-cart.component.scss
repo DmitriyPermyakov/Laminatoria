@@ -24,13 +24,26 @@
 	align-self: self-end;
 
 	width: 100%;
-	height: 260px;
+	max-height: 260px;
 
 	overflow-x: hidden;
 }
 
 p {
 	font-size: 1.2rem;
+}
+
+.price-container {
+	align-self: flex-end;
+	margin-top: 1.5em;
+
+	& > span {
+		font-size: 1.7rem;
+	}
+}
+
+.price-label {
+	margin-right: 0.5em;
 }
 
 .order-button {
