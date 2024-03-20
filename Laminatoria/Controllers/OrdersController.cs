@@ -87,7 +87,7 @@ namespace Laminatoria.Controllers
             }
         }
 
-        [Authorize]
+        
 
         [HttpPost("create")]
         public async Task<IActionResult> CreateOrder([FromBody] OrderRequest order)

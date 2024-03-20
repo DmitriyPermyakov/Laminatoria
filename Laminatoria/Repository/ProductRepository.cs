@@ -179,10 +179,11 @@ namespace Laminatoria.Repository
 
         public async Task<int> UpdateProductAsync(ProductRequest product)
         {
-            Product originalProduct = context.Products.Find(product.Id);
+            Product originalProduct = await context.Products.Where(p => p.Id == product.Id).Include(p => p.Properties).FirstOrDefaultAsync();
 
             if (originalProduct != null)
             {
+                
                 originalProduct.Name = product.Name;
                 originalProduct.Vendor = product.Vendor;
                 originalProduct.TypeOfMeasurement = product.TypeOfMeasurement;
@@ -191,6 +192,7 @@ namespace Laminatoria.Repository
                 originalProduct.Images = product.Images;
                 originalProduct.AdditionalProperty = product.AdditionalProperty;
                 originalProduct.Properties = product.Properties;
+               
                 originalProduct.CategoryId = product.Category.Id;
             }
 

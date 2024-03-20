@@ -1,5 +1,6 @@
 <div class="accept-order-container">
-	<form class="form" [formGroup]="form" (ngSubmit)="onSubmit()">
+	<div class="spinner absolute" *ngIf="isLoading"></div>
+	<form class="form" *ngIf="!isLoading" [formGroup]="form" (ngSubmit)="onSubmit()">
 		<input class="name" type="text" placeholder="Ф.И.О" formControlName="name" />
 		<input class="phone" type="number" placeholder="Телефон" formControlName="phone" />
 		<input class="email" type="email" placeholder="Почта" formControlName="email" />

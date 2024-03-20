@@ -83,15 +83,17 @@ export class ProductCardComponent implements OnInit, AfterViewInit {
 
 	private loadProduct(): void {
 		if (this.id !== '') {
+			if (this.cache.shouldUpdateProducts) {
+				this.loadFromServer(+this.id)
+				return
+			}
 			let productsFromCache = this.cache.get('products' + this.cache.productPageNumber)
 
 			if (productsFromCache != undefined) {
 				this.product = productsFromCache.find((p) => p.id == this.id)
 
 				if (!this.product) this.loadFromServer(+this.id)
-				else {
-					this.setImageAndTypeOfMeasurement()
-				}
+				else this.setImageAndTypeOfMeasurement()
 			} else {
 				this.loadFromServer(+this.id)
 			}
