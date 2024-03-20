@@ -17,6 +17,6 @@ export class ProductComponent implements OnInit {
 		this.typeOfMeasurement = typeOfMeasurementMap.get(this.product.typeOfMeasurement)
 	}
 	public addToCart(): void {
-		this.shoppingCart.addToCart(this.product, this.product.additionalProperty.values.trim().split(' ')[0])
+		this.shoppingCart.addToCart(this.product)
 	}
 }

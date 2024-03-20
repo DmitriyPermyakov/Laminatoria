@@ -1,7 +1,8 @@
 import { Injectable, OnDestroy } from '@angular/core'
-import { Product } from '../classes/product'
+import { Product, typeOfProduct } from '../classes/product'
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms'
 import { Subscription } from 'rxjs'
+import { OrderItem } from '../classes/orderItem'
 
 @Injectable({
 	providedIn: 'root',
@@ -31,16 +32,29 @@ export class ShoppingCartService implements OnDestroy {
 		if (this.valueChangeSub) this.valueChangeSub.unsubscribe()
 	}
 
-	public addToCart(product: Product, additionalPropValue?: string): void {
-		if (this.items.value.findIndex((p) => p.additionalPropValue == additionalPropValue) > -1) return
+	public addToCart(product: Product): void {
+		// if (this.items.value.findIndex((p) => p.additionalPropValue == additionalPropValue) > -1) return
 
-		if (!additionalPropValue && product.additionalProperty !== null) {
-			additionalPropValue = product.additionalProperty.values[0]
+		let addPropValue: string = ''
+
+		if (product.additionalProperty) {
+			addPropValue = product.additionalProperty.values.trim().split(' ')[0]
 		}
+
+		let price: number
+		if (product.typeOfProduct == typeOfProduct.cutting) {
+			price = (parseFloat(addPropValue) || 1) * product.price
+		} else {
+			price = product.price
+		}
+
 		let item = this.fb.group({
+			id: [{ value: 0, disabled: false }],
 			product: [{ value: product, disabled: false }],
 			amount: [{ value: 1, disabled: false }],
-			additionalPropValue: [{ value: additionalPropValue, disabled: false }],
+			additionalPropValue: [{ value: addPropValue, disabled: false }],
+			orderId: [{ value: 0, disabled: false }],
+			sumPrice: [{ value: price, disabled: false }],
 		})
 
 		this.items.push(item)
@@ -59,11 +73,14 @@ export class ShoppingCartService implements OnDestroy {
 		if (itemString !== null) {
 			let item = JSON.parse(itemString)
 			this.form.patchValue(item)
-			item.items.forEach((i) => {
+			item.items.forEach((i: OrderItem) => {
 				let item = this.fb.group({
+					id: [{ value: i.id, disabled: false }],
 					product: [{ value: i.product, disabled: false }],
 					amount: [{ value: i.amount, disabled: false }],
 					additionalPropValue: [{ value: i.additionalPropValue, disabled: false }],
+					orderId: [{ value: i.orderId, disabled: false }],
+					sumPrice: [{ value: i.sumPrice, disabled: false }],
 				})
 				;(<FormArray>this.form.controls['items']).push(item)
 			})

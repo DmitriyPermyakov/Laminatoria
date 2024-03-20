@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Laminatoria.Migrations
 {
-    public partial class Init : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -175,11 +175,12 @@ namespace Laminatoria.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Amount = table.Column<float>(type: "float", nullable: false),
+                    Amount = table.Column<int>(type: "int", nullable: false),
                     AdditionalPropValue = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     ProductId = table.Column<int>(type: "int", nullable: true),
-                    OrderId = table.Column<int>(type: "int", nullable: false)
+                    OrderId = table.Column<int>(type: "int", nullable: false),
+                    SumPrice = table.Column<decimal>(type: "decimal(65,30)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -231,7 +232,7 @@ namespace Laminatoria.Migrations
             migrationBuilder.InsertData(
                 table: "Orders",
                 columns: new[] { "Id", "Address", "Comments", "Date", "Delivery", "Status", "Summary" },
-                values: new object[] { 1, "ул. Новосибирская 23, кв 45", "slgksag;saj;sf", new DateTime(2024, 3, 11, 19, 13, 30, 274, DateTimeKind.Local).AddTicks(1024), "delivery", 0, 1500m });
+                values: new object[] { 1, "ул. Новосибирская 23, кв 45", "slgksag;saj;sf", new DateTime(2024, 3, 20, 18, 19, 55, 433, DateTimeKind.Local).AddTicks(6780), "delivery", 0, 1500m });
 
             migrationBuilder.InsertData(
                 table: "Users",
@@ -255,8 +256,8 @@ namespace Laminatoria.Migrations
 
             migrationBuilder.InsertData(
                 table: "OrderItem",
-                columns: new[] { "Id", "AdditionalPropValue", "Amount", "OrderId", "ProductId" },
-                values: new object[] { 1, "2.5", 8f, 1, 1 });
+                columns: new[] { "Id", "AdditionalPropValue", "Amount", "OrderId", "ProductId", "SumPrice" },
+                values: new object[] { 1, "2.5", 8, 1, 1, 18000m });
 
             migrationBuilder.InsertData(
                 table: "Properties",

@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Laminatoria.Migrations
 {
     [DbContext(typeof(LaminatoriaDbContext))]
-    [Migration("20240311141330_Init")]
-    partial class Init
+    [Migration("20240320131955_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -158,7 +158,7 @@ namespace Laminatoria.Migrations
                             Id = 1,
                             Address = "ул. Новосибирская 23, кв 45",
                             Comments = "slgksag;saj;sf",
-                            Date = new DateTime(2024, 3, 11, 19, 13, 30, 274, DateTimeKind.Local).AddTicks(1024),
+                            Date = new DateTime(2024, 3, 20, 18, 19, 55, 433, DateTimeKind.Local).AddTicks(6780),
                             Delivery = "delivery",
                             Status = 0,
                             Summary = 1500m
@@ -175,14 +175,17 @@ namespace Laminatoria.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<float>("Amount")
-                        .HasColumnType("float");
+                    b.Property<int>("Amount")
+                        .HasColumnType("int");
 
                     b.Property<int>("OrderId")
                         .HasColumnType("int");
 
                     b.Property<int?>("ProductId")
                         .HasColumnType("int");
+
+                    b.Property<decimal>("SumPrice")
+                        .HasColumnType("decimal(65,30)");
 
                     b.HasKey("Id");
 
@@ -197,9 +200,10 @@ namespace Laminatoria.Migrations
                         {
                             Id = 1,
                             AdditionalPropValue = "2.5",
-                            Amount = 8f,
+                            Amount = 8,
                             OrderId = 1,
-                            ProductId = 1
+                            ProductId = 1,
+                            SumPrice = 18000m
                         });
                 });
 

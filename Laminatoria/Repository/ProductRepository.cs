@@ -152,15 +152,21 @@ namespace Laminatoria.Repository
             };
             await context.Products.AddAsync(product);
 
-            AdditionalProperty additionalProperty = new AdditionalProperty
+            if(newProduct.AdditionalProperty.Values.Length > 0) 
             {
-                Id = 0,
-                Name = newProduct.AdditionalProperty.Name,
-                Values = newProduct.AdditionalProperty.Values,
-                Product = product
-            };
+                AdditionalProperty additionalProperty = new AdditionalProperty
+                {
+                    Id = 0,
+                    Name = newProduct.AdditionalProperty.Name,
+                    Values = newProduct.AdditionalProperty.Values,
+                    Product = product
+                };
 
-            await context.AddAsync(additionalProperty);
+                await context.AddAsync(additionalProperty);
+            }
+
+            
+
 
             List<Properties> properties = new List<Properties>();
             foreach (var prop in newProduct.Properties)

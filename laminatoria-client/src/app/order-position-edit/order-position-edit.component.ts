@@ -4,7 +4,7 @@ import { OrdersService } from '../services/orders.service'
 import { Order } from '../classes/order'
 import { ActivatedRoute, Router } from '@angular/router'
 import { FormArray, FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms'
-import { Product } from '../classes/product'
+import { Product, typeOfProduct } from '../classes/product'
 import { ProductsService } from '../services/products.service'
 import { Contacts } from '../classes/contacts'
 import { OrderItem } from '../classes/orderItem'
@@ -30,7 +30,7 @@ export class OrderPositionEditComponent implements OnInit {
 
 	public get summary(): number {
 		return this.items.reduce((sum, curr) => {
-			return sum + curr?.value?.product?.price * curr.value.amount
+			return sum + parseFloat(curr?.value.sumPrice)
 		}, 0)
 	}
 	constructor(
@@ -53,12 +53,27 @@ export class OrderPositionEditComponent implements OnInit {
 
 	public addItem(product: Product): void {
 		;(this.productContainer.nativeElement as HTMLElement).classList.remove('visible')
+
+		let addPropValue = ''
+		if (product.additionalProperty) {
+			addPropValue = product.additionalProperty.values.trim().split(' ')[0]
+		}
+
+		let price: number
+
+		if (product.typeOfProduct == typeOfProduct.cutting) {
+			price = (parseFloat(addPropValue) || 1) * product.price
+		} else {
+			price = product.price
+		}
+
 		let item = this.fb.group({
 			id: [{ value: 0, disabled: false }],
 			product: [{ value: product, disabled: false }],
 			amount: [{ value: 1, disabled: false }],
 			additionalPropValue: [{ value: product.additionalProperty.values.trim().split(' ')[0], disabled: false }],
 			orderId: [{ value: this.order.id, disabled: false }],
+			sumPrice: [{ value: price, disabled: false }],
 		})
 
 		;(this.form.controls['items'] as FormArray).push(item)
@@ -116,6 +131,7 @@ export class OrderPositionEditComponent implements OnInit {
 				amount: [{ value: o.amount, disabled: false }],
 				additionalPropValue: [{ value: o.additionalPropValue, disabled: false }],
 				orderId: [{ value: this.order.id, disabled: false }],
+				sumPrice: [{ value: o.sumPrice, disabled: false }],
 			})
 
 			this.items.push(item)
@@ -138,7 +154,8 @@ export class OrderPositionEditComponent implements OnInit {
 				fg.controls['amount'].value,
 				fg.controls['additionalPropValue'].value,
 				fg.controls['orderId'].value,
-				fg.controls['product'].value.id
+				fg.controls['product'].value.id,
+				this.orderItemPrice(fg)
 			)
 			orderItems.push(item)
 		})
@@ -160,5 +177,17 @@ export class OrderPositionEditComponent implements OnInit {
 			this.router.navigate(['orders', +this.id])
 			this.cacheService.shouldUpdateOrders = true
 		})
+	}
+
+	private orderItemPrice(fg: FormGroup): number {
+		if (fg.controls['product'].value.typeOfProduct == typeOfProduct.cutting) {
+			let price =
+				fg.controls['amount'].value *
+				parseFloat(fg.controls['additionalPropValue'].value) *
+				fg.controls['product'].value.price
+			return price
+		} else {
+			return fg.controls['amount'].value * fg.controls['product'].value.price
+		}
 	}
 }

@@ -1,7 +1,7 @@
 import { Component, ElementRef, ViewChild } from '@angular/core'
 import { FormArray, FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms'
 
-import { Product } from '../classes/product'
+import { Product, typeOfMeasurement, typeOfProduct } from '../classes/product'
 import { ProductsService } from '../services/products.service'
 import { Contacts } from '../classes/contacts'
 import { OrderItemRequest } from '../classes/orderItemRequest'
@@ -47,12 +47,27 @@ export class CreateOrderComponent {
 
 	public addItem(product: Product): void {
 		;(this.productContainer.nativeElement as HTMLElement).classList.remove('visible')
+
+		let addPropValue = ''
+		if (product.additionalProperty) {
+			addPropValue = product.additionalProperty.values.trim().split(' ')[0]
+		}
+
+		let price: number
+
+		if (product.typeOfProduct == typeOfProduct.cutting) {
+			price = (parseFloat(addPropValue) || 1) * product.price
+		} else {
+			price = product.price
+		}
+
 		let item = this.fb.group({
 			id: [{ value: 0, disabled: false }],
 			product: [{ value: product, disabled: false }],
 			amount: [{ value: 1, disabled: false }],
-			additionalPropValue: [{ value: product.additionalProperty.values.trim().split(' ')[0], disabled: false }],
+			additionalPropValue: [{ value: addPropValue, disabled: false }],
 			orderId: [{ value: 0, disabled: false }],
+			sumPrice: [{ value: price, disabled: false }],
 		})
 		this.items.push(item)
 	}
@@ -85,7 +100,8 @@ export class CreateOrderComponent {
 				fg.controls['amount'].value,
 				fg.controls['additionalPropValue'].value,
 				0,
-				fg.controls['product'].value.id
+				fg.controls['product'].value.id,
+				this.orderItemPrice(fg)
 			)
 			orderItems.push(item)
 		})
@@ -111,6 +127,18 @@ export class CreateOrderComponent {
 				this.cacheService.shouldUpdateOrders = true
 			}
 		})
+	}
+
+	private orderItemPrice(fg: FormGroup): number {
+		if (fg.controls['product'].value.typeOfProduct == typeOfProduct.cutting) {
+			let price =
+				fg.controls['amount'].value *
+				parseFloat(fg.controls['additionalPropValue'].value) *
+				fg.controls['product'].value.price
+			return price
+		} else {
+			return fg.controls['amount'].value * fg.controls['product'].value.price
+		}
 	}
 
 	private initForm(): void {

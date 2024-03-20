@@ -51,7 +51,7 @@ export class AcceptOrderComponent implements OnInit {
 
 		let items: OrderItemRequest[] = []
 		orderItems.forEach((i) => {
-			items.push(new OrderItemRequest(0, i.amount, i.additionalPropValue, i.orderId, i.product.id))
+			items.push(new OrderItemRequest(0, i.amount, i.additionalPropValue, i.orderId, i.product.id, i.sumPrice))
 		})
 
 		let orderRequest: OrderRequest = new OrderRequest(

@@ -47,7 +47,7 @@ export class ProductCardComponent implements OnInit, AfterViewInit {
 	}
 
 	public addToCart(): void {
-		this.shoppingCart.addToCart(this.product, this.additionalPropValue)
+		this.shoppingCart.addToCart(this.product)
 	}
 
 	public additionalPropChangeValue(event: Event): void {
@@ -103,6 +103,7 @@ export class ProductCardComponent implements OnInit, AfterViewInit {
 	private loadFromServer(id: number): void {
 		this.productService.getById(id).subscribe((p) => {
 			this.product = p
+
 			this.setImageAndTypeOfMeasurement()
 		})
 	}

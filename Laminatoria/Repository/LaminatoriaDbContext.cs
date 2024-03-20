@@ -47,15 +47,18 @@ namespace Laminatoria.Repository
                 Email = "andrey@mail.ru",
                 Phone = "+79994442233",
                 OrderId = 1,
-            };
+            };          
 
+            
             OrderItem item = new OrderItem
             {
                 Id = 1,
                 AdditionalPropValue = "2.5",
                 Amount = 8,
                 ProductId = 1,
-                OrderId = 1
+                OrderId = 1,
+                SumPrice = 18000
+                
             };
 
 

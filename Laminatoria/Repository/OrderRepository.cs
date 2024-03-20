@@ -29,6 +29,7 @@ namespace Laminatoria.Repository
                     Amount = item.Amount,
                     OrderId = item.OrderId,
                     ProductId = item.ProductId,
+                    SumPrice = item.SumPrice
                 };
 
                 items.Add(orderItem);
@@ -60,17 +61,7 @@ namespace Laminatoria.Repository
                 Order = newOrder
             };
 
-            await context.AddAsync(contacts);
-
-            //List<OrderItemRequest> items = new List<OrderItemRequest>();
-            //foreach (var item in order.OrderItems)
-            //{
-            //    item.Id = 0;
-            //    item.Order = newOrder;                
-            //    items.Add(item);
-            //}
-
-            //await context.AddRangeAsync(items);
+            await context.AddAsync(contacts);          
 
             await context.SaveChangesAsync();
             return newOrder.Id;
@@ -158,6 +149,7 @@ namespace Laminatoria.Repository
                             AdditionalPropValue = item.AdditionalPropValue,
                             OrderId = item.OrderId,
                             ProductId = item.ProductId,
+                            SumPrice = item.SumPrice
                         };
                         originalOrder.OrderItems.Add(newOrderItem);
                     }

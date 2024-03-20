@@ -9,7 +9,7 @@
 		</div>
 		<div class="amounts">
 			<app-counter formControlName="amount"></app-counter>
-			<p class="result-value">Площадь: 124м2</p>
+			<p class="result-value" *ngIf="area">Площадь: {{ area }}</p>
 		</div>
 		<div class="additional-props" *ngIf="additionalPropsValue">
 			<p class="label">{{ product.additionalProperty.name }}</p>
@@ -31,7 +31,7 @@
 			</label>
 		</div>
 	</div>
-	<p class="price">Стоимость: {{ amount * product.price | currency : '' : '' : '' : 'ru-RU' }}р.</p>
+	<p class="price">Стоимость: {{ price | currency : '' : '' : '' : 'ru-RU' }}р.</p>
 	<div class="remove-btn" *ngIf="!auth.isAuthenticated">
 		<button class="anim-btn" type="button" (click)="removeItem()">Удалить</button>
 	</div>

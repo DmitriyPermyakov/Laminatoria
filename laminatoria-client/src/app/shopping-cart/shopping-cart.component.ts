@@ -17,7 +17,7 @@ export class ShoppingCartComponent implements OnInit {
 
 	public get summary(): number {
 		return this.items.reduce((sum, curr) => {
-			return sum + curr?.value?.product?.price * curr.value.amount
+			return sum + parseFloat(curr?.value.sumPrice)
 		}, 0)
 	}
 
