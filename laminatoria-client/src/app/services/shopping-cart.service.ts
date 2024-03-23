@@ -32,18 +32,18 @@ export class ShoppingCartService implements OnDestroy {
 		if (this.valueChangeSub) this.valueChangeSub.unsubscribe()
 	}
 
-	public addToCart(product: Product): void {
+	public addToCart(product: Product, propValue): void {
 		// if (this.items.value.findIndex((p) => p.additionalPropValue == additionalPropValue) > -1) return
 
-		let addPropValue: string = ''
+		// let addPropValue: string = ''
 
-		if (product.additionalProperty) {
-			addPropValue = product.additionalProperty.values.trim().split(' ')[0]
+		if (!propValue && product.additionalProperty) {
+			propValue = product.additionalProperty.values.trim().split(' ')[0]
 		}
 
 		let price: number
 		if (product.typeOfProduct == typeOfProduct.cutting) {
-			price = (parseFloat(addPropValue) || 1) * product.price
+			price = (parseFloat(propValue) || 1) * product.price
 		} else {
 			price = product.price
 		}
@@ -52,7 +52,7 @@ export class ShoppingCartService implements OnDestroy {
 			id: [{ value: 0, disabled: false }],
 			product: [{ value: product, disabled: false }],
 			amount: [{ value: 1, disabled: false }],
-			additionalPropValue: [{ value: addPropValue, disabled: false }],
+			additionalPropValue: [{ value: propValue, disabled: false }],
 			orderId: [{ value: 0, disabled: false }],
 			sumPrice: [{ value: price, disabled: false }],
 		})

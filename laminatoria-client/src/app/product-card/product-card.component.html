@@ -40,7 +40,7 @@
 			</div>
 
 			<div class="additional-props">
-				<ng-container *ngIf="product.additionalProperty">
+				<ng-container *ngIf="product.additionalProperty.values.trim().length > 0">
 					<p class="label">{{ product.additionalProperty.name }}</p>
 					<label
 						[for]="i"

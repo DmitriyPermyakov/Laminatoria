@@ -25,6 +25,10 @@ export class OrderPositionComponent implements OnInit {
 
 	ngOnInit(): void {
 		if (this.id !== '') {
+			if (this.cacheService.shouldUpdateOrders) {
+				this.loadFromServer()
+				return
+			}
 			let orders: Order[] = this.cacheService.get('orders' + this.cacheService.productPageNumber)
 			if (orders == undefined) this.loadFromServer()
 			else {

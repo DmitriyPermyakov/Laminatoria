@@ -10,7 +10,7 @@
 			</div>
 			<div class="amounts">
 				<app-counter [value]="item.amount" [disabled]="true"></app-counter>
-				<p class="result-value">Площадь: 124м2</p>
+				<p class="result-value">Площадь: {{ area }}</p>
 			</div>
 			<div class="additional-props" *ngIf="item.additionalPropValue">
 				<p class="label">{{ item.product.additionalProperty.name }}</p>
@@ -32,6 +32,6 @@
 				</label>
 			</div>
 		</div>
-		<p class="price">Стоимость: {{ item.amount * item.product.price | currency : '' : '' : '' : 'ru-RU' }}р.</p>
+		<p class="price">Стоимость: {{ price | currency : '' : '' : '' : 'ru-RU' }}р.</p>
 	</ng-container>
 </div>

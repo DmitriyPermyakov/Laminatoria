@@ -8,7 +8,7 @@ import { Product, typeOfMeasurement, typeOfMeasurementMap, typeOfProduct } from 
 	templateUrl: './shopping-cart-item.component.html',
 	styleUrls: ['./shopping-cart-item.component.scss'],
 })
-export class ShoppingCartItemComponent implements OnInit, AfterViewInit {
+export class ShoppingCartItemComponent implements OnInit {
 	@Input() form: FormGroup
 	@Input() index: number
 	@Output() onRemoveItem: EventEmitter<number> = new EventEmitter()
@@ -33,19 +33,14 @@ export class ShoppingCartItemComponent implements OnInit, AfterViewInit {
 
 	constructor(public auth: AuthService) {}
 
-	ngOnInit(): void {}
-	ngAfterViewInit(): void {
-		console.log('price', this.price)
+	ngOnInit(): void {
 		if (this.product.typeOfProduct == typeOfProduct.cutting) {
+			this.squareForCutting(this.additionalPropsValue)
 			this.form.controls['additionalPropValue']?.valueChanges.subscribe((changes) => {
-				let value = parseFloat(changes) * this.amount
-				this.area = value + 'м2'
-				this.form.controls['sumPrice'].setValue(value * this.product.price)
+				this.squareForCutting(changes)
 			})
 			this.form.controls['amount']?.valueChanges.subscribe((changes) => {
-				let value = parseFloat(this.additionalPropsValue) * changes
-				this.area = value + 'м2'
-				this.form.controls['sumPrice'].setValue(value * this.product.price)
+				this.squareForCutting(this.additionalPropsValue)
 			})
 		} else if (
 			this.product.typeOfProduct == typeOfProduct.units &&
@@ -53,15 +48,9 @@ export class ShoppingCartItemComponent implements OnInit, AfterViewInit {
 		) {
 			let prop = this.product.properties.find((p) => p.property === 'Количество в упаковке')
 			if (prop) {
+				this.squareForUnit(prop)
 				this.form.controls['amount']?.valueChanges.subscribe((changes) => {
-					if (prop.value.trim().toUpperCase().includes('М2')) {
-						let areaInPack = parseFloat(prop.value.trim().slice(0, prop.value.trim().length - 1))
-						this.area = areaInPack * this.amount + 'м2'
-						this.form.controls['sumPrice']?.setValue(this.amount * this.product.price)
-					} else {
-						let areaInPack = parseFloat(prop.value.trim())
-						this.area = areaInPack * this.amount + 'м2'
-					}
+					this.squareForUnit(prop)
 				})
 			} else {
 				this.area = ''
@@ -80,5 +69,23 @@ export class ShoppingCartItemComponent implements OnInit, AfterViewInit {
 
 	public removeItem(): void {
 		this.onRemoveItem.emit(this.index)
+	}
+
+	private squareForCutting(propValue): void {
+		let value = parseFloat(propValue) * this.amount
+		this.area = value.toFixed(2) + 'м2'
+		this.form.controls['sumPrice'].setValue(value * this.product.price)
+	}
+
+	private squareForUnit(propValue): void {
+		if (propValue.value.trim().toUpperCase().includes('М2')) {
+			let areaInPack = parseFloat(propValue.value.trim().slice(0, propValue.value.trim().length - 1))
+			this.area = (areaInPack * this.amount).toFixed(2) + 'м2'
+			this.form.controls['sumPrice']?.setValue(this.amount * this.product.price)
+		} else {
+			let areaInPack = parseFloat(propValue.value.trim())
+			this.area = (areaInPack * this.amount).toFixed(2) + 'м2'
+			this.form.controls['sumPrice']?.setValue(this.amount * this.product.price)
+		}
 	}
 }

@@ -16,7 +16,7 @@ import { catchError, mergeAll, of, throwError } from 'rxjs'
 export class ProductCardComponent implements OnInit, AfterViewInit {
 	public product: Product
 	public typeOfMeasurement: string = ''
-	public additionalPropValue: string
+	public additionalPropValue: string = ''
 
 	public isRemoving: boolean = false
 
@@ -43,11 +43,15 @@ export class ProductCardComponent implements OnInit, AfterViewInit {
 	}
 
 	ngAfterViewInit(): void {
-		if (this.product) this.additionalPropValue = this.product.additionalProperty.values.split(' ')[0]
+		if (this.product?.additionalProperty) {
+			if (this.product.additionalProperty.values.trim().length > 0) {
+				this.additionalPropValue = this.product.additionalProperty.values.trim().split(' ')[0]
+			}
+		}
 	}
 
 	public addToCart(): void {
-		this.shoppingCart.addToCart(this.product)
+		this.shoppingCart.addToCart(this.product, this.additionalPropValue)
 	}
 
 	public additionalPropChangeValue(event: Event): void {

@@ -174,8 +174,8 @@ export class OrderPositionEditComponent implements OnInit {
 		)
 
 		this.orderService.updateOrder(order).subscribe(() => {
-			this.router.navigate(['orders', +this.id])
 			this.cacheService.shouldUpdateOrders = true
+			this.router.navigate(['orders', +this.id])
 		})
 	}
 
