@@ -16,6 +16,12 @@ namespace Laminatoria.Repository
             return userFromDb;
         }
 
+        public async Task<User> GetFirstUserAsync()
+        {
+            User user = await context.Users.FirstOrDefaultAsync();
+            return user;
+        }
+
         public async Task<User> GetByIdAsync(short id)
         {
             User userFromDb = await context.Users.FirstOrDefaultAsync(u => u.Id == id);

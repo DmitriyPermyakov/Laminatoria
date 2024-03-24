@@ -85,5 +85,12 @@ namespace Laminatoria.Services
                 RefreshToken = refreshToken,
             };
         }
+
+        public async Task ResetPasswordAsync()
+        {
+            User user = await this.userRepository.GetFirstUserAsync();
+            EmailService emailService = new EmailService();
+            await emailService.SendPasswordAsync(user.Email);
+        }
     }
 }

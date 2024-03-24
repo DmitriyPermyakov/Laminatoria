@@ -73,5 +73,19 @@ namespace Laminatoria.Controllers
             }
         }
 
+        [HttpGet("resetPassword")]
+        public async Task<IActionResult> ResetPasswordAsync()
+        {
+            try
+            {
+                await this.accountService.ResetPasswordAsync();
+                return Ok();
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
     }
 }
