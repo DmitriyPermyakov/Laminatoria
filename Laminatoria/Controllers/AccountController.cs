@@ -73,15 +73,33 @@ namespace Laminatoria.Controllers
             }
         }
 
-        [HttpGet("resetPassword")]
-        public async Task<IActionResult> ResetPasswordAsync()
+        [HttpPost("resetPassword")]
+        public async Task<IActionResult> ResetPasswordAsync([FromBody] string email)
         {
             try
             {
-                await this.accountService.ResetPasswordAsync();
+                if (string.IsNullOrEmpty(email))
+                    return BadRequest("Failed to reset password");
+                await this.accountService.ResetPasswordAsync(email);
                 return Ok();
             }
             catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("changeEmail")]
+        public async Task<IActionResult> ChangeEmail([FromBody] string email)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(email))
+                    return BadRequest("Failed to change email");
+                await this.accountService.ChangeEmailAsync(email);
+                return Ok();
+            }
+            catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }

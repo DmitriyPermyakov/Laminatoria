@@ -35,5 +35,13 @@ namespace Laminatoria.Repository
 
             await context.SaveChangesAsync();
         }
+
+        public async Task ChangeEmailAsync(string email)
+        {
+            User user = await context.Users.FirstOrDefaultAsync();
+            user.Email = email;
+
+            await context.SaveChangesAsync();
+        }
     }
 }

@@ -2,6 +2,7 @@
 using Laminatoria.Infrastructure;
 using Laminatoria.Models;
 using Laminatoria.Repository;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 
 namespace Laminatoria.Services
@@ -86,11 +87,30 @@ namespace Laminatoria.Services
             };
         }
 
-        public async Task ResetPasswordAsync()
+        public async Task ResetPasswordAsync(string email)
         {
             User user = await this.userRepository.GetFirstUserAsync();
-            EmailService emailService = new EmailService();
-            await emailService.SendPasswordAsync(user.Email);
+
+            if(user != null && user.Email == email)
+            { 
+                EmailService emailService = new EmailService();
+                await emailService.SendPasswordAsync(user.Email);
+            } else
+            {
+                throw new Exception("Failed to reset password");
+            }
+        }
+
+        public async Task ChangeEmailAsync(string email)
+        {
+            User user = await this.userRepository.GetFirstUserAsync();
+            if(user != null)
+            {
+                await this.userRepository.ChangeEmailAsync(email);
+            } else
+            {
+                throw new Exception("Failed to change email");
+            }
         }
     }
 }
