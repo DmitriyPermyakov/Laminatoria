@@ -18,6 +18,13 @@
 	}
 }
 
+.btn:disabled {
+	background-color: var(--disabled);
+	&:active {
+		transform: unset;
+	}
+}
+
 .anim-btn {
 	transition: all 0.1s ease-in-out;
 }

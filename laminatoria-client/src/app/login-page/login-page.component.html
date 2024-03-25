@@ -1,11 +1,11 @@
--
 <div class="login-container">
+	<div class="spinner absolute" *ngIf="waiting"></div>
 	<form class="login-form" [formGroup]="loginForm" (ngSubmit)="login()">
 		<input type="text" class="login" placeholder="Email" formControlName="email" />
 		<input type="password" class="password" placeholder="Пароль" formControlName="password" />
 		<div class="buttons">
-			<a class="recover-password">Восстановить</a>
-			<button class="enter" [disabled]="loginForm.invalid || logining || auth.isAuthenticated" type="submit">
+			<a class="recover-password" (click)="resetPassword()">Восстановить</a>
+			<button class="enter" [disabled]="loginForm.invalid || waiting || auth.isAuthenticated" type="submit">
 				Войти
 			</button>
 		</div>

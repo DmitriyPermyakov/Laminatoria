@@ -1,0 +1,8 @@
+<div class="container">
+	<div class="spinner absolute" *ngIf="loading"></div>
+	<form class="form" [formGroup]="form" (ngSubmit)="changeEmail()">
+		<input type="email" placeholder="Новый email" formControlName="firstField" />
+		<input type="email" placeholder="Подтвердите email" formControlName="secondField" />
+		<button class="btn anim-btn" [disabled]="!form.valid">Изменить</button>
+	</form>
+</div>

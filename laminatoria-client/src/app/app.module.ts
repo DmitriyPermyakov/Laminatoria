@@ -38,7 +38,9 @@ import { CreateProductComponent } from './create-product/create-product.componen
 import { CreateOrderComponent } from './create-order/create-order.component'
 import { ClickOutsideDirective } from './directives/click-outside.directive'
 import { AUTH_INTERCEPTOR_PROVIDER } from './interceptors/auth.interceptor'
-import { ImagesComponent } from './images/images.component'
+import { ImagesComponent } from './images/images.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
+import { ChangeEmailComponent } from './change-email/change-email.component'
 
 @NgModule({
 	declarations: [
@@ -73,6 +75,8 @@ import { ImagesComponent } from './images/images.component'
 		CreateOrderComponent,
 		ClickOutsideDirective,
 		ImagesComponent,
+  ChangePasswordComponent,
+  ChangeEmailComponent,
 	],
 	imports: [BrowserModule, AppRoutingModule, FormsModule, ReactiveFormsModule, HttpClientModule],
 	providers: [{ provide: LOCALE_ID, useValue: 'ru-RU' }, AUTH_INTERCEPTOR_PROVIDER],

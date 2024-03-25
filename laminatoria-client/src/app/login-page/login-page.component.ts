@@ -12,7 +12,7 @@ import { AuthenticationResult } from '../classes/authenticationResult'
 })
 export class LoginPageComponent implements OnInit {
 	public loginForm: FormGroup
-	public logining: boolean = false
+	public waiting: boolean = false
 
 	constructor(private fb: FormBuilder, public auth: AuthService, private router: Router) {}
 
@@ -24,7 +24,7 @@ export class LoginPageComponent implements OnInit {
 	}
 
 	public login(): void {
-		this.logining = true
+		this.waiting = true
 		this.auth
 			.login({ ...this.loginForm.value })
 			.pipe(
@@ -34,7 +34,7 @@ export class LoginPageComponent implements OnInit {
 					this.loginForm.reset()
 					this.loginForm.invalid
 					this.loginForm.markAllAsTouched()
-					this.logining = false
+					this.waiting = false
 					this.auth.clearTokens()
 					return of(null)
 				})
@@ -48,5 +48,12 @@ export class LoginPageComponent implements OnInit {
 					this.router.navigate(['orders'])
 				}
 			})
+	}
+
+	public resetPassword(): void {
+		this.waiting = true
+		this.auth.refreshToken().subscribe(() => {
+			this.waiting = false
+		})
 	}
 }

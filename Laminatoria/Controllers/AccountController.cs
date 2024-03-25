@@ -3,6 +3,7 @@ using Laminatoria.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Net.Mime;
 
 namespace Laminatoria.Controllers
 {
@@ -90,6 +91,7 @@ namespace Laminatoria.Controllers
         }
 
         [HttpPost("changeEmail")]
+        //[Consumes(MediaTypeNames.Application.Json)]
         public async Task<IActionResult> ChangeEmail([FromBody] string email)
         {
             try

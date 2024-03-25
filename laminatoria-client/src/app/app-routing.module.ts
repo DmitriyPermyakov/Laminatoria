@@ -13,6 +13,8 @@ import { LoginPageComponent } from './login-page/login-page.component'
 import { CreateProductComponent } from './create-product/create-product.component'
 import { CreateOrderComponent } from './create-order/create-order.component'
 import { authGuard } from './services/auth-guard.service'
+import { ChangeEmailComponent } from './change-email/change-email.component'
+import { ChangePasswordComponent } from './change-password/change-password.component'
 
 const routes: Routes = [
 	{ path: '', component: MainPageComponent },
@@ -27,6 +29,8 @@ const routes: Routes = [
 	{ path: 'orders/:id', component: OrderPositionComponent, canActivate: [authGuard] },
 	{ path: 'orders/:id/edit', component: OrderPositionEditComponent, canActivate: [authGuard] },
 	{ path: 'login', component: LoginPageComponent },
+	{ path: 'change-email', component: ChangeEmailComponent, canActivate: [authGuard] },
+	{ path: 'change-password', component: ChangePasswordComponent, canActivate: [authGuard] },
 ]
 
 @NgModule({
