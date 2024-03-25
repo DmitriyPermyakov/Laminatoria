@@ -105,5 +105,22 @@ namespace Laminatoria.Controllers
             }
         }
 
+        [HttpPost("changePassword")]
+        public async Task<IActionResult> ChangePassword([FromBody] string password)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(password))
+                    return BadRequest("Failed to change password");
+
+                await this.accountService.ChangePasswordAsync(password);
+                return Ok();
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
     }
 }

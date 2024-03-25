@@ -9,5 +9,6 @@ namespace Laminatoria.Services
         public Task<AuthenticationResult> RefreshTokenAsync(string refreshToken);
         public Task ResetPasswordAsync(string email);
         public Task ChangeEmailAsync(string email);
+        public Task ChangePasswordAsync(string password);
     }
 }

@@ -26,22 +26,12 @@ namespace Laminatoria.Repository
         {
             User userFromDb = await context.Users.FirstOrDefaultAsync(u => u.Id == id);
             return userFromDb;
-        }
-
-        public async Task UpdateAsync(User user)
+        }  
+        
+        public async Task SaveChangesAsync()
         {
-            User userFromDb = await context.Users.FindAsync(user);
-            userFromDb.PasswordHash = user.PasswordHash;
-
             await context.SaveChangesAsync();
         }
 
-        public async Task ChangeEmailAsync(string email)
-        {
-            User user = await context.Users.FirstOrDefaultAsync();
-            user.Email = email;
-
-            await context.SaveChangesAsync();
-        }
     }
 }

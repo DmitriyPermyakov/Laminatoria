@@ -106,10 +106,26 @@ namespace Laminatoria.Services
             User user = await this.userRepository.GetFirstUserAsync();
             if(user != null)
             {
-                await this.userRepository.ChangeEmailAsync(email);
+                user.Email = email;
+                await this.userRepository.SaveChangesAsync();
             } else
             {
                 throw new Exception("Failed to change email");
+            }
+        }
+
+        public async Task ChangePasswordAsync(string password)
+        {
+            User user = await this.userRepository.GetFirstUserAsync();
+            if(user != null)
+            {
+                string hash = passwordHashed.Hash(password);
+                user.PasswordHash = hash;
+                await this.userRepository.SaveChangesAsync();
+            }
+            else
+            {
+                throw new Exception("Failed dto change password");
             }
         }
     }
