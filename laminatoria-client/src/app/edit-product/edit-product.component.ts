@@ -58,7 +58,6 @@ export class EditProductComponent implements OnInit, AfterViewInit {
 	ngAfterViewInit(): void {}
 
 	public onSubmit(): void {
-		console.log(this.form.value)
 		this.productService.updateProduct(this.form.value).subscribe((id) => {
 			if (id > 0) {
 				this.router.navigate(['/products', id])

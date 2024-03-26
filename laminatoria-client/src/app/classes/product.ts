@@ -7,7 +7,7 @@ export class Product {
 	vendor: string
 	category: Category
 	properties: Properties[]
-	additionalProperty: AdditionalProperty //запрашивать с сервера
+	additionalProperty: AdditionalProperty
 	typeOfProduct: number
 	typeOfMeasurement: number
 	price: number
@@ -17,11 +17,11 @@ export class Product {
 		id: number,
 		name: string,
 		vendor: string,
-		category: Category, //ламинат, линолеум и тд
+		category: Category,
 		properties: Properties[],
 		additionalProperty: AdditionalProperty,
-		typeOfProduct: number, // отрезной или штучный
-		typeOfMeasurement: number, // руб.шт руб.м2 руб.м
+		typeOfProduct: number,
+		typeOfMeasurement: number,
 		price: number,
 		images: string
 	) {

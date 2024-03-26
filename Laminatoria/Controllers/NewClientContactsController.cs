@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Laminatoria.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api")]
     [ApiController]
     public class NewClientContactsController : ControllerBase
     {

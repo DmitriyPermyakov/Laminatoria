@@ -3,15 +3,12 @@ import { Observable, catchError, of, throwError } from 'rxjs'
 import { Product } from '../classes/product'
 import { HttpClient, HttpParams } from '@angular/common/http'
 import { environment } from 'src/environments/environment.development'
-import { Filter } from '../classes/filter'
 import { ProductResponse } from '../classes/productResponse'
 
 @Injectable({
 	providedIn: 'root',
 })
 export class ProductsService {
-	private products: Product[]
-
 	constructor(private http: HttpClient) {}
 
 	public getAll(category: string | null): Observable<Product[]> {

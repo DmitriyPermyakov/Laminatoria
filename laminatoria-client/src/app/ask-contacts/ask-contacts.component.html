@@ -1,0 +1,8 @@
+<div class="container">
+	<div class="spinner absolute" *ngIf="loading"></div>
+	<form class="form" [formGroup]="form" (ngSubmit)="askCall()">
+		<input type="text" placeholder="Имя" formControlName="name" />
+		<input type="tel" placeholder="Телефон" formControlName="phone" />
+		<button class="btn anim-btn" [disabled]="!form.valid">Заказать</button>
+	</form>
+</div>

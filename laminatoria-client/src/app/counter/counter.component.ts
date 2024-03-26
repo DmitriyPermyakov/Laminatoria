@@ -30,7 +30,7 @@ export class CounterComponent implements ControlValueAccessor {
 			if (this.value <= 9999) {
 				this.value++
 				this.onChange(this.value)
-				// this.onAmountChanged.emit(this.value)
+				this.onAmountChanged.emit(this.value)
 			}
 		}
 	}
@@ -41,7 +41,7 @@ export class CounterComponent implements ControlValueAccessor {
 			if (this.value > 1) {
 				this.value--
 				this.onChange(this.value)
-				// this.onAmountChanged.emit(this.value)
+				this.onAmountChanged.emit(this.value)
 			}
 		}
 	}

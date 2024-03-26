@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { AuthService } from '../services/auth.service'
 import { Router } from '@angular/router'
 import { catchError, of, shareReplay } from 'rxjs'
-import { AuthenticationResult } from '../classes/authenticationResult'
 
 @Component({
 	selector: 'app-login-page',
@@ -30,7 +29,6 @@ export class LoginPageComponent implements OnInit {
 			.pipe(
 				shareReplay(),
 				catchError((error) => {
-					console.log(error)
 					this.loginForm.reset()
 					this.loginForm.invalid
 					this.loginForm.markAllAsTouched()
@@ -40,7 +38,6 @@ export class LoginPageComponent implements OnInit {
 				})
 			)
 			.subscribe((response) => {
-				console.log(response)
 				if (response) {
 					this.auth.accessTokenString = response.accessToken
 					this.auth.refreshTokenString = response.refreshToken

@@ -1,5 +1,4 @@
 import { Contacts } from './contacts'
-import { OrderItem } from './orderItem'
 import { OrderItemRequest } from './orderItemRequest'
 
 export class OrderRequest {

@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Laminatoria.Controllers
 {
-    [Route("api/")]
+    [Route("api")]
     [ApiController]
     public class GetUserPhoneController : ControllerBase
     {

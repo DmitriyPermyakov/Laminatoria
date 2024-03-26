@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core'
 import { FilterService } from '../services/filter.service'
-import { Filter, Prices } from '../classes/filter'
+import { Filter } from '../classes/filter'
 import { FormArray, FormGroup, NonNullableFormBuilder } from '@angular/forms'
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router'
 import { CacheService } from '../services/cache.service'
@@ -42,7 +42,7 @@ export class FilterComponent implements OnInit {
 		private nfb: NonNullableFormBuilder,
 		private route: ActivatedRoute,
 		private router: Router,
-		private cache: CacheService // private changeDetector: ChangeDetectorRef
+		private cache: CacheService
 	) {}
 
 	ngOnInit(): void {
@@ -93,7 +93,6 @@ export class FilterComponent implements OnInit {
 		this.checkedCheckboxes.forEach((c) => ((c as HTMLInputElement).checked = false))
 
 		this.isChecked = false
-		// this.changeDetector.detectChanges()
 		this.setFilter()
 		this.OnFilterReset.emit()
 	}

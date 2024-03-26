@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { MatchingValidator } from '../validators/matching.validators'
 import { AuthService } from '../services/auth.service'
 import { Router } from '@angular/router'
+import { catchError, of, tap, throwError } from 'rxjs'
 
 @Component({
 	selector: 'app-change-email',
@@ -26,12 +27,20 @@ export class ChangeEmailComponent implements OnInit {
 	}
 
 	public changeEmail(): void {
-		console.log(this.form.valid)
 		this.loading = true
 		if (this.form.valid)
-			this.auth.changeEmail(this.form.controls['firstField'].value).subscribe(() => {
-				this.loading = false
-				this.router.navigate(['login'])
-			})
+			this.auth
+				.changeEmail(this.form.controls['firstField'].value)
+				.pipe(
+					catchError((error) => {
+						throwError(() => console.error(error))
+						tap(() => this.router.navigate(['orders']))
+						return of(null)
+					})
+				)
+				.subscribe(() => {
+					this.loading = false
+					this.router.navigate(['login'])
+				})
 	}
 }

@@ -11,7 +11,6 @@ export class UploadImageService {
 
 	public uploadImage(files): Observable<any> {
 		if (files.length === 0) return null
-		console.log(files)
 		let fileToUpload = <File>files.item(0)
 		let formData = new FormData()
 		formData.append('file', fileToUpload, fileToUpload.name)

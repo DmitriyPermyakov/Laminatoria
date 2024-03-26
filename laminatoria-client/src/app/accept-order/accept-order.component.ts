@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core'
 import { FormGroup } from '@angular/forms'
 import { ShoppingCartService } from '../services/shopping-cart.service'
 import { OrderItem } from '../classes/orderItem'
-import { Order } from '../classes/order'
 import { Contacts } from '../classes/contacts'
 import { OrdersService } from '../services/orders.service'
 import { OrderRequest } from '../classes/orderRequest'
@@ -37,18 +36,6 @@ export class AcceptOrderComponent implements OnInit {
 			return sum + curr.amount * curr.product.price
 		}, 0)
 
-		// let order = new Order(
-		// 	0,
-		// 	contacts,
-		// 	0,
-		// 	this.form.value.address,
-		// 	this.form.value.comment,
-		// 	new Date(Date.now()),
-		// 	orderItems,
-		// 	this.form.value.delivery,
-		// 	summary
-		// )
-
 		let items: OrderItemRequest[] = []
 		orderItems.forEach((i) => {
 			items.push(new OrderItemRequest(0, i.amount, i.additionalPropValue, i.orderId, i.product.id, i.sumPrice))
@@ -66,8 +53,6 @@ export class AcceptOrderComponent implements OnInit {
 			summary
 		)
 
-		console.log(orderRequest)
-		// localStorage.setItem('order', JSON.stringify(order))
 		this.orderService.createOrder(orderRequest).subscribe(() => {
 			this.isLoading = false
 			this.router.navigate(['/orders'])

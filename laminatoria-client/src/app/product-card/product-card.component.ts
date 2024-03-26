@@ -6,7 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router'
 import { ShoppingCartService } from '../services/shopping-cart.service'
 import { CacheService } from '../services/cache.service'
 import { UploadImageService } from '../services/upload-image.service'
-import { catchError, mergeAll, of, throwError } from 'rxjs'
+import { mergeAll, of } from 'rxjs'
 
 @Component({
 	selector: 'app-product-card',

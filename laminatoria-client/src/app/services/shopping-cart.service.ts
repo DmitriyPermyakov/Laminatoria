@@ -33,10 +33,6 @@ export class ShoppingCartService implements OnDestroy {
 	}
 
 	public addToCart(product: Product, propValue): void {
-		// if (this.items.value.findIndex((p) => p.additionalPropValue == additionalPropValue) > -1) return
-
-		// let addPropValue: string = ''
-
 		if (!propValue && product.additionalProperty) {
 			propValue = product.additionalProperty.values.trim().split(' ')[0]
 		}

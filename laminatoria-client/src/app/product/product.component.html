@@ -3,15 +3,14 @@
 		<img src="../../assets/laminat_tarket_pervaja_sibirskaja_5.png" alt="" />
 	</div>
 	<div class="properties">
-		<p class="name">Дуб ривьера</p>
-		<p class="country">Россия</p>
-		<div class="prop">
-			<p class="prop-name">Толщина:</p>
-			<p class="prop-value">8мм</p>
+		<p class="name">{{ product.name }}</p>
+		<div class="prop" *ngIf="product.properties[0]">
+			<p class="prop-name">{{ product?.properties[0]?.property }}:</p>
+			<p class="prop-value">{{ product?.properties[0]?.value }}</p>
 		</div>
-		<div class="prop">
-			<p class="prop-name">Размер:</p>
-			<p class="prop-value">130*68</p>
+		<div class="prop" *ngIf="product.properties[1]">
+			<p class="prop-name">{{ product?.properties[1]?.property }}:</p>
+			<p class="prop-value">{{ product?.properties[1]?.value }}</p>
 		</div>
 		<div class="prop">
 			<p class="price">{{ product.price + typeOfMeasurement }}</p>

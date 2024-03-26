@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core'
 import { LoginRequest } from '../classes/loginRequest'
-import { Observable, catchError, map, of, throwError } from 'rxjs'
+import { Observable, catchError, throwError } from 'rxjs'
 import { AuthenticationResult } from '../classes/authenticationResult'
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http'
+import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { environment } from 'src/environments/environment.development'
 import { RefreshRequest } from '../classes/refreshRequest'
 import { Router } from '@angular/router'
@@ -70,17 +70,13 @@ export class AuthService {
 	public changeEmail(email: string): Observable<void> {
 		let headers = new HttpHeaders()
 		headers = headers.set('Content-Type', 'application/json; charset=utf-8')
-		return this.http
-			.post<void>(`${environment.changeEmailUrl}`, '"' + email + '"', { headers: headers })
-			.pipe(catchError((error) => throwError(() => console.error(error))))
+		return this.http.post<void>(`${environment.changeEmailUrl}`, '"' + email + '"', { headers: headers })
 	}
 
 	public changePassword(password: string): Observable<void> {
 		let headers = new HttpHeaders()
 		headers = headers.set('Content-Type', 'application/json; charset=utf-8')
-		return this.http
-			.post<void>(`${environment.changePasswordUrl}`, password, { headers: headers })
-			.pipe(catchError((error) => throwError(() => console.error(error))))
+		return this.http.post<void>(`${environment.changePasswordUrl}`, password, { headers: headers })
 	}
 
 	private isTokenExpired(): boolean {

@@ -38,7 +38,6 @@ export class OrderPositionComponent implements OnInit {
 					return
 				}
 				this.delivery = this.order.delivery
-				console.log(this.delivery)
 			}
 		}
 	}
@@ -54,7 +53,6 @@ export class OrderPositionComponent implements OnInit {
 		this.orderService.getById(this.id).subscribe((o) => {
 			this.order = o
 			this.delivery = this.order.delivery
-			console.log(this.delivery)
 		})
 	}
 }

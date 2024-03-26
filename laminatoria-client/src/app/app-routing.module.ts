@@ -15,6 +15,7 @@ import { CreateOrderComponent } from './create-order/create-order.component'
 import { authGuard } from './services/auth-guard.service'
 import { ChangeEmailComponent } from './change-email/change-email.component'
 import { ChangePasswordComponent } from './change-password/change-password.component'
+import { AskContactsComponent } from './ask-contacts/ask-contacts.component'
 
 const routes: Routes = [
 	{ path: '', component: MainPageComponent },
@@ -31,6 +32,7 @@ const routes: Routes = [
 	{ path: 'login', component: LoginPageComponent },
 	{ path: 'change-email', component: ChangeEmailComponent, canActivate: [authGuard] },
 	{ path: 'change-password', component: ChangePasswordComponent, canActivate: [authGuard] },
+	{ path: 'contacts', component: AskContactsComponent },
 ]
 
 @NgModule({

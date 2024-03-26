@@ -35,8 +35,6 @@ export class OrdersService {
 		params = params.append('currentPage', currentPage)
 		params = params.append('elementsOnPage', elementsOnPage)
 
-		console.log(params)
-
 		return this.http.get<OrderResponse>(`${environment.ordersUrl}/getFilteredOrders`, { params: params }).pipe(
 			catchError((error) => {
 				throwError(() => console.error(error))

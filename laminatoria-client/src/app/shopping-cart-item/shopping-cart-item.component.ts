@@ -1,7 +1,7 @@
-import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output } from '@angular/core'
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core'
 import { FormGroup } from '@angular/forms'
 import { AuthService } from '../services/auth.service'
-import { Product, typeOfMeasurement, typeOfMeasurementMap, typeOfProduct } from '../classes/product'
+import { Product, typeOfMeasurement, typeOfProduct } from '../classes/product'
 
 @Component({
 	selector: 'app-shopping-cart-item',

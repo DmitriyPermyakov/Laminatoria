@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core'
-import { Product, typeOfMeasurement, typeOfMeasurementMap } from '../classes/product'
+import { Product, typeOfMeasurementMap } from '../classes/product'
 import { ShoppingCartService } from '../services/shopping-cart.service'
 import { AuthService } from '../services/auth.service'
 
@@ -14,6 +14,7 @@ export class ProductComponent implements OnInit {
 	constructor(public auth: AuthService, private shoppingCart: ShoppingCartService) {}
 
 	ngOnInit(): void {
+		console.log(this.product)
 		this.typeOfMeasurement = typeOfMeasurementMap.get(this.product.typeOfMeasurement)
 	}
 	public addToCart(): void {

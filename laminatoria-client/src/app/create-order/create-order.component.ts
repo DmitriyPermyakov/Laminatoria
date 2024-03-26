@@ -1,7 +1,7 @@
 import { Component, ElementRef, ViewChild } from '@angular/core'
 import { FormArray, FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms'
 
-import { Product, typeOfMeasurement, typeOfProduct } from '../classes/product'
+import { Product, typeOfProduct } from '../classes/product'
 import { ProductsService } from '../services/products.service'
 import { Contacts } from '../classes/contacts'
 import { OrderItemRequest } from '../classes/orderItemRequest'
@@ -118,8 +118,6 @@ export class CreateOrderComponent {
 			this.form.controls['delivery'].value,
 			this.summary
 		)
-
-		console.log(order)
 
 		this.orderService.createOrder(order).subscribe((id: number) => {
 			if (id > 0) {

@@ -20,10 +20,6 @@
 	font-size: 1rem;
 	font-family: inherit;
 
-	// & + & {
-	// 	margin-left: 0.5em;
-	// }
-
 	&:hover {
 		background-color: var(--button-color);
 		color: var(--main-color);

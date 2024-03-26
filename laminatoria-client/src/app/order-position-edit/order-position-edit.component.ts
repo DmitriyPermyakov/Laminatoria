@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core'
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core'
 import { CacheService } from '../services/cache.service'
 import { OrdersService } from '../services/orders.service'
 import { Order } from '../classes/order'
@@ -7,7 +7,6 @@ import { FormArray, FormGroup, NonNullableFormBuilder, Validators } from '@angul
 import { Product, typeOfProduct } from '../classes/product'
 import { ProductsService } from '../services/products.service'
 import { Contacts } from '../classes/contacts'
-import { OrderItem } from '../classes/orderItem'
 import { OrderRequest } from '../classes/orderRequest'
 import { OrderItemRequest } from '../classes/orderItemRequest'
 
@@ -47,7 +46,6 @@ export class OrderPositionEditComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.loadProduct()
-		// #TODO: изменить параметр
 		this.productService.getAll(' ').subscribe((p) => (this.products = p))
 	}
 
