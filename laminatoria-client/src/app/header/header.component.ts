@@ -3,6 +3,7 @@ import { FilterService } from '../services/filter.service'
 import { NavigationEnd, Router } from '@angular/router'
 import { Subscription } from 'rxjs'
 import { AuthService } from '../services/auth.service'
+import { ShoppingCartService } from '../services/shopping-cart.service'
 
 @Component({
 	selector: 'app-header',
@@ -15,7 +16,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
 	private routerSub: Subscription
 
-	constructor(public filterService: FilterService, public auth: AuthService, private router: Router) {}
+	constructor(
+		public filterService: FilterService,
+		public auth: AuthService,
+		private router: Router,
+		public card: ShoppingCartService
+	) {}
 
 	ngOnInit(): void {
 		this.routerSub = this.router.events.subscribe((event) => {

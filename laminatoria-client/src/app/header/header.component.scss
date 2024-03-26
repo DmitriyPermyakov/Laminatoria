@@ -55,6 +55,12 @@
 	}
 }
 
+a > span {
+	padding: 0.1em 0.4em;
+	border: 1px solid var(--button-color);
+	border-radius: 2px;
+}
+
 @media (max-width: 600px) and (orientation: portrait) {
 	.header {
 		height: 5em;

@@ -29,7 +29,9 @@
 				<a [routerLink]="['products']" [queryParams]="{ category: 'accessories' }">Аксуссуары</a>
 			</li>
 			<li class="item">
-				<a [routerLink]="['product-cart']" *ngIf="!auth.isAuthenticated">Корзина</a>
+				<a [routerLink]="['product-cart']" *ngIf="!auth.isAuthenticated"
+					>Корзина <span *ngIf="card.itemsCount > 0">{{ card.itemsCount }}</span></a
+				>
 				<a [routerLink]="['orders']" *ngIf="auth.isAuthenticated">Заказы</a>
 			</li>
 			<li class="item">

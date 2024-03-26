@@ -10,7 +10,7 @@
 			</div>
 			<div class="amounts">
 				<app-counter [value]="item.amount" [disabled]="true"></app-counter>
-				<p class="result-value">Площадь: {{ area }}</p>
+				<p class="result-value" *ngIf="area">Площадь: {{ area }}</p>
 			</div>
 			<div class="additional-props" *ngIf="item.additionalPropValue">
 				<p class="label">{{ item.product.additionalProperty.name }}</p>

@@ -12,6 +12,10 @@ export class ShoppingCartService implements OnDestroy {
 		return this.items.controls as FormGroup[]
 	}
 
+	public get itemsCount(): number {
+		return this.items.length
+	}
+
 	public form: FormGroup
 
 	private get items(): FormArray {
