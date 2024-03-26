@@ -7,6 +7,8 @@ import { Router } from '@angular/router'
 import { CacheService } from '../services/cache.service'
 import { ImagesComponent } from '../images/images.component'
 import { AdditionalPropsComponent } from '../additional-props/additional-props.component'
+import { catchError, of, tap, throwError } from 'rxjs'
+import { AdditionalPropValidator } from '../validators/additionalProp.validators'
 
 @Component({
 	selector: 'app-create-product',
@@ -50,12 +52,28 @@ export class CreateProductComponent implements OnInit {
 	}
 
 	public onSubmit(): void {
-		this.productService.createProduct(this.form.value).subscribe((id) => {
-			if (id > 0) {
-				this.router.navigate(['/products', id])
-				this.cache.shouldUpdateProducts = true
-			}
-		})
+		this.isSavingProduct = true
+		if (this.form.valid) {
+			this.productService
+				.createProduct(this.form.value)
+				.pipe(
+					catchError((error) => {
+						tap(() => {
+							this.form.setErrors({ invalid: true })
+							this.isSavingProduct = false
+						})
+						throwError(() => console.log(error))
+						return of(0)
+					})
+				)
+				.subscribe((id) => {
+					this.isSavingProduct = false
+					if (id > 0) {
+						this.router.navigate(['/products', id])
+						this.cache.shouldUpdateProducts = true
+					}
+				})
+		}
 	}
 
 	public resetForm(): void {
@@ -64,21 +82,24 @@ export class CreateProductComponent implements OnInit {
 	}
 
 	private initForm(): void {
-		this.form = this.fb.group({
-			id: '0',
-			name: [{ value: '', disabled: false }, Validators.required],
-			vendor: [{ value: '', disabled: false }, Validators.required],
-			category: [{ value: '', disabled: false }, Validators.required],
-			properties: this.fb.array([]),
-			additionalProperty: this.fb.group({
-				id: [{ value: 0, disabled: false }],
-				name: [{ value: '', disabled: false }],
-				values: [{ value: '', disabled: false }],
-			}),
-			typeOfProduct: [{ value: '', disabled: false }, Validators.required],
-			typeOfMeasurement: [{ value: '', disabled: false }, Validators.required],
-			price: [{ value: '', disabled: false }, Validators.required],
-			images: [{ value: '', disabled: false }],
-		})
+		this.form = this.fb.group(
+			{
+				id: '0',
+				name: [{ value: '', disabled: false }, Validators.required],
+				vendor: [{ value: '', disabled: false }, Validators.required],
+				category: [{ value: '', disabled: false }, Validators.required],
+				properties: this.fb.array([]),
+				additionalProperty: this.fb.group({
+					id: [{ value: 0, disabled: false }],
+					name: [{ value: '', disabled: false }],
+					values: [{ value: '', disabled: false }],
+				}),
+				typeOfProduct: [{ value: '', disabled: false }, Validators.required],
+				typeOfMeasurement: [{ value: '', disabled: false }, Validators.required],
+				price: [{ value: '', disabled: false }, Validators.required],
+				images: [{ value: '', disabled: false }],
+			},
+			{ validators: [AdditionalPropValidator.additionalPropIncluded] }
+		)
 	}
 }

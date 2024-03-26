@@ -17,6 +17,7 @@ export class EditProductComponent implements OnInit, AfterViewInit {
 	public form: FormGroup
 	public id: string
 	public categories: Category[]
+	public loading: boolean = false
 
 	public get propertiesFormArray(): FormArray {
 		return this.form.controls['properties'] as FormArray
@@ -58,7 +59,9 @@ export class EditProductComponent implements OnInit, AfterViewInit {
 	ngAfterViewInit(): void {}
 
 	public onSubmit(): void {
+		this.loading = true
 		this.productService.updateProduct(this.form.value).subscribe((id) => {
+			this.loading = false
 			if (id > 0) {
 				this.router.navigate(['/products', id])
 				this.cacheService.shouldUpdateProducts = true
@@ -118,7 +121,9 @@ export class EditProductComponent implements OnInit, AfterViewInit {
 	}
 
 	private loadProductFromServer(id: number): void {
+		this.loading = true
 		this.productService.getById(+this.id).subscribe((product) => {
+			this.loading = false
 			this.product = product
 			this.initForm()
 		})

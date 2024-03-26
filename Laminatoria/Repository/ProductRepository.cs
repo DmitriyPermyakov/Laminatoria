@@ -119,6 +119,7 @@ namespace Laminatoria.Repository
         {
             return await context.Products
                 .Include(p => p.Properties)
+                .Include(p => p.AdditionalProperty)
                 .Select(p => new MappedProduct
                 {
                     Id = p.Id,

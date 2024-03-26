@@ -1,14 +1,14 @@
 <ng-container *ngIf="related.length > 0">
 	<div class="related-products-container">
 		<p class="related-products-label">Сопутствующие товары:</p>
-		<div class="related-products" *ngIf="related">
+		<div class="related-products">
 			<div class="related-product" *ngFor="let r of related">
 				<div class="related-product-image">
-					<!-- <img [src]="r.images.trim().split(' ')[0]" alt="" /> -->
+					<img [src]="r.images.trim().split(' ')[0]" alt="" />
 				</div>
 				<div class="rel-prod-desc">
-					<!-- <p class="rel-prod-name">{{ r.name }}</p> -->
-					<!-- <p class="rel-prod-prop">{{ r.properties[0] }}</p> -->
+					<p class="rel-prod-name">{{ r.name }}</p>
+					<p class="rel-prod-prop">{{ r?.properties[0].value }}</p>
 				</div>
 			</div>
 		</div>

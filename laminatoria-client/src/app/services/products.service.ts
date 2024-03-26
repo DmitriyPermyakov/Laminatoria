@@ -53,12 +53,7 @@ export class ProductsService {
 	}
 
 	public createProduct(product: Product): Observable<number> {
-		return this.http.post<number>(`${environment.productsUrl}/create`, product).pipe(
-			catchError((error) => {
-				throwError(() => console.log(error))
-				return of(0)
-			})
-		)
+		return this.http.post<number>(`${environment.productsUrl}/create`, product)
 	}
 
 	public updateProduct(product: Product): Observable<number> {

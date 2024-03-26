@@ -10,13 +10,17 @@ import { AuthService } from '../services/auth.service'
 })
 export class ProductComponent implements OnInit {
 	@Input() public product: Product
+	public emptyImage: string = 'assets/empty-image.png'
+	public mainImage: string = ''
 	public typeOfMeasurement: string = ''
 	constructor(public auth: AuthService, private shoppingCart: ShoppingCartService) {}
 
 	ngOnInit(): void {
-		console.log(this.product)
 		this.typeOfMeasurement = typeOfMeasurementMap.get(this.product.typeOfMeasurement)
+		if (this.product.images.length > 0) this.mainImage = this.product.images.trim().split(' ')[0]
+		else this.mainImage = this.emptyImage
 	}
+
 	public addToCart(): void {
 		this.shoppingCart.addToCart(this.product, '')
 	}

@@ -1,35 +1,37 @@
-<div class="products-container" *ngIf="products.length > 0">
-	<div class="spinner absolute product-spinner-position" *ngIf="isProductLoading"></div>
-	<div class="filter-container" [ngClass]="{ opened: filterService.isFilterOpen }">
-		<app-filter (OnFilterApply)="onApplyFilter($event)" (OnFilterReset)="onResetFilter()"></app-filter>
-	</div>
-	<div class="sort-buttons">
-		<button class="sort-price" type="button" (click)="sortByPrice()">
-			Цена<span *ngIf="sortPrice == sortType.asc">&#8595;</span>
-			<span *ngIf="sortPrice == sortType.desc">&#8593;</span>
+<ng-container *ngIf="products">
+	<div class="products-container">
+		<div class="spinner absolute product-spinner-position" *ngIf="isProductLoading"></div>
+		<div class="filter-container" *ngIf="products.length > 0" [ngClass]="{ opened: filterService.isFilterOpen }">
+			<app-filter (OnFilterApply)="onApplyFilter($event)" (OnFilterReset)="onResetFilter()"></app-filter>
+		</div>
+		<div class="sort-buttons">
+			<button class="sort-price" type="button" (click)="sortByPrice()">
+				Цена<span *ngIf="sortPrice == sortType.asc">&#8595;</span>
+				<span *ngIf="sortPrice == sortType.desc">&#8593;</span>
+			</button>
+			<button class="sort-name" type="button" (click)="sortByName()">
+				Название<span *ngIf="sortName == sortType.desc">&#8593;</span>
+				<span *ngIf="sortName == sortType.asc">&#8595;</span>
+			</button>
+			<button class="filter-btn" (click)="openFilter()">Фильтр</button>
+		</div>
+		<div class="products" *ngIf="products.length > 0">
+			<app-product *ngFor="let p of products" [product]="p"></app-product>
+		</div>
+		<div class="pagination" *ngIf="products.length > 0">
+			<app-pagination
+				[currentPage]="currentPage"
+				[elementsOnPage]="elementsOnPage"
+				(onPageChanged)="paginate($event)"
+			></app-pagination>
+		</div>
+		<button class="add-btn anim-btn" *ngIf="auth.isAuthenticated" [routerLink]="['/products/create']">
+			<span>Добавить</span>
+			<svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+				<line y1="17" x2="34" y2="17" stroke="white" stroke-width="2" />
+				<line x1="17" x2="17" y2="34" stroke="white" stroke-width="2" />
+			</svg>
 		</button>
-		<button class="sort-name" type="button" (click)="sortByName()">
-			Название<span *ngIf="sortName == sortType.desc">&#8593;</span>
-			<span *ngIf="sortName == sortType.asc">&#8595;</span>
-		</button>
-		<button class="filter-btn" (click)="openFilter()">Фильтр</button>
+		<div class="empty" *ngIf="products.length < 1">Товары не найдены</div>
 	</div>
-	<div class="products">
-		<app-product *ngFor="let p of products" [product]="p"></app-product>
-	</div>
-	<div class="pagination">
-		<app-pagination
-			[currentPage]="currentPage"
-			[elementsOnPage]="elementsOnPage"
-			(onPageChanged)="paginate($event)"
-		></app-pagination>
-	</div>
-	<button class="add-btn anim-btn" *ngIf="auth.isAuthenticated" [routerLink]="['/products/create']">
-		<span>Добавить</span>
-		<svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
-			<line y1="17" x2="34" y2="17" stroke="white" stroke-width="2" />
-			<line x1="17" x2="17" y2="34" stroke="white" stroke-width="2" />
-		</svg>
-	</button>
-</div>
-<div class="empty" *ngIf="products.length < 1">Товары не найдены</div>
+</ng-container>

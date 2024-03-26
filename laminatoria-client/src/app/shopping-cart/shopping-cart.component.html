@@ -9,7 +9,7 @@
 				></app-shopping-cart-item>
 			</ng-container>
 		</ng-container>
-		<div class="price-container">
+		<div class="price-container" *ngIf="items.length > 0">
 			<span class="price-label">Итог:</span>
 			<span class="price">{{ summary | currency : '' : '' : '' : 'ru-Ru' }}р.</span>
 		</div>
@@ -42,7 +42,7 @@
 			</label>
 		</div>
 
-		<div class="order-button">
+		<div class="order-button" *ngIf="items.length > 0">
 			<button class="order-btn btn anim-btn" type="button" [routerLink]="['/accept-order']">Заказать</button>
 		</div>
 	</form>

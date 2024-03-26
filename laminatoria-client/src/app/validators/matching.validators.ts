@@ -1,4 +1,4 @@
-import { FormControl, FormGroup } from '@angular/forms'
+import { FormGroup } from '@angular/forms'
 
 export class MatchingValidator {
 	static matchFields(fg: FormGroup): { [key: string]: boolean } {

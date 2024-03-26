@@ -107,6 +107,7 @@ export class ProductCardComponent implements OnInit, AfterViewInit {
 	private loadFromServer(id: number): void {
 		this.productService.getById(id).subscribe((p) => {
 			this.product = p
+			console.log(p)
 
 			this.setImageAndTypeOfMeasurement()
 		})

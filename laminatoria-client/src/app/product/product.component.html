@@ -1,6 +1,6 @@
 <div class="product-container">
 	<div class="image" [routerLink]="['/products', product.id]">
-		<img src="../../assets/laminat_tarket_pervaja_sibirskaja_5.png" alt="" />
+		<img [src]="mainImage" alt="" />
 	</div>
 	<div class="properties">
 		<p class="name">{{ product.name }}</p>

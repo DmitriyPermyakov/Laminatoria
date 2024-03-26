@@ -34,18 +34,18 @@
 			<div class="description">
 				<p class="label">Характеристики:</p>
 				<div class="prop" *ngFor="let prop of product.properties">
-					<span class="prop-label">{{ prop.property }}: </span>
-					<span class="prop-value">{{ prop.value }}</span>
+					<span class="prop-label">{{ prop?.property }}: </span>
+					<span class="prop-value">{{ prop?.value }}</span>
 				</div>
 			</div>
 
 			<div class="additional-props">
-				<ng-container *ngIf="product.additionalProperty.values.trim().length > 0">
+				<ng-container *ngIf="product?.additionalProperty?.values.trim().length > 0">
 					<p class="label">{{ product.additionalProperty.name }}</p>
 					<label
 						[for]="i"
 						class="radio-labels"
-						*ngFor="let p of product.additionalProperty.values.trim().split(' '); index as i"
+						*ngFor="let p of product?.additionalProperty?.values.trim().split(' '); index as i"
 					>
 						<input
 							type="radio"
