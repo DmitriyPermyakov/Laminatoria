@@ -26,7 +26,8 @@ namespace Laminatoria.Repository
                 {
                     Id = 1,
                     Email = "test@mail.ru",
-                    PasswordHash = "$2a$12$MXljV674yDVMbnT7EHwzZe7PIvs/N2aLld.dA9/B1wTNLj.Pu9Pyu"
+                    PasswordHash = "$2a$12$MXljV674yDVMbnT7EHwzZe7PIvs/N2aLld.dA9/B1wTNLj.Pu9Pyu",
+                    Phone = "+7 495 456 34 23"
                 });
 
 

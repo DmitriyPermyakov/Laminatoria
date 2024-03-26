@@ -156,7 +156,7 @@ namespace Laminatoria.Migrations
                             Id = 1,
                             Address = "ул. Новосибирская 23, кв 45",
                             Comments = "slgksag;saj;sf",
-                            Date = new DateTime(2024, 3, 20, 18, 19, 55, 433, DateTimeKind.Local).AddTicks(6780),
+                            Date = new DateTime(2024, 3, 26, 14, 53, 7, 297, DateTimeKind.Local).AddTicks(551),
                             Delivery = "delivery",
                             Status = 0,
                             Summary = 1500m
@@ -322,6 +322,10 @@ namespace Laminatoria.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
                     b.HasKey("Id");
 
                     b.ToTable("Users");
@@ -331,7 +335,8 @@ namespace Laminatoria.Migrations
                         {
                             Id = (short)1,
                             Email = "test@mail.ru",
-                            PasswordHash = "$2a$12$MXljV674yDVMbnT7EHwzZe7PIvs/N2aLld.dA9/B1wTNLj.Pu9Pyu"
+                            PasswordHash = "$2a$12$MXljV674yDVMbnT7EHwzZe7PIvs/N2aLld.dA9/B1wTNLj.Pu9Pyu",
+                            Phone = "+7 495 456 34 23"
                         });
                 });
 

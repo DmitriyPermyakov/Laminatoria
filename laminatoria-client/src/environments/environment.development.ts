@@ -15,4 +15,5 @@ export const environment = {
 	imageUlrUpload: 'https://localhost:7164/api/uploadImage',
 	imageUrlRemove: 'https://localhost:7164/api/removeImage',
 	imageUrlRemoveAll: 'https://localhost:7164/api/removeAllImages',
+	askCallUrl: 'https://localhost:7164/api/sendContacts',
 }

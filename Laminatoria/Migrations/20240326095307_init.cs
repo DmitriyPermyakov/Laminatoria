@@ -61,6 +61,8 @@ namespace Laminatoria.Migrations
                     Email = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     PasswordHash = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Phone = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>
@@ -232,12 +234,12 @@ namespace Laminatoria.Migrations
             migrationBuilder.InsertData(
                 table: "Orders",
                 columns: new[] { "Id", "Address", "Comments", "Date", "Delivery", "Status", "Summary" },
-                values: new object[] { 1, "ул. Новосибирская 23, кв 45", "slgksag;saj;sf", new DateTime(2024, 3, 20, 18, 19, 55, 433, DateTimeKind.Local).AddTicks(6780), "delivery", 0, 1500m });
+                values: new object[] { 1, "ул. Новосибирская 23, кв 45", "slgksag;saj;sf", new DateTime(2024, 3, 26, 14, 53, 7, 297, DateTimeKind.Local).AddTicks(551), "delivery", 0, 1500m });
 
             migrationBuilder.InsertData(
                 table: "Users",
-                columns: new[] { "Id", "Email", "PasswordHash" },
-                values: new object[] { (short)1, "test@mail.ru", "$2a$12$MXljV674yDVMbnT7EHwzZe7PIvs/N2aLld.dA9/B1wTNLj.Pu9Pyu" });
+                columns: new[] { "Id", "Email", "PasswordHash", "Phone" },
+                values: new object[] { (short)1, "test@mail.ru", "$2a$12$MXljV674yDVMbnT7EHwzZe7PIvs/N2aLld.dA9/B1wTNLj.Pu9Pyu", "+7 495 456 34 23" });
 
             migrationBuilder.InsertData(
                 table: "Contact",
