@@ -1,4 +1,4 @@
-<div class="products-container">
+<div class="products-container" *ngIf="products.length > 0">
 	<div class="spinner absolute product-spinner-position" *ngIf="isProductLoading"></div>
 	<div class="filter-container" [ngClass]="{ opened: filterService.isFilterOpen }">
 		<app-filter (OnFilterApply)="onApplyFilter($event)" (OnFilterReset)="onResetFilter()"></app-filter>
@@ -32,3 +32,4 @@
 		</svg>
 	</button>
 </div>
+<div class="empty" *ngIf="products.length < 1">Товары не найдены</div>

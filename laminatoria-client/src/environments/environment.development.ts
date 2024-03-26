@@ -1,5 +1,6 @@
 export const environment = {
 	production: false,
+	userUrl: 'https://localhost:7164/api/userInfo',
 	productsUrl: 'https://localhost:7164/api/products',
 	ordersUrl: 'https://localhost:7164/api/orders',
 	categoriesUrl: 'https://localhost:7164/api/categories',

@@ -18,8 +18,8 @@ export class ChangePasswordComponent {
 	ngOnInit(): void {
 		this.form = this.fb.group(
 			{
-				firstField: [{ value: '', disabled: false }, [Validators.required, Validators.email]],
-				secondField: [{ value: '', disabled: false }, [Validators.required, Validators.email]],
+				firstField: [{ value: '', disabled: false }, [Validators.required]],
+				secondField: [{ value: '', disabled: false }, [Validators.required]],
 			},
 			{ validators: [MatchingValidator.matchFields] }
 		)

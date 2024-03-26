@@ -1,4 +1,5 @@
-﻿using MailKit.Net.Smtp;
+﻿using Laminatoria.Infrastructure;
+using MailKit.Net.Smtp;
 using MimeKit;
 using System.Text;
 
@@ -6,6 +7,29 @@ namespace Laminatoria.Services
 {
     public class EmailService
     {
+        public async Task SendEmail(SendingContacts contacts)
+        {
+            using var emailMessage = new MimeMessage();
+            emailMessage.From.Add(new MailboxAddress(contacts.Name, "dmitrypermyakov1990@yandex.ru"));
+            emailMessage.To.Add(new MailboxAddress("Admin", "dmitrypermyakov1990@yandex.ru"));
+            emailMessage.Subject = "Заявка от клиeнта";
+
+
+
+            emailMessage.Body = new TextPart(MimeKit.Text.TextFormat.Text)
+            {
+                Text = $"{contacts.Name}: {contacts.Phone}"
+            };
+
+            using (var client = new SmtpClient())
+            {
+                await client.ConnectAsync("smtp.yandex.ru", 587, false);
+                await client.AuthenticateAsync("dmitrypermyakov1990@yandex.ru", "rmxspqunffadeewi");
+                await client.SendAsync(emailMessage);
+                await client.DisconnectAsync(true);
+            }
+        }
+
         public async Task SendPasswordAsync(string email)
         {
             using var emailMessage = new MimeMessage();

@@ -124,6 +124,7 @@ export class FilterComponent implements OnInit {
 			this.isFilterLoading = false
 		} else {
 			this.form = null
+			this.isFilterLoading = false
 		}
 	}
 	private setFilter(): Map<string, string> {
