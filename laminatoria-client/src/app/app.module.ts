@@ -41,7 +41,8 @@ import { AUTH_INTERCEPTOR_PROVIDER } from './interceptors/auth.interceptor'
 import { ImagesComponent } from './images/images.component'
 import { ChangePasswordComponent } from './change-password/change-password.component'
 import { ChangeEmailComponent } from './change-email/change-email.component'
-import { AskContactsComponent } from './ask-contacts/ask-contacts.component'
+import { AskContactsComponent } from './ask-contacts/ask-contacts.component';
+import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component'
 
 @NgModule({
 	declarations: [
@@ -79,6 +80,7 @@ import { AskContactsComponent } from './ask-contacts/ask-contacts.component'
 		ChangePasswordComponent,
 		ChangeEmailComponent,
 		AskContactsComponent,
+  PrivacyPolicyComponent,
 	],
 	imports: [BrowserModule, AppRoutingModule, FormsModule, ReactiveFormsModule, HttpClientModule],
 	providers: [{ provide: LOCALE_ID, useValue: 'ru-RU' }, AUTH_INTERCEPTOR_PROVIDER],

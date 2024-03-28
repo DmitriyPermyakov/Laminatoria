@@ -148,8 +148,13 @@
 }
 
 @media (max-width: 600px) and (orientation: portrait) {
+	:host {
+		height: unset;
+		overflow-y: visible;
+	}
 	.order-position-container {
-		padding: 0 1em 2em;
+		margin-bottom: 1em;
+		padding: 5em 1em 2em;
 		overflow-y: auto;
 	}
 

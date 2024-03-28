@@ -31,9 +31,7 @@ body {
 	width: 100%;
 	height: 100vh;
 	height: 100svh;
-	overflow-y: auto;
-	overflow-x: hidden;
-
+	overflow: hidden;
 	box-shadow: 0 0 5px 0 var(--secondary-text);
 
 	position: relative;

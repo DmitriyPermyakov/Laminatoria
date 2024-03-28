@@ -21,7 +21,9 @@
 
 @media (max-width: 600px) and (orientation: portrait) {
 	.order-position-container {
-		padding: 0 1em 2em;
+		padding: 5em 1em 2em;
+		height: calc(100vh - 5em);
+		height: calc(100svh - 5em);
 		overflow-y: auto;
 	}
 }

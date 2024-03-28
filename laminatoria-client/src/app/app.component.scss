@@ -1,5 +1,18 @@
 @import url('../spinner.scss');
 
 :host {
+	display: flex;
+	flex-direction: column;
+
+	height: 100vh;
+	height: 100svh;
+	overflow-x: hidden;
+	overflow-y: auto;
 	position: relative;
+}
+
+@media (max-width: 600px) and (orientation: portrait) {
+	:host {
+		height: 100vh;
+	}
 }

@@ -16,6 +16,7 @@ import { authGuard } from './services/auth-guard.service'
 import { ChangeEmailComponent } from './change-email/change-email.component'
 import { ChangePasswordComponent } from './change-password/change-password.component'
 import { AskContactsComponent } from './ask-contacts/ask-contacts.component'
+import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component'
 
 const routes: Routes = [
 	{ path: '', component: MainPageComponent },
@@ -33,6 +34,7 @@ const routes: Routes = [
 	{ path: 'change-email', component: ChangeEmailComponent, canActivate: [authGuard] },
 	{ path: 'change-password', component: ChangePasswordComponent, canActivate: [authGuard] },
 	{ path: 'contacts', component: AskContactsComponent },
+	{ path: 'privacy-policy', component: PrivacyPolicyComponent },
 ]
 
 @NgModule({

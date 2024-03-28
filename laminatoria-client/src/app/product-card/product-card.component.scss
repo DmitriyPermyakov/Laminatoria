@@ -137,15 +137,9 @@
 }
 
 @media (max-width: 600px) and (orientation: portrait) {
-	:host {
-		overflow-y: scroll;
-		height: 100vh;
-		height: 100svh;
-	}
 	.product-container {
-		padding: 1em;
+		padding: 6em 1em 0em;
 
-		padding-bottom: 5em;
 		row-gap: 0;
 	}
 	.product {

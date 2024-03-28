@@ -19,7 +19,7 @@
 	height: calc(100vh - 10em);
 
 	overflow-y: auto;
-	position: relative;
+	// position: relative;
 }
 
 .empty {
@@ -92,9 +92,10 @@
 		grid-template-columns: 1fr;
 		grid-template-rows: auto 1fr;
 		padding: 1em;
+		padding-top: 6em;
 
-		height: calc(100vh - 5em);
-		height: calc(100svh - 5em);
+		height: 100vh;
+		height: 100svh;
 	}
 
 	.product-spinner-position {
