@@ -25,6 +25,13 @@ input.ng-invalid.ng-touched {
 	display: none;
 }
 
+button:disabled {
+	background-color: var(--disabled);
+	&:active {
+		transform: unset;
+	}
+}
+
 .categories {
 	grid-row: 3 / 4;
 	grid-column: 2 / 3;
@@ -72,12 +79,15 @@ input.ng-invalid.ng-touched {
 .btn-container {
 	grid-row: 7 / 8;
 	grid-column: 2 / 3;
+
+	margin-top: 2em;
 }
 
 @media (max-width: 600px) and (orientation: portrait) {
 	.product {
 		grid-template-rows: 1fr auto auto auto auto;
 		row-gap: 1em;
+		margin-bottom: 6em;
 	}
 
 	.main-description {

@@ -49,10 +49,8 @@
 			</div>
 			<div class="btn-container auth">
 				<div class="edit-btns-container">
-					<button class="btn anim-btn" type="button" (click)="onSubmit()" [disabled]="!form.valid">
-						Сохранить
-					</button>
-					<button class="btn anim-btn" type="button" [routerLink]="['/products', id]">Отмена</button>
+					<button class="anim-btn" type="button" (click)="onSubmit()" [disabled]="!form.valid">Сохранить</button>
+					<button class="anim-btn" type="button" [routerLink]="['/products', id]">Отмена</button>
 				</div>
 			</div>
 		</form>
