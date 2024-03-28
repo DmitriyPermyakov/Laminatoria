@@ -9,6 +9,10 @@
 	overflow-y: scroll;
 }
 
+input.ng-invalid.ng-touched {
+	border: 1px solid red;
+}
+
 .order-position-container {
 	display: flex;
 	flex-direction: column;

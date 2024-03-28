@@ -118,7 +118,7 @@ export class OrderPositionEditComponent implements OnInit {
 			email: [{ value: this.order.contacts.email, disabled: false }, Validators.email],
 			address: [{ value: this.order.address, disabled: false }, Validators.required],
 			comment: [{ value: this.order.comments, disabled: false }],
-			delivery: [{ value: this.order.delivery, disabled: false }],
+			delivery: [{ value: this.order.delivery, disabled: false }, Validators.required],
 			items: this.fb.array([]),
 		})
 

@@ -21,6 +21,10 @@ input {
 	border: 1px solid var(--button-color);
 }
 
+input.ng-invalid.ng-touched {
+	border: 1px solid red;
+}
+
 .contacts {
 	grid-row: 1 / 2;
 	grid-column: 1 / 2;

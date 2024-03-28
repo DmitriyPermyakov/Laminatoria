@@ -6,6 +6,7 @@ import { ProductsService } from '../services/products.service'
 import { FormArray, FormControl, FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms'
 import { CategoriesService } from '../services/categories.service'
 import { Category } from '../classes/category'
+import { AdditionalPropValidator } from '../validators/additionalProp.validators'
 
 @Component({
 	selector: 'app-edit-product',
@@ -59,14 +60,15 @@ export class EditProductComponent implements OnInit, AfterViewInit {
 	ngAfterViewInit(): void {}
 
 	public onSubmit(): void {
-		this.loading = true
-		this.productService.updateProduct(this.form.value).subscribe((id) => {
-			this.loading = false
-			if (id > 0) {
-				this.router.navigate(['/products', id])
-				this.cacheService.shouldUpdateProducts = true
-			}
-		})
+		console.log('form valid', this.form.valid)
+		// this.loading = true
+		// this.productService.updateProduct(this.form.value).subscribe((id) => {
+		// 	this.loading = false
+		// 	if (id > 0) {
+		// 		this.router.navigate(['/products', id])
+		// 		this.cacheService.shouldUpdateProducts = true
+		// 	}
+		// })
 	}
 
 	public changeCategory(event: any): void {
@@ -75,22 +77,29 @@ export class EditProductComponent implements OnInit, AfterViewInit {
 	}
 
 	private initForm(): void {
-		this.form = this.fb.group({
-			id: this.product.id,
-			name: [{ value: this.product.name, disabled: false }, Validators.required],
-			vendor: [{ value: this.product.vendor, disabled: false }, Validators.required],
-			category: [{ value: this.product.category, disabled: false }, Validators.required],
-			properties: this.fb.array([]),
-			additionalProperty: this.fb.group({
-				id: [{ value: this.product.additionalProperty?.id ?? 0, disabled: false }],
-				name: [{ value: this.product.additionalProperty?.name ?? '', disabled: false }],
-				values: [{ value: this.product.additionalProperty?.values ?? '', disabled: false }],
-			}),
-			typeOfProduct: [{ value: this.product.typeOfProduct, disabled: false }, Validators.required],
-			typeOfMeasurement: [{ value: this.product.typeOfMeasurement, disabled: false }, Validators.required],
-			price: [{ value: this.product.price, disabled: false }, Validators.required],
-			images: [{ value: this.product.images, disabled: false }],
-		})
+		console.log('prop', this.product.additionalProperty)
+		this.form = this.fb.group(
+			{
+				id: this.product.id,
+				name: [{ value: this.product.name, disabled: false }, Validators.required],
+				vendor: [{ value: this.product.vendor, disabled: false }, Validators.required],
+				category: [{ value: this.product.category, disabled: false }, Validators.required],
+				properties: this.fb.array([]),
+				additionalProperty: this.fb.group({
+					id: [{ value: this.product.additionalProperty?.id ?? 0, disabled: false }],
+					name: [{ value: this.product.additionalProperty?.name ?? '', disabled: false }],
+					values: [{ value: this.product.additionalProperty?.values ?? '', disabled: false }],
+				}),
+				typeOfProduct: [{ value: this.product.typeOfProduct, disabled: false }, Validators.required],
+				typeOfMeasurement: [{ value: this.product.typeOfMeasurement, disabled: false }, Validators.required],
+				price: [{ value: this.product.price, disabled: false }, Validators.required],
+				images: [{ value: this.product.images, disabled: false }],
+			},
+			{ validators: [AdditionalPropValidator.additionalPropIncluded] }
+		)
+
+		console.log('prop', this.additionalProps.value)
+		console.log('typeofprod', this.form.controls['typeOfProduct'].value)
 
 		this.product.properties.forEach((p) => {
 			this.propertiesFormArray.push(

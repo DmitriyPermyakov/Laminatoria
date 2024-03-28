@@ -58,7 +58,9 @@
 		</label>
 	</div>
 	<div class="remove-edit-btns">
-		<button class="save-btn btn anim-btn" type="button" (click)="createOrder()">Сохранить</button>
+		<button class="save-btn btn anim-btn" type="button" (click)="createOrder()" [disabled]="!form.valid">
+			Сохранить
+		</button>
 		<button class="cancel-btn btn anim-btn" type="button" [routerLink]="['/orders']">Отмена</button>
 	</div>
 </div>

@@ -146,9 +146,9 @@ export class CreateOrderComponent {
 			phone: [{ value: '', disabled: false }, Validators.required],
 			email: [{ value: '', disabled: false }, Validators.email],
 			address: [{ value: '', disabled: false }, Validators.required],
-			status: [{ value: '', disabled: false }],
+			status: [{ value: '', disabled: false }, Validators.required],
 			comment: [{ value: '', disabled: false }],
-			delivery: [{ value: '', disabled: false }],
+			delivery: [{ value: '', disabled: false }, Validators.required],
 			items: this.fb.array([]),
 		})
 	}

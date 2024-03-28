@@ -7,9 +7,6 @@ export class AdditionalPropValidator {
 		let propNameValue = (fg.controls['additionalProperty'] as FormGroup).value.name
 		let propValuesValue = (fg.controls['additionalProperty'] as FormGroup).value.values
 
-		console.log(typeOfProd)
-		console.log(propNameValue)
-		console.log((fg.controls['additionalProperty'] as FormGroup).value.values)
 		if (typeOfProd == typeOfProduct.cutting) {
 			if (propNameValue !== '' && propValuesValue !== '') return null
 			else return { emptyAdditionalProp: true }
